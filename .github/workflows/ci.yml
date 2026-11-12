@@ -70,8 +70,9 @@ jobs:
         run: ./scripts/self-test.ps1 -Offline -Out artifacts/self-test-results.txt
 
       # The release packing as a dry run, so a broken script shows up before a tag is pushed.
+      # The placeholder version must be at least 0.0.1: vpk rejects 0.0.0.
       - name: Pack (dry run)
-        run: ./scripts/package-release.ps1 -Tag v0.0.0-ci -SkipVersionCheck -Output artifacts/release-dry-run
+        run: ./scripts/package-release.ps1 -Tag v0.0.1-ci -SkipVersionCheck -Output artifacts/release-dry-run
 
       # Network checks depend on outside services, so a failure here is reported but does not fail the job.
       - name: Self-test (online)
