@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels"
+             xmlns:sb="using:BlenderLauncher.App.ViewModels.Sidebar"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             x:Class="BlenderLauncher.App.Views.Sidebar.SidebarPanel"
+             x:DataType="vm:SidebarViewModel">
+  <!--
+    The sidebar: padding 14/10; group label 11 px semibold; items 32 high, 13 px, 8 px colour
+    square, mono 11 px count or the "N new" badge; disk card at the foot, then Settings. The host Border
+    (MainWindow.axaml) supplies the 224 px width, #212121 background and the right edge line.
+    Keyboard: Up/Down (and Home/End) move between entries, Enter or Space selects (SidebarPanel.axaml.cs).
+  -->
+  <UserControl.Resources>
+    <!-- A sidebar entry: transparent, #2a2a2a on hover; active #363636 (hover #3a3a3a) with #f2f2f2 text. -->
+    <ControlTheme x:Key="NavItemTheme" TargetType="Button">
+      <Setter Property="Height" Value="{StaticResource BlNavItemHeight}" />
+      <Setter Property="Padding" Value="10,0" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusButton}" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Foreground" Value="{StaticResource BlNavTextBrush}" />
+      <Setter Property="FontSize" Value="{StaticResource BlFontSizeNav}" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Cursor" Value="Arrow" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover">
+        <Setter Property="Background" Value="{StaticResource BlNavHoverBrush}" />
+      </Style>
+      <Style Selector="^.active">
+        <Setter Property="Background" Value="{StaticResource BlNavActiveBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource BlNavActiveTextBrush}" />
+      </Style>
+      <Style Selector="^.active:pointerover">
+        <Setter Property="Background" Value="{StaticResource BlNavActiveHoverBrush}" />
+      </Style>
+    </ControlTheme>
+  </UserControl.Resources>
+
+  <!-- Entries (scrolling when they do not fit), then the foot; in this order so Tab and the arrows go top to bottom. -->
+  <Grid Margin="{StaticResource BlSidebarPadding}" RowDefinitions="*,Auto">
+    <!-- The scroll bar sits in the right padding gutter, clear of the counts. -->
+    <ScrollViewer Name="EntryScroller" Margin="0,0,-10,0" HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+      <!-- One Tab stop for every entry (the last one focused); Up/Down/Home/End move between them. -->
+      <StackPanel Spacing="18" Margin="0,0,10,0" KeyboardNavigation.TabNavigation="Once">
+        <StackPanel Spacing="2">
+          <TextBlock Classes="group" Margin="10,0,10,6" Text="{loc:Tr ui.sidebar.library}" />
+          <ItemsControl Name="LibraryList" ItemsSource="{Binding LibraryItems}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Spacing="2" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Styles>
+              <Style Selector="ContentPresenter" x:DataType="sb:SidebarItemViewModel">
+                <Setter Property="IsVisible" Value="{Binding IsShown}" />
+              </Style>
+            </ItemsControl.Styles>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="sb:SidebarItemViewModel">
+                <Button Classes="nav-item" Classes.active="{Binding IsActive}" Theme="{StaticResource NavItemTheme}"
+                        Command="{Binding $parent[UserControl].((vm:SidebarViewModel)DataContext).SelectCommand}"
+                        CommandParameter="{Binding}">
+                  <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Border Width="8" Height="8" CornerRadius="2" VerticalAlignment="Center" Background="{Binding Dot}" />
+                    <TextBlock Grid.Column="1" Classes="nav ellipsis" Margin="10,0" VerticalAlignment="Center"
+                               Text="{Binding Label}" />
+                    <TextBlock Grid.Column="2" Classes="small mono medium muted" VerticalAlignment="Center"
+                               Text="{Binding CountText}" />
+                  </Grid>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+
+        <StackPanel Spacing="2" IsVisible="{Binding HasDownloadItems}">
+          <TextBlock Classes="group" Margin="10,0,10,6" Text="{loc:Tr ui.sidebar.download}" />
+          <ItemsControl Name="DownloadList" ItemsSource="{Binding DownloadItems}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Spacing="2" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="sb:SidebarItemViewModel">
+                <Button Classes="nav-item" Classes.active="{Binding IsActive}" Theme="{StaticResource NavItemTheme}"
+                        Command="{Binding $parent[UserControl].((vm:SidebarViewModel)DataContext).SelectCommand}"
+                        CommandParameter="{Binding}">
+                  <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Border Width="8" Height="8" CornerRadius="2" VerticalAlignment="Center" Background="{Binding Dot}" />
+                    <TextBlock Grid.Column="1" Classes="nav ellipsis" Margin="10,0" VerticalAlignment="Center"
+                               Text="{Binding Label}" />
+                    <Border Grid.Column="2" Classes="badge" IsVisible="{Binding HasNew}">
+                      <TextBlock Text="{Binding NewText}" />
+                    </Border>
+                  </Grid>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </StackPanel>
+    </ScrollViewer>
+
+    <!-- Foot: disk-usage card, then Settings. -->
+    <StackPanel Grid.Row="1" Spacing="6" Margin="0,12,0,0">
+      <Border Name="DiskCard" Classes="card" ToolTip.Tip="{Binding Disk.TooltipText}">
+        <StackPanel Spacing="8">
+          <DockPanel>
+            <TextBlock DockPanel.Dock="Right" Classes="small mono muted" Text="{Binding Disk.UsedText}" />
+            <TextBlock Classes="small muted" Text="{loc:Tr ui.sidebar.disk_usage}" />
+          </DockPanel>
+          <ProgressBar Name="DiskBar"
+                       Theme="{StaticResource BlProgressBar}"
+                       Classes="thin"
+                       Background="{StaticResource BlTrackBrush}"
+                       Foreground="{StaticResource BlDiskBarBrush}"
+                       Value="{Binding Disk.Fraction}" />
+          <TextBlock Classes="small mono faint ellipsis" Text="{Binding Disk.PathText}" />
+        </StackPanel>
+      </Border>
+
+      <Button Name="SettingsButton" Classes="nav-item" Theme="{StaticResource NavItemTheme}"
+              Command="{Binding OpenSettingsCommand}">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <Path Width="12" Height="12" Stretch="Uniform" VerticalAlignment="Center"
+                Fill="{Binding $parent[Button].Foreground}"
+                Data="F0 M13.19,5.90 L14.87,6.66 L14.87,9.34 L13.19,10.10 L13.15,10.19 L13.80,11.91 L11.91,13.80 L10.19,13.15 L10.10,13.19 L9.34,14.87 L6.66,14.87 L5.90,13.19 L5.81,13.15 L4.09,13.80 L2.20,11.91 L2.85,10.19 L2.81,10.10 L1.13,9.34 L1.13,6.66 L2.81,5.90 L2.85,5.81 L2.20,4.09 L4.09,2.20 L5.81,2.85 L5.90,2.81 L6.66,1.13 L9.34,1.13 L10.10,2.81 L10.19,2.85 L11.91,2.20 L13.80,4.09 L13.15,5.81 Z M10.3,8 A2.3,2.3 0 1 0 5.7,8 A2.3,2.3 0 1 0 10.3,8 Z" />
+          <TextBlock Classes="nav" VerticalAlignment="Center" Text="{loc:Tr ui.sidebar.settings}" />
+        </StackPanel>
+      </Button>
+    </StackPanel>
+  </Grid>
+</UserControl>

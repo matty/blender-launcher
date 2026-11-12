@@ -1,0 +1,352 @@
+[
+  {
+    "number": 166373,
+    "title": "VSE: Add Compressor modifier for sound strips",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166373",
+    "updated_at": "2026-11-10T21:52:34+01:00"
+  },
+  {
+    "number": 165332,
+    "title": "Benchmark: Add support for multi-device rendering in Cycles benchmark",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165332",
+    "updated_at": "2026-11-10T21:44:27+01:00"
+  },
+  {
+    "number": 165721,
+    "title": "Platform: Windows ARM64 OpenEXR Stack Improvements",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165721",
+    "updated_at": "2026-11-10T21:33:57+01:00"
+  },
+  {
+    "number": 163254,
+    "title": "UI: support markdown labels",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/163254",
+    "updated_at": "2026-11-10T21:03:32+01:00"
+  },
+  {
+    "number": 165505,
+    "title": "WIP: EEVEE: AccelerationStructureModule",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165505",
+    "updated_at": "2026-11-10T19:43:27+01:00"
+  },
+  {
+    "number": 157955,
+    "title": "Grease Pencil: Material: Add seed option to the Randomize panel",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/157955",
+    "updated_at": "2026-11-10T18:55:34+01:00"
+  },
+  {
+    "number": 165873,
+    "title": "Grease Pencil: Support video and color space for Stroke/Fill textures",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165873",
+    "updated_at": "2026-11-10T18:55:21+01:00"
+  },
+  {
+    "number": 164611,
+    "title": "Assets: Compatibility fix for asset listing parsing",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164611",
+    "updated_at": "2026-11-10T18:29:41+01:00"
+  },
+  {
+    "number": 166364,
+    "title": "BLI: Add starting distance parameter to KDTree queries",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166364",
+    "updated_at": "2026-11-10T18:26:39+01:00"
+  },
+  {
+    "number": 166054,
+    "title": "Fix: Cycles: wrong number of max closures for shaders with volume",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166054",
+    "updated_at": "2026-11-10T18:21:18+01:00"
+  },
+  {
+    "number": 164572,
+    "title": "Grease Pencil: Add select_linked_pick operator",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164572",
+    "updated_at": "2026-11-10T18:20:37+01:00"
+  },
+  {
+    "number": 166025,
+    "title": "Shader Nodes: Add shader nodes inliner node deduplication function",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166025",
+    "updated_at": "2026-11-10T18:17:00+01:00"
+  },
+  {
+    "number": 164730,
+    "title": "WIP: EEVEE: Light Accumulation AOV",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164730",
+    "updated_at": "2026-11-10T18:15:18+01:00"
+  },
+  {
+    "number": 166388,
+    "title": "UI: Apply missing red tint to some markdown items",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166388",
+    "updated_at": "2026-11-10T18:14:09+01:00"
+  },
+  {
+    "number": 160651,
+    "title": "WIP: Prototype: Vulkan: Performance",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/160651",
+    "updated_at": "2026-11-10T18:02:00+01:00"
+  },
+  {
+    "number": 161310,
+    "title": "Anim: Use strip length to define scene playback range",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/161310",
+    "updated_at": "2026-11-10T17:57:26+01:00"
+  },
+  {
+    "number": 164394,
+    "title": "Sound: Improve audio animation cache handling",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164394",
+    "updated_at": "2026-11-10T17:37:42+01:00"
+  },
+  {
+    "number": 160508,
+    "title": "Fix #125721: EEVEE: Skip spatial filtering for smooth ray closures",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/160508",
+    "updated_at": "2026-11-10T17:31:16+01:00"
+  },
+  {
+    "number": 165882,
+    "title": "UI: Color Picker wrap Hue around",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165882",
+    "updated_at": "2026-11-10T17:23:30+01:00"
+  },
+  {
+    "number": 166385,
+    "title": "Fix #147609: Driven secondary buttons static during multi-input drag",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166385",
+    "updated_at": "2026-11-10T17:19:36+01:00"
+  },
+  {
+    "number": 166384,
+    "title": "Mesh: Draw: Support direct Mesh upload in edit mode",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166384",
+    "updated_at": "2026-11-10T17:03:06+01:00"
+  },
+  {
+    "number": 163398,
+    "title": "Vulkan: Add multiViewport fallback limit",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/163398",
+    "updated_at": "2026-11-10T16:44:22+01:00"
+  },
+  {
+    "number": 164965,
+    "title": "Shading: Add Scale attribute to Object Info node",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164965",
+    "updated_at": "2026-11-10T16:42:54+01:00"
+  },
+  {
+    "number": 151476,
+    "title": "WIP: EEVEE: Improve Pipeline State for Forward transparency",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/151476",
+    "updated_at": "2026-11-10T16:39:12+01:00"
+  },
+  {
+    "number": 166281,
+    "title": "WIP: Fix: Various issues",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166281",
+    "updated_at": "2026-11-10T16:29:06+01:00"
+  },
+  {
+    "number": 163031,
+    "title": "Cycles: Add Minimal Retroreflective Microfacet model",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/163031",
+    "updated_at": "2026-11-10T16:26:22+01:00"
+  },
+  {
+    "number": 166379,
+    "title": "GPU: Shader: Add no_fast_math option",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166379",
+    "updated_at": "2026-11-10T16:23:08+01:00"
+  },
+  {
+    "number": 159583,
+    "title": "UI: Blinking cursors",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/159583",
+    "updated_at": "2026-11-10T16:18:46+01:00"
+  },
+  {
+    "number": 161146,
+    "title": "Fix #127683: Vertex groups lost when parenting to armature with linked data",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/161146",
+    "updated_at": "2026-11-10T16:15:17+01:00"
+  },
+  {
+    "number": 166047,
+    "title": "Fix #166043: Cycles: Empty graph when surface BSDF is connected to both Volume and Surface",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166047",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 166036,
+    "title": "Cycles: Improve shader graph dump",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166036",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165917,
+    "title": "Fix: Cycles: OSL compilation unnecessary memory usage",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165917",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165850,
+    "title": "Cycles: Improve denoiser error handling",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165850",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165826,
+    "title": "WIP: Fix: Cycles: Various issues",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165826",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165704,
+    "title": "Fix #165564: Cycles crashes when using path guiding and SSS",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165704",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165703,
+    "title": "Fix #165656: Cycles: Particle instances disappear with DLSS in viewport",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165703",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165589,
+    "title": "Cycles: oneAPI: Filter out devices without bindless images support",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165589",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165586,
+    "title": "Cycles: oneAPI: Fix shadowed memHandle variable in image_alloc",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165586",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165489,
+    "title": "Fix #165359: Cycles: OSL texture crash with persistent data",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165489",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165485,
+    "title": "Fix #165407: Cycles: Concurrent states not recomputed on feature change",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165485",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165482,
+    "title": "Cycles: Revert concurrent state increases on CUDA/HIP/oneAPI",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165482",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165379,
+    "title": "Fix #165293: Cycles: Denoising motion pass broken with transparent objects",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165379",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 165096,
+    "title": "Fix #163307: Crash with path guiding in volumes",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165096",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 164644,
+    "title": "Fix: Cycles: Texture Cache: Various issues",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164644",
+    "updated_at": "2026-11-10T15:56:07+01:00"
+  },
+  {
+    "number": 166376,
+    "title": "Fix #166369: Node tools in remote repositories not supported",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166376",
+    "updated_at": "2026-11-10T15:49:47+01:00"
+  },
+  {
+    "number": 166378,
+    "title": "WIP: Virtual file system",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166378",
+    "updated_at": "2026-11-10T15:46:18+01:00"
+  },
+  {
+    "number": 145192,
+    "title": "Draw: 2D editors scene sync optimization",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/145192",
+    "updated_at": "2026-11-10T15:42:02+01:00"
+  },
+  {
+    "number": 165192,
+    "title": "WIP: Fluid simulation test branch",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165192",
+    "updated_at": "2026-11-10T14:47:26+01:00"
+  },
+  {
+    "number": 155204,
+    "title": "Experimental implementation of Dynamic Override",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/155204",
+    "updated_at": "2026-11-10T14:39:07+01:00"
+  },
+  {
+    "number": 165552,
+    "title": "ImBuf: add optional CPU pixel storage pool, use it in VSE",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165552",
+    "updated_at": "2026-11-10T13:57:06+01:00"
+  }
+]

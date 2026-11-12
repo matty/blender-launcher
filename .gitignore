@@ -1,0 +1,59 @@
+# Project-specific
+reference/
+artifacts/
+publish/
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+*.binlog
+*.nupkg
+*.snupkg
+
+# Test and self-test output
+self-test*.txt
+coverage*.json
+coverage*.xml
+*.coverage
+*.trx
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.rsuser
+*.sln.docstates
+*.DotSettings.user
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# NuGet
+packages/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Misc
+*.tmp
+*.log
+*~

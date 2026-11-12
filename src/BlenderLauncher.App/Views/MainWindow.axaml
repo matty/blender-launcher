@@ -1,0 +1,80 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:BlenderLauncher.App.ViewModels"
+        xmlns:controls="using:BlenderLauncher.App.Controls"
+        xmlns:sidebar="using:BlenderLauncher.App.Views.Sidebar"
+        xmlns:lists="using:BlenderLauncher.App.Views.Lists"
+        xmlns:detail="using:BlenderLauncher.App.Views.Detail"
+        xmlns:status="using:BlenderLauncher.App.Views.StatusBar"
+        mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="820"
+        x:Class="BlenderLauncher.App.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="{Binding Title}"
+        Width="1280" Height="800"
+        MinWidth="960" MinHeight="600"
+        Background="{StaticResource BlSurfaceWindowBrush}"
+        Foreground="{StaticResource BlTextBodyBrush}"
+        FontSize="12">
+  <!--
+    The shell: title bar 34, then sidebar 224 | main | detail panel 300 (hideable), then the
+    status bar 26. Each region is a ContentControl bound to its view model; the view is chosen by the typed
+    DataTemplates below (no view locator, no reflection). Region views live in Views/<Region>/ and are owned by their
+    region's work; this file should not need to change for them.
+  -->
+  <Window.DataTemplates>
+    <DataTemplate DataType="vm:SidebarViewModel">
+      <sidebar:SidebarPanel />
+    </DataTemplate>
+    <DataTemplate DataType="vm:BuildListViewModel">
+      <lists:BuildListPanel />
+    </DataTemplate>
+    <DataTemplate DataType="vm:DetailPanelViewModel">
+      <detail:DetailPanel />
+    </DataTemplate>
+    <DataTemplate DataType="vm:StatusBarViewModel">
+      <status:StatusBarPanel />
+    </DataTemplate>
+  </Window.DataTemplates>
+
+  <DockPanel>
+    <Border DockPanel.Dock="Top"
+            BorderBrush="{StaticResource BlLine0Brush}"
+            BorderThickness="0,0,0,1"
+            IsVisible="{Binding #TitleBar.IsVisible}">
+      <controls:AppTitleBar Name="TitleBar" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom"
+            Height="{StaticResource BlStatusBarHeight}"
+            Background="{StaticResource BlSurfaceChromeBrush}"
+            BorderBrush="{StaticResource BlLine0Brush}"
+            BorderThickness="0,1,0,0">
+      <ContentControl Name="StatusBarRegion" Content="{Binding StatusBar}" />
+    </Border>
+
+    <Grid ColumnDefinitions="Auto,*,Auto">
+      <Border Grid.Column="0"
+              Width="{StaticResource BlSidebarWidth}"
+              Background="{StaticResource BlSurfaceSidebarBrush}"
+              BorderBrush="{StaticResource BlLine1Brush}"
+              BorderThickness="0,0,1,0">
+        <ContentControl Name="SidebarRegion" Content="{Binding Sidebar}" />
+      </Border>
+
+      <Border Grid.Column="1" Background="{StaticResource BlSurfaceMainBrush}" ClipToBounds="True">
+        <ContentControl Name="MainRegion" Content="{Binding BuildList}" />
+      </Border>
+
+      <Border Grid.Column="2"
+              Width="{StaticResource BlDetailPanelWidth}"
+              Background="{StaticResource BlSurfaceDetailBrush}"
+              BorderBrush="{StaticResource BlLine1Brush}"
+              BorderThickness="1,0,0,0"
+              IsVisible="{Binding IsDetailPanelVisible}">
+        <ContentControl Name="DetailRegion" Content="{Binding Detail}" />
+      </Border>
+    </Grid>
+  </DockPanel>
+</Window>

@@ -1,0 +1,163 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Form controls for the Settings window and dialogs: Fluent's TextBox, ComboBox and NumericUpDown recoloured
+    to the design's inset fields by overriding Fluent's own resource keys (Application.Resources is searched before the
+    theme), plus two icon toggles. Accent-coloured keys are also set by ThemeManager, so they follow the accent setting.
+
+    Keyed:  BlTextBox (inset field, 30 high), BlEyeToggle / BlDownloadToggle (ToggleButton: repository visibility and
+            downloading, as upstream's eye and download check boxes), BlFieldNote (TextBlock style class "note")
+  -->
+
+  <!-- ============================================================ Fluent overrides: text fields -->
+  <SolidColorBrush x:Key="TextControlForeground" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#f0f0f0" />
+  <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="#7a7a7a" />
+  <SolidColorBrush x:Key="TextControlBackground" Color="#1d1d1d" />
+  <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#1f1f1f" />
+  <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#1d1d1d" />
+  <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="#232323" />
+  <SolidColorBrush x:Key="TextControlBorderBrush" Color="#3a3a3a" />
+  <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#4a4a4a" />
+  <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#4772b3" />
+  <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="#2e2e2e" />
+  <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#6f6f6f" />
+  <SolidColorBrush x:Key="TextControlPlaceholderForegroundPointerOver" Color="#6f6f6f" />
+  <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#6f6f6f" />
+  <SolidColorBrush x:Key="TextControlSelectionHighlightColor" Color="#4772b3" />
+  <Thickness x:Key="TextControlBorderThemeThickness">1</Thickness>
+  <Thickness x:Key="TextControlBorderThemeThicknessFocused">1</Thickness>
+  <CornerRadius x:Key="ControlCornerRadius">5</CornerRadius>
+  <CornerRadius x:Key="OverlayCornerRadius">6</CornerRadius>
+
+  <!-- ============================================================ Fluent overrides: drop-downs -->
+  <SolidColorBrush x:Key="ComboBoxBackground" Color="#1d1d1d" />
+  <SolidColorBrush x:Key="ComboBoxBackgroundPointerOver" Color="#232323" />
+  <SolidColorBrush x:Key="ComboBoxBackgroundPressed" Color="#232323" />
+  <SolidColorBrush x:Key="ComboBoxBackgroundDisabled" Color="#232323" />
+  <SolidColorBrush x:Key="ComboBoxBackgroundUnfocused" Color="#1d1d1d" />
+  <SolidColorBrush x:Key="ComboBoxBackgroundFocused" Color="#1d1d1d" />
+  <SolidColorBrush x:Key="ComboBoxBackgroundBorderBrushFocused" Color="#4772b3" />
+  <SolidColorBrush x:Key="ComboBoxBackgroundBorderBrushUnfocused" Color="#3a3a3a" />
+  <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#3a3a3a" />
+  <SolidColorBrush x:Key="ComboBoxBorderBrushPointerOver" Color="#4a4a4a" />
+  <SolidColorBrush x:Key="ComboBoxBorderBrushPressed" Color="#4a4a4a" />
+  <SolidColorBrush x:Key="ComboBoxBorderBrushDisabled" Color="#2e2e2e" />
+  <SolidColorBrush x:Key="ComboBoxForeground" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="ComboBoxForegroundDisabled" Color="#7a7a7a" />
+  <SolidColorBrush x:Key="ComboBoxForegroundFocused" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="ComboBoxForegroundFocusedPressed" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="ComboBoxPlaceHolderForeground" Color="#6f6f6f" />
+  <SolidColorBrush x:Key="ComboBoxDropDownGlyphForeground" Color="#a8a8a8" />
+  <SolidColorBrush x:Key="ComboBoxDropDownGlyphForegroundDisabled" Color="#5c5c5c" />
+  <SolidColorBrush x:Key="ComboBoxDropDownGlyphForegroundFocused" Color="#a8a8a8" />
+  <SolidColorBrush x:Key="ComboBoxDropDownGlyphForegroundFocusedPressed" Color="#a8a8a8" />
+  <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="#2b2b2b" />
+  <SolidColorBrush x:Key="ComboBoxDropDownBorderBrush" Color="#141414" />
+  <SolidColorBrush x:Key="ComboBoxDropDownForeground" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="ComboBoxItemForeground" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="ComboBoxItemForegroundPointerOver" Color="#ffffff" />
+  <SolidColorBrush x:Key="ComboBoxItemForegroundPressed" Color="#ffffff" />
+  <SolidColorBrush x:Key="ComboBoxItemForegroundSelected" Color="#ffffff" />
+  <SolidColorBrush x:Key="ComboBoxItemForegroundSelectedPointerOver" Color="#ffffff" />
+  <SolidColorBrush x:Key="ComboBoxItemForegroundSelectedPressed" Color="#ffffff" />
+  <SolidColorBrush x:Key="ComboBoxItemBackgroundPointerOver" Color="#3a3a3a" />
+  <SolidColorBrush x:Key="ComboBoxItemBackgroundPressed" Color="#404040" />
+  <SolidColorBrush x:Key="ComboBoxItemBackgroundSelected" Color="#34445e" />
+  <SolidColorBrush x:Key="ComboBoxItemBackgroundSelectedPointerOver" Color="#3a4c69" />
+  <SolidColorBrush x:Key="ComboBoxItemBackgroundSelectedPressed" Color="#3a4c69" />
+
+  <!-- ============================================================ Fluent overrides: spinner buttons (NumericUpDown) -->
+  <SolidColorBrush x:Key="RepeatButtonBackground" Color="Transparent" />
+  <SolidColorBrush x:Key="RepeatButtonBackgroundPointerOver" Color="#2f2f2f" />
+  <SolidColorBrush x:Key="RepeatButtonBackgroundPressed" Color="#383838" />
+  <SolidColorBrush x:Key="RepeatButtonBackgroundDisabled" Color="Transparent" />
+  <SolidColorBrush x:Key="RepeatButtonForeground" Color="#a8a8a8" />
+  <SolidColorBrush x:Key="RepeatButtonForegroundPointerOver" Color="#f0f0f0" />
+  <SolidColorBrush x:Key="RepeatButtonForegroundPressed" Color="#f0f0f0" />
+  <SolidColorBrush x:Key="RepeatButtonBorderBrush" Color="Transparent" />
+  <SolidColorBrush x:Key="RepeatButtonBorderBrushPointerOver" Color="Transparent" />
+  <SolidColorBrush x:Key="RepeatButtonBorderBrushPressed" Color="Transparent" />
+
+  <!-- ============================================================ Expander (dialog details) -->
+  <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="#2b2b2b" />
+  <SolidColorBrush x:Key="ExpanderHeaderBackgroundPointerOver" Color="#303030" />
+  <SolidColorBrush x:Key="ExpanderHeaderBackgroundPressed" Color="#303030" />
+  <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="#1a1a1a" />
+  <SolidColorBrush x:Key="ExpanderHeaderBorderBrushPointerOver" Color="#1a1a1a" />
+  <SolidColorBrush x:Key="ExpanderHeaderBorderBrushPressed" Color="#1a1a1a" />
+  <SolidColorBrush x:Key="ExpanderContentBackground" Color="#1f1f1f" />
+  <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="#1a1a1a" />
+
+  <!-- ============================================================ Text field -->
+  <ControlTheme x:Key="BlTextBox" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+    <Setter Property="Height" Value="30" />
+    <Setter Property="MinHeight" Value="30" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Padding" Value="9,0" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="CaretBrush" Value="#e4e4e4" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource BlAccentBrush}" />
+  </ControlTheme>
+
+  <!-- ============================================================ Icon toggles (Visibility and Downloading) -->
+  <ControlTheme x:Key="BlIconToggleBase" TargetType="ToggleButton">
+    <Setter Property="Width" Value="30" />
+    <Setter Property="Height" Value="26" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#5c5c5c" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Cursor" Value="Arrow" />
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="#0fffffff" />
+      <Setter Property="Foreground" Value="#8a8a8a" />
+    </Style>
+    <Style Selector="^:checked">
+      <Setter Property="Foreground" Value="#e4e4e4" />
+    </Style>
+    <Style Selector="^:checked:pointerover">
+      <Setter Property="Foreground" Value="#ffffff" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.45" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="BlEyeToggle" TargetType="ToggleButton" BasedOn="{StaticResource BlIconToggleBase}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
+          <Panel Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Path Stroke="{TemplateBinding Foreground}" StrokeThickness="1.3" StrokeJoin="Round"
+                  Data="M1,8 C3.2,4.4 5.6,3.2 8,3.2 C10.4,3.2 12.8,4.4 15,8 C12.8,11.6 10.4,12.8 8,12.8 C5.6,12.8 3.2,11.6 1,8 Z" />
+            <Ellipse Width="5" Height="5" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Path Name="PART_Slash" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.4" StrokeLineCap="Round"
+                  Data="M2.2,2.2 L13.8,13.8" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#PART_Slash">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="BlDownloadToggle" TargetType="ToggleButton" BasedOn="{StaticResource BlIconToggleBase}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
+          <Panel Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Path Stroke="{TemplateBinding Foreground}" StrokeThickness="1.4" StrokeLineCap="Round" StrokeJoin="Round"
+                  Data="M8,1.8 V10.4 M4.4,7 L8,10.6 L11.6,7 M2.4,14 H13.6" />
+            <Path Name="PART_Slash" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.4" StrokeLineCap="Round"
+                  Data="M2.2,2.2 L13.8,13.8" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#PART_Slash">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

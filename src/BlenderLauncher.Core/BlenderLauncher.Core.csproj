@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Pure domain code: no Avalonia, no Windows APIs. -->
+  <PropertyGroup>
+    <RootNamespace>BlenderLauncher.Core</RootNamespace>
+    <!--
+      IL3058 is suppressed for this project because YamlDotNet 18.1.0 is not marked IsAotCompatible (it carries
+      no AssemblyMetadata at all). Roslyn cannot scope the suppression to one reference, so the
+      GuardAotUnvettedReferences target below restores the check for every other package: a reference from a
+      package not on the vetted list fails the build. Spike S3 proved the only YamlDotNet path Core uses
+      (YamlStream, the representation model) in the published Native AOT exe.
+    -->
+    <NoWarn>$(NoWarn);IL3058</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" />
+    <PackageReference Include="SharpCompress" />
+    <!--
+      PrivateAssets="compile": Platform.Windows and the App get the runtime assembly but cannot compile against
+      YamlDotNet, so they neither inherit IL3058 nor use the reflection serialiser by accident.
+    -->
+    <PackageReference Include="YamlDotNet" PrivateAssets="compile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Packages whose AOT status has been checked: marked IsAotCompatible, or proved by the self-test (S3). -->
+    <_AotVettedPackage Include="AngleSharp;SharpCompress;YamlDotNet" />
+  </ItemGroup>
+
+  <Target Name="GuardAotUnvettedReferences" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <_AotPackageReferencePath Include="@(ReferencePath->'%(NuGetPackageId)')"
+                                Condition="'%(ReferencePath.NuGetPackageId)' != '' and '%(ReferencePath.FrameworkReferenceName)' == ''" />
+      <_AotUnvettedPackage Include="@(_AotPackageReferencePath)" Exclude="@(_AotVettedPackage)" />
+    </ItemGroup>
+    <Error Condition="'@(_AotUnvettedPackage)' != ''"
+           Text="Core references package(s) not vetted for Native AOT: @(_AotUnvettedPackage->Distinct()). IL3058 is suppressed in this project, so check the package is marked IsAotCompatible (or prove it in the self-test) and add it to _AotVettedPackage." />
+  </Target>
+
+  <ItemGroup>
+    <!--
+      Translation files, embedded as "Strings/<namespace>.<lang>.yml". WithCulture="false" stops MSBuild treating
+      "act.en.yml" as an English satellite resource. The upstream files (act, msg, repo, settings, wizard,
+      launching, custom_build) are copied unchanged from upstream resources/localization; ui.*.yml is our own.
+    -->
+    <EmbeddedResource Include="Localisation\Strings\*.yml" LogicalName="Strings/%(Filename)%(Extension)" WithCulture="false" />
+    <!--
+      Upstream's API files, embedded as "Api/<file>": the fallback LTS table and the Windows stable-build
+      seed. Copied unchanged from upstream's source/resources/api/ (Linux and macOS seeds are not shipped).
+    -->
+    <EmbeddedResource Include="Api\Bundled\blender_launcher_api.json;Api\Bundled\stable_builds_api_windows.json"
+                      LogicalName="Api/%(Filename)%(Extension)" WithCulture="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BlenderLauncher.Core.Tests" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BlenderLauncher.App.Controls"
+        xmlns:theme="using:BlenderLauncher.App.Theme"
+        x:Class="BlenderLauncher.App.Spikes.TitleBarSpikeWindow"
+        Title="Blender Launcher - title bar spike (S5)"
+        Width="1100" Height="720"
+        MinWidth="640" MinHeight="420"
+        WindowStartupLocation="CenterScreen"
+        Background="#1c1c1c"
+        FontFamily="{x:Static theme:AppFonts.PlexSans}"
+        Foreground="#e4e4e4">
+  <!-- Spike only: literal English text is fine here; product views take text from the translator. -->
+  <DockPanel>
+    <controls:AppTitleBar Name="TitleBar" DockPanel.Dock="Top" />
+
+    <Border DockPanel.Dock="Bottom" Background="#181818" Padding="12,6">
+      <TextBlock Name="Readout" FontFamily="{x:Static theme:AppFonts.PlexMono}" FontSize="11"
+                 Foreground="#a8a8a8" TextWrapping="Wrap" />
+    </Border>
+
+    <ScrollViewer Name="Body" Background="#2a2a2a">
+      <StackPanel Margin="24,18" Spacing="10" MaxWidth="900" HorizontalAlignment="Left">
+        <TextBlock Text="S5 manual checks" FontSize="20" FontWeight="SemiBold" Foreground="#f0f0f0" />
+        <TextBlock TextWrapping="Wrap" Foreground="#b4b4b4" FontSize="12"
+                   Text="Work through each item and note pass or fail. The line at the bottom shows live geometry and Windows' real hit-test answers; 'maxBounds=OK' appears while maximised when the client area exactly matches the work area." />
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <Button Name="ToggleChromeButton" Content="Switch to system title bar" />
+          <Button Name="MaximiseToggleButton" Content="Maximise / restore" />
+        </StackPanel>
+
+        <SelectableTextBlock Name="Instructions" TextWrapping="Wrap" FontSize="13" LineHeight="21" Foreground="#e4e4e4" />
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
+</Window>

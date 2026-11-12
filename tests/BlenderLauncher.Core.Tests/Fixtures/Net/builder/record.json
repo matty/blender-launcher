@@ -1,0 +1,10 @@
+{
+  "requests": [
+    { "url": "https://builder.blender.org/download/daily/?format=json&v=1", "file": "daily.json" },
+    { "url": "https://builder.blender.org/download/daily/archive/?format=json&v=1", "file": "daily_archive.json" },
+    { "url": "https://builder.blender.org/download/experimental/?format=json&v=1", "file": "experimental.json" },
+    { "url": "https://builder.blender.org/download/experimental/archive/?format=json&v=1", "file": "experimental_archive.json" },
+    { "url": "https://builder.blender.org/download/patch/?format=json&v=1", "file": "patch.json" },
+    { "url": "https://builder.blender.org/download/patch/archive/?format=json&v=1", "file": "patch_archive.json" }
+  ]
+}

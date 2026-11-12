@@ -1,0 +1,102 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- Same TFM as Platform.Windows so its APIs are callable without CA1416 guards. -->
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <!--
+      No space in the assembly name, so avares://BlenderLauncher/... resolves (Avalonia 12.1.6 cannot resolve an
+      avares:// authority that contains an escaped space). The shipped file is still
+      "Blender Launcher.exe" (AppIdentity.ExecutableName): RenameShippedExecutable below renames the native binary
+      in the publish folder, so `dotnet publish` alone produces it.
+    -->
+    <AssemblyName>BlenderLauncher</AssemblyName>
+    <ShippedExecutableName>Blender Launcher</ShippedExecutableName>
+    <!-- The exe's FileDescription. The rest of its version resource comes from Directory.Build.props. -->
+    <AssemblyTitle>Blender Launcher</AssemblyTitle>
+    <RootNamespace>BlenderLauncher.App</RootNamespace>
+    <!--
+      The manifest, the version resource and both icons (app.ico, and blend-file.ico as icon index 1 for the .blend
+      association) go into one native resource file written by Win32Resources.targets, so ApplicationIcon is not used.
+    -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <!-- Native AOT. Property names checked against the .NET 10 deployment docs and the Avalonia AOT page. -->
+    <PublishAot>true</PublishAot>
+    <!-- `dotnet publish` sets _IsPublishing, so the publish always targets win-x64 without needing -r. -->
+    <RuntimeIdentifier Condition="'$(_IsPublishing)' == 'true' and '$(RuntimeIdentifier)' == ''">win-x64</RuntimeIdentifier>
+    <!-- Culture-aware formatting is needed for the translated UI. -->
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- Avalonia 12 no longer needs built-in COM; it is off under PublishAot anyway. Stated for clarity. -->
+    <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+    <!--
+      Off for the App only: Avalonia, SkiaSharp, HarfBuzzSharp, MicroCom.Runtime, CommunityToolkit.Mvvm,
+      Tmds.DBus.Protocol and Avalonia.DesignerSupport are not marked IsAotCompatible, so IL3058 would fire for
+      each. The gate for this project is the Native AOT publish (IL2xxx/IL3xxx are errors) plus the self-test
+      in the published exe, as rule 2.1 allows. The analysers from IsAotCompatible stay on.
+    -->
+    <VerifyReferenceAotCompatibility>false</VerifyReferenceAotCompatibility>
+
+    <!-- Avalonia 12 defaults this to true; set explicitly as the AOT guidance asks. -->
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Velopack" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlenderLauncher.Core\BlenderLauncher.Core.csproj" />
+    <ProjectReference Include="..\BlenderLauncher.Platform.Windows\BlenderLauncher.Platform.Windows.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Everything under Assets/ is embedded as an Avalonia resource (avares://), except the fonts. -->
+    <AvaloniaResource Include="Assets\**" Exclude="Assets\Fonts\**;Assets\Icons\blend-file.ico" />
+    <!--
+      The IBM Plex TTFs are plain manifest resources loaded by Theme/AppFontCollection: avares:// does not resolve for
+      an assembly name with a space in Avalonia 12.1.6 (spike S7). The OFL licence beside them is not embedded; it goes
+      into THIRD-PARTY-NOTICES.
+    -->
+    <EmbeddedResource Include="Assets\Fonts\*.ttf" LogicalName="Fonts/%(Filename)%(Extension)" />
+    <!-- Shown in Settings → About (GPL-3.0 section 5(d)). -->
+    <EmbeddedResource Include="..\..\THIRD-PARTY-NOTICES.md" LogicalName="THIRD-PARTY-NOTICES.md" WithCulture="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      Fixtures for the self-test (S02, S04) are embedded in the exe. act.en.yml is a Core test fixture only; the
+      translations themselves are embedded in Core. The upstream-api-*.json fixtures are left out: S01 reads the
+      copies Core already bundles (BundledApiFiles). WithCulture=false stops MSBuild treating *.en.* files as English
+      satellite resources. To be moved out of release builds before the first release.
+    -->
+    <EmbeddedResource Include="..\..\tests\BlenderLauncher.Core.Tests\Fixtures\*" Exclude="..\..\tests\BlenderLauncher.Core.Tests\Fixtures\.gitkeep;..\..\tests\BlenderLauncher.Core.Tests\Fixtures\act.en.yml;..\..\tests\BlenderLauncher.Core.Tests\Fixtures\upstream-api-*.json" LogicalName="Fixtures/%(Filename)%(Extension)" WithCulture="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BlenderLauncher.App.Tests" />
+  </ItemGroup>
+
+  <Import Project="Win32Resources.targets" />
+  <!--
+    Renames the Native AOT binary in the publish folder to the shipped name. Runs after the ILCompiler's
+    CopyNativeBinary, which copies $(TargetName).exe there. A native exe does not depend on its own file name, so a plain
+    move is enough. The symbols keep their name (BlenderLauncher.pdb): the exe's debug record names that file, and
+    debuggers and symbol servers look it up by that name. Build output (bin/) keeps BlenderLauncher.exe.
+  -->
+  <Target Name="RenameShippedExecutable"
+          AfterTargets="CopyNativeBinary"
+          Condition="'$(PublishAot)' == 'true' and '$(ShippedExecutableName)' != '' and '$(ShippedExecutableName)' != '$(TargetName)'">
+    <PropertyGroup>
+      <_BlPublishDir>$([MSBuild]::EnsureTrailingSlash('$(PublishDir)'))</_BlPublishDir>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(_BlPublishDir)$(TargetName).exe')" Text="Native binary $(_BlPublishDir)$(TargetName).exe was not found after publish." />
+    <Delete Files="$(_BlPublishDir)$(ShippedExecutableName).exe" />
+    <Move SourceFiles="$(_BlPublishDir)$(TargetName).exe" DestinationFiles="$(_BlPublishDir)$(ShippedExecutableName).exe" />
+    <Message Importance="high" Text="$(MSBuildProjectName) -> $(_BlPublishDir)$(ShippedExecutableName).exe" />
+  </Target>
+</Project>

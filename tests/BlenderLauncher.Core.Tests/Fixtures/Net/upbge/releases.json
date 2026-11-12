@@ -1,0 +1,359 @@
+[
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/weekly-build-108",
+    "id": 438146717,
+    "tag_name": "weekly-build-108",
+    "name": "Weekly UPBGE Build",
+    "draft": false,
+    "prerelease": true,
+    "created_at": "2026-11-08T05:38:35Z",
+    "published_at": "2026-11-08T09:26:10Z",
+    "assets": [
+      {
+        "name": "upbge-0.53-alpha-linux-x86_64-2026-11-08.tar.gz",
+        "content_type": "application/gzip",
+        "state": "uploaded",
+        "size": 604850504,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-108/upbge-0.53-alpha-linux-x86_64-2026-11-08.tar.gz"
+      },
+      {
+        "name": "upbge-0.53-alpha-windows-x86_64-2026-11-08.zip",
+        "content_type": "application/zip",
+        "state": "uploaded",
+        "size": 364563735,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-108/upbge-0.53-alpha-windows-x86_64-2026-11-08.zip"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/weekly-build-107",
+    "id": 430454913,
+    "tag_name": "weekly-build-107",
+    "name": "Weekly UPBGE Build",
+    "draft": false,
+    "prerelease": true,
+    "created_at": "2026-10-30T12:34:29Z",
+    "published_at": "2026-11-01T09:38:19Z",
+    "assets": [
+      {
+        "name": "upbge-0.53-alpha-linux-x86_64-2026-11-01.tar.gz",
+        "content_type": "application/gzip",
+        "state": "uploaded",
+        "size": 603975835,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-107/upbge-0.53-alpha-linux-x86_64-2026-11-01.tar.gz"
+      },
+      {
+        "name": "upbge-0.53-alpha-windows-x86_64-2026-11-01.zip",
+        "content_type": "application/zip",
+        "state": "uploaded",
+        "size": 364086294,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-107/upbge-0.53-alpha-windows-x86_64-2026-11-01.zip"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/v0.50",
+    "id": 273975573,
+    "tag_name": "v0.50",
+    "name": "UPBGE 0.50",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-01-04T02:06:49Z",
+    "published_at": "2026-01-04T16:34:10Z",
+    "assets": [
+      {
+        "name": "upbge-0.50-linux-x64.tar.xz",
+        "content_type": "application/x-compressed",
+        "state": "uploaded",
+        "size": 408374596,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.50/upbge-0.50-linux-x64.tar.xz"
+      },
+      {
+        "name": "upbge-0.50-macos-arm64.dmg",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 646710999,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.50/upbge-0.50-macos-arm64.dmg"
+      },
+      {
+        "name": "upbge-0.50-windows-x64.7z",
+        "content_type": "application/x-compressed",
+        "state": "uploaded",
+        "size": 293316768,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.50/upbge-0.50-windows-x64.7z"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/weekly-build-50",
+    "id": 259046750,
+    "tag_name": "weekly-build-50",
+    "name": "Weekly UPBGE Build",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2025-10-30T19:48:53Z",
+    "published_at": "2025-11-02T03:25:28Z",
+    "assets": [
+      {
+        "name": "upbge-0.51-alpha-linux-x86_64-2025-11-02.tar.gz",
+        "content_type": "application/gzip",
+        "state": "uploaded",
+        "size": 523386201,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-50/upbge-0.51-alpha-linux-x86_64-2025-11-02.tar.gz"
+      },
+      {
+        "name": "upbge-0.51-alpha-windows-x86_64-2025-11-02.zip",
+        "content_type": "application/zip",
+        "state": "uploaded",
+        "size": 339217307,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-50/upbge-0.51-alpha-windows-x86_64-2025-11-02.zip"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/weekly-build-26",
+    "id": 228578530,
+    "tag_name": "weekly-build-26",
+    "name": "Weekly UPBGE Build",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2025-06-28T00:09:36Z",
+    "published_at": "2025-06-29T04:37:31Z",
+    "assets": [
+      {
+        "name": "upbge-0.45-alpha-linux-x86_64-2025-06-29.tar.gz",
+        "content_type": "application/gzip",
+        "state": "uploaded",
+        "size": 490437690,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-26/upbge-0.45-alpha-linux-x86_64-2025-06-29.tar.gz"
+      },
+      {
+        "name": "upbge-0.45-alpha-windows-x86_64-2025-06-29.zip",
+        "content_type": "application/zip",
+        "state": "uploaded",
+        "size": 318807640,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/weekly-build-26/upbge-0.45-alpha-windows-x86_64-2025-06-29.zip"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/v0.44",
+    "id": 216375089,
+    "tag_name": "v0.44",
+    "name": "UPBGE 0.44",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2025-05-05T21:25:03Z",
+    "published_at": "2025-05-06T22:55:01Z",
+    "assets": [
+      {
+        "name": "upbge-0.44-linux-x86_64.tar.xz",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 402699408,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.44/upbge-0.44-linux-x86_64.tar.xz"
+      },
+      {
+        "name": "upbge-0.44-macos-arm.dmg",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 613940638,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.44/upbge-0.44-macos-arm.dmg"
+      },
+      {
+        "name": "upbge-0.44-macos-x86_64.dmg",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 666179244,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.44/upbge-0.44-macos-x86_64.dmg"
+      },
+      {
+        "name": "upbge-0.44-release.md5",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 249,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.44/upbge-0.44-release.md5"
+      },
+      {
+        "name": "upbge-0.44-release.sha512",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 633,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.44/upbge-0.44-release.sha512"
+      },
+      {
+        "name": "upbge-0.44-windows-x86_64.7z",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 291401901,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.44/upbge-0.44-windows-x86_64.7z"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/v0.36.1",
+    "id": 112424320,
+    "tag_name": "v0.36.1",
+    "name": "UPBGE 0.36.1",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2023-08-19T20:22:12Z",
+    "published_at": "2023-08-20T21:31:01Z",
+    "assets": [
+      {
+        "name": "upbge-0.36.1-linux-x86_64.tar.xz",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 383478152,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.36.1/upbge-0.36.1-linux-x86_64.tar.xz"
+      },
+      {
+        "name": "upbge-0.36.1-macOS-x86_64.dmg",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 471848856,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.36.1/upbge-0.36.1-macOS-x86_64.dmg"
+      },
+      {
+        "name": "upbge-0.36.1-Release.md5",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 262,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.36.1/upbge-0.36.1-Release.md5"
+      },
+      {
+        "name": "upbge-0.36.1-Release.sha512",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 646,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.36.1/upbge-0.36.1-Release.sha512"
+      },
+      {
+        "name": "upbge-0.36.1-windows-x86_64.7z",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 269894520,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.36.1/upbge-0.36.1-windows-x86_64.7z"
+      },
+      {
+        "name": "upbge-0.36.1-windows7-x86_64.7z",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 269935592,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.36.1/upbge-0.36.1-windows7-x86_64.7z"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/v0.30",
+    "id": 54597655,
+    "tag_name": "v0.30",
+    "name": "UPBGE 0.30",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2021-12-03T17:17:30Z",
+    "published_at": "2021-12-03T17:56:18Z",
+    "assets": [
+      {
+        "name": "UPBGE-0.30-linux-x86_64.tar.xz",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 330430880,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.30/UPBGE-0.30-linux-x86_64.tar.xz"
+      },
+      {
+        "name": "UPBGE-0.30-macOS-arm64.dmg",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 362988744,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.30/UPBGE-0.30-macOS-arm64.dmg"
+      },
+      {
+        "name": "UPBGE-0.30-macOS-x86_64.dmg",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 431570008,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.30/UPBGE-0.30-macOS-x86_64.dmg"
+      },
+      {
+        "name": "UPBGE-0.30-Release.md5",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 315,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.30/UPBGE-0.30-Release.md5"
+      },
+      {
+        "name": "UPBGE-0.30-Release.sha512",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 795,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.30/UPBGE-0.30-Release.sha512"
+      },
+      {
+        "name": "UPBGE-0.30-windows-x86_64.7z",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 229136249,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.30/UPBGE-0.30-windows-x86_64.7z"
+      },
+      {
+        "name": "UPBGE-0.30-windows7-x86_64.7z",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 229155423,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.30/UPBGE-0.30-windows7-x86_64.7z"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/v0.2.5b",
+    "id": 43950609,
+    "tag_name": "v0.2.5b",
+    "name": "UPBGE 0.2.5b",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2021-05-05T06:34:43Z",
+    "published_at": "2021-06-02T04:58:14Z",
+    "assets": [
+      {
+        "name": "UPBGEv0.2.5b-b2.79Linux64.tar.xz",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 128887064,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.2.5b/UPBGEv0.2.5b-b2.79Linux64.tar.xz"
+      },
+      {
+        "name": "UPBGEv0.2.5b-b2.79MacOS.zip",
+        "content_type": "application/x-zip-compressed",
+        "state": "uploaded",
+        "size": 128829110,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.2.5b/UPBGEv0.2.5b-b2.79MacOS.zip"
+      },
+      {
+        "name": "UPBGEv0.2.5b-b2.79Windows32.7z",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 66343847,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.2.5b/UPBGEv0.2.5b-b2.79Windows32.7z"
+      },
+      {
+        "name": "UPBGEv0.2.5b-b2.79Windows64.7z",
+        "content_type": "application/octet-stream",
+        "state": "uploaded",
+        "size": 77940000,
+        "browser_download_url": "https://github.com/UPBGE/upbge/releases/download/v0.2.5b/UPBGEv0.2.5b-b2.79Windows64.7z"
+      }
+    ]
+  },
+  {
+    "html_url": "https://github.com/UPBGE/upbge/releases/tag/v0.2.4a",
+    "id": 20151141,
+    "tag_name": "v0.2.4a",
+    "name": "",
+    "draft": false,
+    "prerelease": true,
+    "created_at": "2018-10-01T21:33:53Z",
+    "published_at": "2019-09-20T21:49:48Z",
+    "assets": []
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "weekly-build-108",
+    "commit": {
+      "sha": "c11a0cccfac06aa18fad766548622b61551d4169",
+      "url": "https://api.github.com/repos/UPBGE/upbge/commits/c11a0cccfac06aa18fad766548622b61551d4169"
+    }
+  },
+  {
+    "name": "weekly-build-107",
+    "commit": {
+      "sha": "dbc1f71c9fbba4dd569deaa7eeb5df2d55b6d61e",
+      "url": "https://api.github.com/repos/UPBGE/upbge/commits/dbc1f71c9fbba4dd569deaa7eeb5df2d55b6d61e"
+    }
+  },
+  {
+    "name": "weekly-build-50",
+    "commit": {
+      "sha": "f9a767e67e81321f5081f2e916b2668218da5ee4",
+      "url": "https://api.github.com/repos/UPBGE/upbge/commits/f9a767e67e81321f5081f2e916b2668218da5ee4"
+    }
+  },
+  {
+    "name": "weekly-build-26",
+    "commit": {
+      "sha": "0f6e4b193ac8d1b3ffe009b83f779f47f724a572",
+      "url": "https://api.github.com/repos/UPBGE/upbge/commits/0f6e4b193ac8d1b3ffe009b83f779f47f724a572"
+    }
+  },
+  {
+    "name": "v3.0.0",
+    "commit": {
+      "sha": "f1cca3055776be50f59dd4fb6de3018afb53d52c",
+      "url": "https://api.github.com/repos/UPBGE/upbge/commits/f1cca3055776be50f59dd4fb6de3018afb53d52c"
+    }
+  }
+]

@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="README.md" />
+    <File Path="src/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/BlenderLauncher.App/BlenderLauncher.App.csproj" />
+    <Project Path="src/BlenderLauncher.Core/BlenderLauncher.Core.csproj" />
+    <Project Path="src/BlenderLauncher.Platform.Windows/BlenderLauncher.Platform.Windows.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BlenderLauncher.App.Tests/BlenderLauncher.App.Tests.csproj" />
+    <Project Path="tests/BlenderLauncher.Core.Tests/BlenderLauncher.Core.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,84 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=1",
+      "status": 200,
+      "file": "pulls_page1.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:21Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=2",
+      "status": 200,
+      "file": "pulls_page2.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:21Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=3",
+      "status": 200,
+      "file": "pulls_page3.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:22Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=4",
+      "status": 200,
+      "file": "pulls_page4.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:22Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/162828",
+      "status": 200,
+      "file": "pull_162828.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:23Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/166147",
+      "status": 200,
+      "file": "pull_166147.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:25Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/163602",
+      "status": 200,
+      "file": "pull_163602.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:25Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/9999999",
+      "status": 404,
+      "file": "pull_9999999.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:25Z"
+    }
+  ]
+}

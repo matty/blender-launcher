@@ -1,0 +1,201 @@
+# Release: on a version tag, test, publish with the tag's version, self-test, pack with Velopack (installer,
+# portable zip, update feed and packages) and create the GitHub release installed copies update from. Cut a release with:
+#   git tag v0.1.0 && git push origin v0.1.0
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write # create the release and upload its assets
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  release:
+    name: Build and publish the release
+    runs-on: windows-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+        with:
+          # The whole history and the tags, for the notes since the previous tag.
+          fetch-depth: 0
+
+      # The tag is read from the environment, never pasted into the script, so a crafted tag name cannot inject code.
+      - name: Version from the tag
+        id: version
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if ($env:TAG -notmatch '^v(\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?)$') {
+            throw "Tag '$env:TAG' is not vMAJOR.MINOR.PATCH[-PRERELEASE]"
+          }
+          $version = $Matches[1]
+          $prerelease = if ($env:TAG.Contains('-')) { 'true' } else { 'false' }
+          "tag=$env:TAG" >> $env:GITHUB_OUTPUT
+          "version=$version" >> $env:GITHUB_OUTPUT
+          "prerelease=$prerelease" >> $env:GITHUB_OUTPUT
+          Write-Host "Releasing $env:TAG as version $version (prerelease: $prerelease)"
+
+      - name: Set up .NET (version from global.json)
+        uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('global.json', 'Directory.Packages.props', '**/*.csproj', '**/Directory.Build.props') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore BlenderLauncher.slnx
+
+      - name: Build
+        run: dotnet build BlenderLauncher.slnx -c Release --no-restore -p:Version=${{ steps.version.outputs.version }}
+
+      - name: Test
+        run: >-
+          dotnet test --solution BlenderLauncher.slnx -c Release --no-build
+          --report-xunit-trx --results-directory artifacts/test-results
+
+      # Native AOT with the tag's version in the assembly, the exe's file properties and AppIdentity.Version.
+      - name: Publish (Native AOT)
+        run: ./scripts/publish.ps1 -Version ${{ steps.version.outputs.version }}
+
+      - name: Self-test (offline)
+        timeout-minutes: 5
+        run: ./scripts/self-test.ps1 -Offline -Out artifacts/self-test-results.txt
+
+      # Code signing. The release is unsigned for now: Windows SmartScreen warns on first run, which the README
+      # explains. To sign, enable ONE of the steps below (they must run before "Pack with Velopack"), add its secrets, and
+      # also sign Velopack's Setup.exe and Update.exe: pass vpk pack --signParams (signtool) or --azureTrustedSignFile from
+      # package-release.ps1. Check the action's current major version
+      # first.
+      #
+      # Azure Trusted Signing (paid; needs identity validation):
+      # - name: Sign (Azure Trusted Signing)
+      #   uses: azure/trusted-signing-action@v0
+      #   with:
+      #     azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      #     azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+      #     endpoint: https://weu.codesigning.azure.net/
+      #     trusted-signing-account-name: ${{ secrets.TRUSTED_SIGNING_ACCOUNT }}
+      #     certificate-profile-name: ${{ secrets.TRUSTED_SIGNING_PROFILE }}
+      #     files-folder: artifacts/publish
+      #     files-folder-filter: exe
+      #     file-digest: SHA256
+      #     timestamp-rfc3161: http://timestamp.acs.microsoft.com
+      #     timestamp-digest: SHA256
+      #
+      # SignPath (free for open-source projects; signs an uploaded artifact and returns it):
+      # - name: Upload unsigned exe for SignPath
+      #   id: unsigned
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: unsigned
+      #     path: artifacts/publish/Blender Launcher.exe
+      # - name: Sign (SignPath)
+      #   uses: signpath/github-action-submit-signing-request@v1
+      #   with:
+      #     api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+      #     organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
+      #     project-slug: blender-launcher
+      #     signing-policy-slug: release-signing
+      #     github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+      #     wait-for-completion: true
+      #     output-artifact-directory: artifacts/publish
+
+      # Velopack (vpk, pinned in dotnet-tools.json): the installer, the portable zip, their checksums, and the feed and
+      # packages installed copies update from. The previous release is downloaded first so vpk can make a delta package.
+      - name: Pack with Velopack
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          ./scripts/package-release.ps1 -Tag ${{ steps.version.outputs.tag }} -Output artifacts/release
+          -PreviousReleasesFrom "https://github.com/${{ github.repository }}"
+
+      - name: Write the release notes
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          REPO: ${{ github.repository }}
+        run: |
+          $previous = git describe --tags --abbrev=0 --match 'v*.*.*' "$env:TAG^" 2>$null
+          if ($LASTEXITCODE -ne 0) { $previous = $null }
+          $range = if ($previous) { "$previous..$env:TAG" } else { $env:TAG }
+          $commits = @(git log --no-merges --pretty=format:'- %s (%h)' $range)
+          $setup = "Blender_Launcher_$($env:TAG)_Windows_x64_Setup.exe"
+          $zip = "Blender_Launcher_$($env:TAG)_Windows_x64_Portable.zip"
+          $setupHash = (Get-Content -Raw "artifacts/release/$setup.sha256").Split(' ')[0]
+          $zipHash = (Get-Content -Raw "artifacts/release/$zip.sha256").Split(' ')[0]
+          $notes = @(
+            "## Changes$(if ($previous) { " since $previous" })"
+            ''
+            $(if ($commits.Count) { $commits } else { '- No changes recorded.' })
+            ''
+            '## Download'
+            ''
+            "- **Installer:** ``$setup``. Installs for your user only (no administrator rights), adds Start Menu and Desktop shortcuts, and appears in Settings › Apps for uninstalling."
+            "- **Portable:** ``$zip``. Extract it anywhere and run ``Blender Launcher.exe``. To keep settings beside it, create an empty ``settings.json`` in the extracted folder."
+            ''
+            'Both update themselves. No .NET runtime is needed. Windows 10 (1809 or later) or Windows 11, x64.'
+            ''
+            "The files are not code-signed yet, so Windows SmartScreen may say it ""prevented an unrecognised app from starting"". Choose **More info**, then **Run anyway**. You can check the download first: SHA-256 ``$setupHash`` for the installer and ``$zipHash`` for the portable zip (also in the ``.sha256`` files)."
+            ''
+            'Already using Blender Launcher? It offers this version itself, or run `"Blender Launcher.exe" update`. Copies from before the installer (a plain zip) cannot update themselves: install this version, or extract the portable zip, and choose the same library folder.'
+            ''
+            '## Source'
+            ''
+            "Licensed under GPL-3.0. The source for this release is the tag [$($env:TAG)](https://github.com/$($env:REPO)/tree/$($env:TAG)); third-party licences are in ``THIRD-PARTY-NOTICES.md`` in the program folder."
+          )
+          $notes -join "`n" | Set-Content -Encoding utf8NoBOM artifacts/release-notes.md
+          Get-Content artifacts/release-notes.md
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+          PRERELEASE: ${{ steps.version.outputs.prerelease }}
+        run: |
+          # package-release.ps1 lists exactly what this release carries (older packages fetched for the delta stay out).
+          $assets = @(Get-Content artifacts/release/release-assets.txt | ForEach-Object { "artifacts/release/$_" })
+          $flags = if ($env:PRERELEASE -eq 'true') { @('--prerelease') } else { @('--latest') }
+          gh release create $env:TAG @assets --verify-tag --title "Blender Launcher $($env:VERSION)" --notes-file artifacts/release-notes.md @flags
+          if ($LASTEXITCODE -ne 0) { throw "gh release create failed with $LASTEXITCODE" }
+
+      # Kept with the run for reading crash dumps of this release; not part of the release itself.
+      - name: Upload symbols
+        uses: actions/upload-artifact@v7
+        with:
+          name: symbols-${{ steps.version.outputs.tag }}
+          path: artifacts/symbols/
+          retention-days: 90
+          if-no-files-found: warn
+
+      - name: Upload test and self-test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-test-results
+          path: |
+            artifacts/test-results/
+            artifacts/self-test-results*
+          if-no-files-found: ignore

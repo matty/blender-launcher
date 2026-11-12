@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://raw.githubusercontent.com/Victor-IX/Blender-Launcher-V2/main/source/resources/api/blender_launcher_api.json",
+      "status": 200,
+      "file": "blender_launcher_api.json",
+      "headers": {
+        "Content-Type": "text/plain; charset=utf-8",
+        "ETag": "W/\"828deb165365c9c4c95b5123d6d41e3228430347ff700a529afa45f802cabcbe\""
+      },
+      "recorded": "2026-11-11T13:09:45Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://raw.githubusercontent.com/Victor-IX/Blender-Launcher-V2/main/source/resources/api/stable_builds_api_windows.json",
+      "status": 200,
+      "file": "stable_builds_api_windows.json",
+      "headers": {
+        "Content-Type": "text/plain; charset=utf-8",
+        "ETag": "W/\"56cf2c588e96f2dfc64a55cbcf3fcbbc923e132cca1be3cd69e8aee00476ce07\""
+      },
+      "recorded": "2026-11-11T13:09:46Z"
+    }
+  ]
+}

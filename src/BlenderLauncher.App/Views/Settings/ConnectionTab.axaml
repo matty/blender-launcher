@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels.Settings"
+             x:Class="BlenderLauncher.App.Views.Settings.ConnectionTab"
+             x:DataType="vm:SettingsViewModel">
+  <!--
+    Settings → Connection. Text fields save when they lose focus, on Enter and when the window closes; the token,
+    proxy user and password go to Windows Credential Manager and are never shown back.
+  -->
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Classes="page">
+      <StackPanel>
+        <TextBlock Classes="title" Text="{loc:Tr settings.connection.label}" />
+        <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.settings.subtitle.connection}" />
+      </StackPanel>
+
+      <!-- Authentication -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="AuthGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.connection.authentication_settings}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #AuthGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="190,*" RowDefinitions="Auto,Auto" ToolTip.Tip="{loc:Tip ui.settings.connection.user_id_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.connection.user_id}" />
+              <TextBox Grid.Column="1" Theme="{StaticResource BlTextBox}" MaxWidth="360" HorizontalAlignment="Left" Width="360"
+                       Text="{Binding UserIdDraft}" PlaceholderText="{loc:Tr ui.settings.connection.user_id_placeholder}"
+                       AutomationProperties.Name="{loc:Tr settings.connection.user_id}" />
+              <TextBlock Grid.Row="1" Grid.Column="1" Classes="error" Margin="0,4,0,2" Text="{Binding UserIdError}" IsVisible="{Binding HasUserIdError}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="190,*" RowDefinitions="Auto,Auto" ToolTip.Tip="{loc:Tip settings.connection.github_token_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.connection.github_token}" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                <TextBox Theme="{StaticResource BlTextBox}" Width="360" PasswordChar="•" Text="{Binding GitHubTokenDraft}"
+                         PlaceholderText="{loc:Tr ui.settings.connection.token_placeholder}"
+                         AutomationProperties.Name="{loc:Tr settings.connection.github_token}" />
+              </StackPanel>
+              <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,4,0,2" Spacing="2">
+                <TextBlock Classes="note" Text="{loc:Tr ui.settings.connection.token_saved}" IsVisible="{Binding HasSavedToken}" />
+                <Button Classes="link" Margin="-6,0,0,0" HorizontalAlignment="Left" Content="{loc:Tr ui.settings.connection.token_docs}"
+                        Command="{Binding OpenTokenDocsCommand}" ToolTip.Tip="{loc:Tip settings.connection.github_token_info_button_tooltip}" />
+              </StackPanel>
+            </Grid>
+            <TextBlock Classes="error" Margin="16,2,16,4" Text="{Binding SecretError}" IsVisible="{Binding HasSecretError}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Proxy -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="ProxyGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.connection.proxy_settings}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #ProxyGroup.IsChecked}">
+            <CheckBox Classes="row" Content="{loc:Tr settings.connection.use_custom_tls_certificates}" IsChecked="{Binding UseCustomTlsCertificates}"
+                      ToolTip.Tip="{loc:Tip ui.settings.connection.tls_hint}" />
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.connection.proxy_type_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.connection.proxy_type}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding ProxyTypeNames}" SelectedIndex="{Binding ProxyTypeIndex}"
+                        AutomationProperties.Name="{loc:Tr settings.connection.proxy_type}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="190,*" RowDefinitions="Auto,Auto" IsEnabled="{Binding IsProxyEnabled}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.connection.proxy_host}" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                <TextBox Theme="{StaticResource BlTextBox}" Width="240" Text="{Binding ProxyHostDraft}"
+                         ToolTip.Tip="{loc:Tip settings.connection.proxy_host_tooltip}" AutomationProperties.Name="{loc:Tr settings.connection.proxy_host}" />
+                <TextBlock Classes="label" Margin="4,0" Text="{loc:Tr settings.connection.proxy_port}" />
+                <NumericUpDown Minimum="1" Maximum="65535" Width="90" ShowButtonSpinner="False" Value="{Binding ProxyPort}"
+                               ToolTip.Tip="{loc:Tip settings.connection.proxy_port_tooltip}" AutomationProperties.Name="{loc:Tr settings.connection.proxy_port}" />
+              </StackPanel>
+              <TextBlock Grid.Row="1" Grid.Column="1" Classes="error" Margin="0,4,0,2" Text="{Binding ProxyHostError}" IsVisible="{Binding HasProxyHostError}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="190,*" IsEnabled="{Binding IsProxyEnabled}" ToolTip.Tip="{loc:Tip settings.connection.proxy_user_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.connection.proxy_user}" />
+              <TextBox Grid.Column="1" Theme="{StaticResource BlTextBox}" Width="240" HorizontalAlignment="Left" Text="{Binding ProxyUserDraft}"
+                       AutomationProperties.Name="{loc:Tr settings.connection.proxy_user}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="190,*" RowDefinitions="Auto,Auto" IsEnabled="{Binding IsProxyEnabled}"
+                  ToolTip.Tip="{loc:Tip settings.connection.proxy_password_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.connection.proxy_password}" />
+              <TextBox Grid.Column="1" Theme="{StaticResource BlTextBox}" Width="240" HorizontalAlignment="Left" PasswordChar="•"
+                       Text="{Binding ProxyPasswordDraft}" AutomationProperties.Name="{loc:Tr settings.connection.proxy_password}" />
+              <TextBlock Grid.Row="1" Grid.Column="1" Classes="note" Margin="0,4,0,2" Text="{loc:Tr ui.settings.connection.secret_saved}"
+                         IsVisible="{Binding HasSavedProxyPassword}" />
+            </Grid>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

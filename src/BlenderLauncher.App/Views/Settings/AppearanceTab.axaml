@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels.Settings"
+             x:Class="BlenderLauncher.App.Views.Settings.AppearanceTab"
+             x:DataType="vm:SettingsViewModel">
+  <!--
+    Settings → Appearance. Upstream's DPI factor is dropped (Avalonia scales per monitor) and its three
+    default-page options are one "Default view"; the design adds accent, density and the details panel.
+  -->
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Classes="page">
+      <StackPanel>
+        <TextBlock Classes="title" Text="{loc:Tr settings.appearance.label}" />
+        <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.settings.subtitle.appearance}" />
+      </StackPanel>
+
+      <!-- Window related -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="WindowGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.appearance.window_related}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #WindowGroup.IsChecked}">
+            <CheckBox Classes="row" Content="{loc:Tr settings.appearance.use_system_titlebar}" IsChecked="{Binding UseSystemTitleBar}"
+                      ToolTip.Tip="{loc:Tip settings.appearance.use_system_titlebar_tooltip}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Look -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="LookGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr ui.settings.appearance.look}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #LookGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip ui.settings.appearance.accent_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr ui.settings.appearance.accent}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding AccentNames}" SelectedIndex="{Binding AccentIndex}"
+                        AutomationProperties.Name="{loc:Tr ui.settings.appearance.accent}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip ui.settings.appearance.density_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr ui.settings.appearance.density}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding DensityNames}" SelectedIndex="{Binding DensityIndex}"
+                        AutomationProperties.Name="{loc:Tr ui.settings.appearance.density}" />
+            </Grid>
+            <CheckBox Classes="row" Content="{loc:Tr ui.settings.appearance.show_details}" IsChecked="{Binding ShowDetailsPanel}"
+                      ToolTip.Tip="{loc:Tip ui.settings.appearance.show_details_tooltip}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Start-up view -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="StartGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr ui.settings.appearance.start_up}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #StartGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip ui.settings.appearance.default_view_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr ui.settings.appearance.default_view}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding ViewNames}" SelectedIndex="{Binding DefaultViewIndex}" MaxDropDownHeight="360"
+                        AutomationProperties.Name="{loc:Tr ui.settings.appearance.default_view}" />
+            </Grid>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Notifications -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="NotifyGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.appearance.notifications.label}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #NotifyGroup.IsChecked}">
+            <CheckBox Classes="row" Content="{loc:Tr settings.appearance.notifications.new_builds}" IsChecked="{Binding NotifyNewBuilds}"
+                      ToolTip.Tip="{loc:Tip settings.appearance.notifications.new_builds_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.appearance.notifications.finished_downloading}" IsChecked="{Binding NotifyDownloadFinished}"
+                      ToolTip.Tip="{loc:Tip settings.appearance.notifications.finished_downloading_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.appearance.notifications.errors}" IsChecked="{Binding NotifyErrors}"
+                      ToolTip.Tip="{loc:Tip settings.appearance.notifications.errors_tooltip}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

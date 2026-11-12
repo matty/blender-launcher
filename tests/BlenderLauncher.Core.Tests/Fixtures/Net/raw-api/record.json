@@ -1,0 +1,4 @@
+{ "requests": [
+  { "url": "https://raw.githubusercontent.com/Victor-IX/Blender-Launcher-V2/main/source/resources/api/blender_launcher_api.json", "file": "blender_launcher_api.json" },
+  { "url": "https://raw.githubusercontent.com/Victor-IX/Blender-Launcher-V2/main/source/resources/api/stable_builds_api_windows.json", "file": "stable_builds_api_windows.json" }
+] }

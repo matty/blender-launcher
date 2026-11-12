@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BlenderLauncher.App.Controls"
+        xmlns:loc="using:BlenderLauncher.App.Localisation"
+        x:Class="BlenderLauncher.App.Views.Dialogs.DialogWindow"
+        Width="460"
+        SizeToContent="Height"
+        CanResize="False" CanMinimize="False" CanMaximize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BlSurfaceDetailBrush}"
+        Foreground="{StaticResource BlTextBodyBrush}"
+        FontSize="12">
+  <!--
+    The one themed dialog, built by Services/DialogService: the app's title bar (close button only) carrying
+    the title, then an icon for the kind and the message, an optional text field with its validation message, optional
+    details, and a footer with the buttons. The title is not repeated inside the dialog.
+  -->
+  <DockPanel>
+    <Border Name="TitleBarHost" DockPanel.Dock="Top" BorderBrush="{StaticResource BlLine0Brush}" BorderThickness="0,0,0,1">
+      <controls:AppTitleBar Name="TitleBar" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom"
+            Background="{StaticResource BlSurfaceSidebarBrush}"
+            BorderBrush="{StaticResource BlLine1Brush}"
+            BorderThickness="0,1,0,0"
+            Padding="16,12">
+      <Grid ColumnDefinitions="Auto,*">
+        <Button Name="ExtraButton" Theme="{StaticResource BlGhostButton}" IsVisible="False" Height="30" Padding="10,0"
+                VerticalAlignment="Center" Content="{loc:Tr ui.error.open_log_folder}" />
+        <StackPanel Name="ButtonRow" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" />
+      </Grid>
+    </Border>
+
+    <Grid ColumnDefinitions="Auto,*" Margin="20,20,22,20">
+      <Border Name="IconBadge" Width="26" Height="26" CornerRadius="13" VerticalAlignment="Top" Margin="0,0,14,0" IsVisible="False">
+        <TextBlock Name="IconGlyph" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <StackPanel Grid.Column="1" Spacing="10" VerticalAlignment="Center">
+        <SelectableTextBlock Name="MessageText" TextWrapping="Wrap" LineHeight="19" FontSize="12.5"
+                             Foreground="{StaticResource BlTextBodyBrush}" />
+        <Border Name="ScrollHost" IsVisible="False" Background="{StaticResource BlSurfaceInsetBrush}" BorderBrush="{StaticResource BlLine1Brush}"
+                BorderThickness="1" CornerRadius="5">
+          <ScrollViewer MaxHeight="300" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <SelectableTextBlock Name="ScrollTextBlock" TextWrapping="Wrap" LineHeight="18" FontSize="12" Margin="12,10"
+                                 Foreground="{StaticResource BlTextSectionBrush}" />
+          </ScrollViewer>
+        </Border>
+        <TextBox Name="InputBox" IsVisible="False" Height="30" />
+        <TextBlock Name="InputError" IsVisible="False" FontSize="11" TextWrapping="Wrap" Foreground="{StaticResource BlDangerBrush}" />
+        <Expander Name="DetailsExpander" Header="{loc:Tr ui.error.details}" IsVisible="False" HorizontalAlignment="Stretch">
+          <TextBox Name="DetailsText" IsReadOnly="True" TextWrapping="NoWrap" MaxHeight="220" FontSize="11"
+                   FontFamily="{StaticResource BlMonoFont}" AcceptsReturn="True"
+                   ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        </Expander>
+      </StackPanel>
+    </Grid>
+  </DockPanel>
+</Window>

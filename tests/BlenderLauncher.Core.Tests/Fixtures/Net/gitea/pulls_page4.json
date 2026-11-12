@@ -1,0 +1,352 @@
+[
+  {
+    "number": 166350,
+    "title": "Cleanup: Mesh: Count edit mode selection with common function",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166350",
+    "updated_at": "2026-11-09T23:25:13+01:00"
+  },
+  {
+    "number": 166355,
+    "title": "WIP: Build: Fix Storm + Vulkan validation errors",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166355",
+    "updated_at": "2026-11-09T23:11:41+01:00"
+  },
+  {
+    "number": 165189,
+    "title": "Fix #162770: Geometry Nodes input overrides lost after reload or paste",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165189",
+    "updated_at": "2026-11-09T23:10:55+01:00"
+  },
+  {
+    "number": 166351,
+    "title": "Cleanup: Transform: Handle modal case first in preserve_clnor setup",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166351",
+    "updated_at": "2026-11-09T22:57:33+01:00"
+  },
+  {
+    "number": 148149,
+    "title": "Outliner: Add \"Open Blend File\" to linked libraries",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/148149",
+    "updated_at": "2026-11-09T22:53:09+01:00"
+  },
+  {
+    "number": 166341,
+    "title": "Refactor: Images: Make a ImageCacheKey a struct instead of packed index",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166341",
+    "updated_at": "2026-11-09T22:10:38+01:00"
+  },
+  {
+    "number": 166346,
+    "title": "Refactor: Mesh: Move hook and vertex parent index remap for future reuse",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166346",
+    "updated_at": "2026-11-09T21:55:24+01:00"
+  },
+  {
+    "number": 166174,
+    "title": "Cycles: oneAPI: Simplify kernel parameters passing",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166174",
+    "updated_at": "2026-11-09T21:43:36+01:00"
+  },
+  {
+    "number": 166347,
+    "title": "Refactor: Spreadsheet: Share mesh selection filter code between domains",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166347",
+    "updated_at": "2026-11-09T21:41:10+01:00"
+  },
+  {
+    "number": 165212,
+    "title": "Refactor: Store markers in a new `TimeMarkers` struct",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165212",
+    "updated_at": "2026-11-09T21:20:00+01:00"
+  },
+  {
+    "number": 166345,
+    "title": "Mesh: Keep selection history when moving from evaluated to original mesh",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166345",
+    "updated_at": "2026-11-09T20:51:30+01:00"
+  },
+  {
+    "number": 159929,
+    "title": "Fulldomedome Composition Guides",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/159929",
+    "updated_at": "2026-11-09T20:20:21+01:00"
+  },
+  {
+    "number": 166342,
+    "title": "Cleanup: Mesh: Correct domain for edge selection attribute",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166342",
+    "updated_at": "2026-11-09T20:20:05+01:00"
+  },
+  {
+    "number": 166335,
+    "title": "Grease Pencil: Support moving to locked layers",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166335",
+    "updated_at": "2026-11-09T19:43:10+01:00"
+  },
+  {
+    "number": 166319,
+    "title": "Audaspace: update to latest version",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166319",
+    "updated_at": "2026-11-09T19:24:54+01:00"
+  },
+  {
+    "number": 166040,
+    "title": "Fix #165809: AV sync wasn't adjusting the video playback timing based on the audio delay",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166040",
+    "updated_at": "2026-11-09T19:24:53+01:00"
+  },
+  {
+    "number": 166334,
+    "title": "Fix: XPBD solver uses wrong mean for averaging edge friction coefficients",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166334",
+    "updated_at": "2026-11-09T19:17:51+01:00"
+  },
+  {
+    "number": 164923,
+    "title": "Grease Pencil: Vertex Paint add `use_accumulate` setting",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164923",
+    "updated_at": "2026-11-09T18:53:56+01:00"
+  },
+  {
+    "number": 166331,
+    "title": "Fix: Mesh: Draw: Edge crease hides vertex crease in mapped edit mesh",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166331",
+    "updated_at": "2026-11-09T18:43:40+01:00"
+  },
+  {
+    "number": 166333,
+    "title": "Fix: Mesh: Draw: Face flags missing in edit mode mapped UV extraction",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166333",
+    "updated_at": "2026-11-09T18:43:22+01:00"
+  },
+  {
+    "number": 166324,
+    "title": "Fix #166320: Crash when invoking menu search in window title bar",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166324",
+    "updated_at": "2026-11-09T18:21:04+01:00"
+  },
+  {
+    "number": 166315,
+    "title": "WIP: EEVEE: Add Light NodeTree Single Value Support",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166315",
+    "updated_at": "2026-11-09T18:13:49+01:00"
+  },
+  {
+    "number": 166270,
+    "title": "File Browser: Colored Collections",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166270",
+    "updated_at": "2026-11-09T17:57:44+01:00"
+  },
+  {
+    "number": 166084,
+    "title": "Add support for Void Linux in install_linux_packages.py",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166084",
+    "updated_at": "2026-11-09T16:50:42+01:00"
+  },
+  {
+    "number": 166326,
+    "title": "WIP: Tools: Blender sandbox script for Linux and macOS",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166326",
+    "updated_at": "2026-11-09T16:35:08+01:00"
+  },
+  {
+    "number": 166325,
+    "title": "GPU: Report vertex buffer transfer failures",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166325",
+    "updated_at": "2026-11-09T16:21:27+01:00"
+  },
+  {
+    "number": 164767,
+    "title": "Python: Expose 'Clear All Edit Bones' armature function",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164767",
+    "updated_at": "2026-11-09T16:21:02+01:00"
+  },
+  {
+    "number": 165960,
+    "title": "Grease Pencil: Fill UV set by Custom UV attribute \"fill_uv\"",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165960",
+    "updated_at": "2026-11-09T16:21:00+01:00"
+  },
+  {
+    "number": 165127,
+    "title": "Story Tools: Use same view transform for Rendered and Solid viewport shading",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165127",
+    "updated_at": "2026-11-09T16:10:30+01:00"
+  },
+  {
+    "number": 166317,
+    "title": "Fix #166297: Crash when deleting viewlayer referenced from compositor",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166317",
+    "updated_at": "2026-11-09T15:54:03+01:00"
+  },
+  {
+    "number": 166323,
+    "title": "Fix #166299: Transform axis line not always drawn",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166323",
+    "updated_at": "2026-11-09T15:51:10+01:00"
+  },
+  {
+    "number": 164188,
+    "title": "WIP: Android: Initial Platform Support",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164188",
+    "updated_at": "2026-11-09T15:45:22+01:00"
+  },
+  {
+    "number": 165629,
+    "title": "Projects: Move Asset Libraries panel to Python",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165629",
+    "updated_at": "2026-11-09T15:35:57+01:00"
+  },
+  {
+    "number": 165447,
+    "title": "WIP: Cycles: oneAPI: Use device globals",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165447",
+    "updated_at": "2026-11-09T15:17:08+01:00"
+  },
+  {
+    "number": 166322,
+    "title": "Fix #94658: Python: Event.type warning while dragging a gizmo",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166322",
+    "updated_at": "2026-11-09T14:59:23+01:00"
+  },
+  {
+    "number": 166304,
+    "title": "Refactor: Mesh: Use \"ensure\" BMesh access for future lazy conversion",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166304",
+    "updated_at": "2026-11-09T14:55:50+01:00"
+  },
+  {
+    "number": 166306,
+    "title": "Tools: fix weekly report missing commits from large pushes",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166306",
+    "updated_at": "2026-11-09T14:39:53+01:00"
+  },
+  {
+    "number": 158272,
+    "title": "Anim: Expand Bone Selection Options",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/158272",
+    "updated_at": "2026-11-09T14:15:21+01:00"
+  },
+  {
+    "number": 166314,
+    "title": "Grease Pencil: Port shaders to BSL",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166314",
+    "updated_at": "2026-11-09T14:12:50+01:00"
+  },
+  {
+    "number": 166318,
+    "title": "Fix #166289: Cycles: do not require derivatives for unused shaders",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166318",
+    "updated_at": "2026-11-09T14:06:12+01:00"
+  },
+  {
+    "number": 165026,
+    "title": "Fix #47653: Select Loop Inner-Region does not work with face selection",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165026",
+    "updated_at": "2026-11-09T13:20:31+01:00"
+  },
+  {
+    "number": 166310,
+    "title": "Fix #163205: GPencil: Memory usage scipted many layer moves",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166310",
+    "updated_at": "2026-11-09T10:46:30+01:00"
+  },
+  {
+    "number": 166182,
+    "title": "Refactor: macOS: Share metal layer creation between CocoaWindow and ContextMTL",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166182",
+    "updated_at": "2026-11-09T10:43:16+01:00"
+  },
+  {
+    "number": 166223,
+    "title": "Outliner: Shift click to add child collection",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166223",
+    "updated_at": "2026-11-09T10:39:58+01:00"
+  },
+  {
+    "number": 158902,
+    "title": "WIP: Assets: listing generator reads/writes blender_manifest.toml",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/158902",
+    "updated_at": "2026-11-09T10:39:36+01:00"
+  },
+  {
+    "number": 166302,
+    "title": "Fix: Grease Pencil: Draw tool Outline post process ignores vertex color",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166302",
+    "updated_at": "2026-11-09T10:32:31+01:00"
+  },
+  {
+    "number": 161383,
+    "title": "WIP: OpenPBR test package build",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/161383",
+    "updated_at": "2026-11-09T10:29:40+01:00"
+  },
+  {
+    "number": 166110,
+    "title": "WIP: Add OSL `texture` call argument handling",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166110",
+    "updated_at": "2026-11-09T09:53:50+01:00"
+  },
+  {
+    "number": 164080,
+    "title": "WIP: MaterialX Shader Node",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164080",
+    "updated_at": "2026-11-09T09:53:48+01:00"
+  },
+  {
+    "number": 166111,
+    "title": "WIP: Cycles: Separate texture wrapping along S and T",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166111",
+    "updated_at": "2026-11-09T09:53:44+01:00"
+  }
+]

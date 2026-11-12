@@ -1,0 +1,698 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://downloads.bforartists.com/",
+      "status": 200,
+      "file": "downloads.html",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "Last-Modified": "Thu, 29 Oct 2026 23:28:35 GMT"
+      },
+      "recorded": "2026-11-11T13:09:27Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://devbuilds.bforartists.com/",
+      "status": 200,
+      "file": "devbuilds.html",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "Last-Modified": "Tue, 10 Nov 2026 21:15:53 GMT"
+      },
+      "recorded": "2026-11-11T13:09:27Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-5.2.3-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "510767508",
+        "Last-Modified": "Thu, 29 Oct 2026 23:27:07 GMT",
+        "ETag": "\"2f70077aaaff7929836afd946610922c-98\""
+      },
+      "recorded": "2026-11-11T13:09:27Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-5.2.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "559756701",
+        "Last-Modified": "Mon, 19 Oct 2026 06:46:44 GMT",
+        "ETag": "\"71126d2042ea39223b27d00f975e8452-9\""
+      },
+      "recorded": "2026-11-11T13:09:27Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-5.1.2-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "552179549",
+        "Last-Modified": "Mon, 19 Oct 2026 07:59:41 GMT",
+        "ETag": "\"e310f851e64e29fbe7f0ce937ad4ab79-9\""
+      },
+      "recorded": "2026-11-11T13:09:27Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-5.1.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "514670671",
+        "Last-Modified": "Mon, 19 Oct 2026 06:40:48 GMT",
+        "ETag": "\"b5478a9c164ec3ee51aec9231454abcc-8\""
+      },
+      "recorded": "2026-11-11T13:09:28Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-5.1.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "520600883",
+        "Last-Modified": "Mon, 19 Oct 2026 06:37:58 GMT",
+        "ETag": "\"5431a978bc9770228d584830fb5f5e2f-8\""
+      },
+      "recorded": "2026-11-11T13:09:28Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-5.0.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "464102503",
+        "Last-Modified": "Mon, 19 Oct 2026 06:35:44 GMT",
+        "ETag": "\"2d11ab933c4d44372fed6ba117e78abc-7\""
+      },
+      "recorded": "2026-11-11T13:09:28Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-5.0.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "481692942",
+        "Last-Modified": "Mon, 19 Oct 2026 06:32:34 GMT",
+        "ETag": "\"5d66a805a94a6a004d70e14f55b2f686-8\""
+      },
+      "recorded": "2026-11-11T13:09:28Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.5.2-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "446395775",
+        "Last-Modified": "Mon, 19 Oct 2026 06:28:04 GMT",
+        "ETag": "\"3fc648966ca64f998825538b9dfaee4f-7\""
+      },
+      "recorded": "2026-11-11T13:09:28Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.5.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "436491427",
+        "Last-Modified": "Mon, 19 Oct 2026 06:24:00 GMT",
+        "ETag": "\"45687a1046b7c8ce8c221c18f97c411a-7\""
+      },
+      "recorded": "2026-11-11T13:09:28Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.5.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "438279687",
+        "Last-Modified": "Mon, 19 Oct 2026 06:23:17 GMT",
+        "ETag": "\"5cad932a7c63ac1335b82a32aff15fad-7\""
+      },
+      "recorded": "2026-11-11T13:09:29Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.4.3-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "466243009",
+        "Last-Modified": "Mon, 19 Oct 2026 06:14:22 GMT",
+        "ETag": "\"3409c39e72267e78a778588e3e68a47a-7\""
+      },
+      "recorded": "2026-11-11T13:09:29Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.4.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "427153264",
+        "Last-Modified": "Mon, 19 Oct 2026 06:12:22 GMT",
+        "ETag": "\"831d8fcc32f16a9b3ec9a18b93906ef8-7\""
+      },
+      "recorded": "2026-11-11T13:09:29Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.3.3-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "418326937",
+        "Last-Modified": "Mon, 19 Oct 2026 06:08:37 GMT",
+        "ETag": "\"c932c45a7cd5ba63abf786c4211b8f07-7\""
+      },
+      "recorded": "2026-11-11T13:09:29Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.3.2-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "417642783",
+        "Last-Modified": "Mon, 19 Oct 2026 06:02:58 GMT",
+        "ETag": "\"685ecd9f1d7a3923d268431ba9018c7b-7\""
+      },
+      "recorded": "2026-11-11T13:09:29Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.3.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "412742187",
+        "Last-Modified": "Mon, 19 Oct 2026 06:03:18 GMT",
+        "ETag": "\"169370c7b9d6725f5312b88c1cd23cdf-7\""
+      },
+      "recorded": "2026-11-11T13:09:29Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.3.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "412787194",
+        "Last-Modified": "Mon, 19 Oct 2026 05:56:10 GMT",
+        "ETag": "\"36ad81a41a2154ca6730530e3009b62d-7\""
+      },
+      "recorded": "2026-11-11T13:09:29Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.2.2-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "411892274",
+        "Last-Modified": "Mon, 19 Oct 2026 05:52:43 GMT",
+        "ETag": "\"0f9b974011caaf229e0fbc1655464291-7\""
+      },
+      "recorded": "2026-11-11T13:09:30Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.2.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "410941672",
+        "Last-Modified": "Mon, 19 Oct 2026 05:52:42 GMT",
+        "ETag": "\"4420fb962a87f99ad7193c835aa4688f-7\""
+      },
+      "recorded": "2026-11-11T13:09:30Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.2.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "384725321",
+        "Last-Modified": "Mon, 19 Oct 2026 05:50:37 GMT",
+        "ETag": "\"36527f26237c8135913fba5f36d535d7-6\""
+      },
+      "recorded": "2026-11-11T13:09:30Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.1.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "442177528",
+        "Last-Modified": "Mon, 19 Oct 2026 05:49:18 GMT",
+        "ETag": "\"b3a82782cd259bcbdfa39d0c1b80a4b8-7\""
+      },
+      "recorded": "2026-11-11T13:09:30Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.1.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "429619373",
+        "Last-Modified": "Mon, 19 Oct 2026 05:47:07 GMT",
+        "ETag": "\"95ec56cc32c88c992eb4778230ed4d69-7\""
+      },
+      "recorded": "2026-11-11T13:09:30Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.0.2-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "401630706",
+        "Last-Modified": "Mon, 19 Oct 2026 05:46:36 GMT",
+        "ETag": "\"866bf7d6f8e9bc55e628c226e1f08763-6\""
+      },
+      "recorded": "2026-11-11T13:09:30Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-4.0.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "418894727",
+        "Last-Modified": "Mon, 19 Oct 2026 05:45:08 GMT",
+        "ETag": "\"61216341dcca7f6ef7f825bc40c22395-7\""
+      },
+      "recorded": "2026-11-11T13:09:31Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.6.2-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "376931087",
+        "Last-Modified": "Mon, 19 Oct 2026 05:44:24 GMT",
+        "ETag": "\"ce9c05777080089d09c7a42bc9a2c6d2-6\""
+      },
+      "recorded": "2026-11-11T13:09:31Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.6.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "357952675",
+        "Last-Modified": "Mon, 19 Oct 2026 07:57:01 GMT",
+        "ETag": "\"3d6cbbfbbab561d6d56dab2c1797af3f-6\""
+      },
+      "recorded": "2026-11-11T13:09:31Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.6.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "363683051",
+        "Last-Modified": "Mon, 19 Oct 2026 05:40:24 GMT",
+        "ETag": "\"936e948dd3ce4c165cd5c2e0c33c750b-6\""
+      },
+      "recorded": "2026-11-11T13:09:31Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.5.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "348257656",
+        "Last-Modified": "Mon, 19 Oct 2026 05:42:42 GMT",
+        "ETag": "\"18cdde3079997e6834ba4af77b36294d-6\""
+      },
+      "recorded": "2026-11-11T13:09:31Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.5.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "336213058",
+        "Last-Modified": "Mon, 19 Oct 2026 05:38:25 GMT",
+        "ETag": "\"c4cb0590f8a512da06d1e2b32552acf0-6\""
+      },
+      "recorded": "2026-11-11T13:09:31Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.4.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "360312670",
+        "Last-Modified": "Mon, 19 Oct 2026 05:39:14 GMT",
+        "ETag": "\"e6f3098dc7b9811ae0c7fb82d4c6cc36-6\""
+      },
+      "recorded": "2026-11-11T13:09:31Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.4.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "339356196",
+        "Last-Modified": "Mon, 19 Oct 2026 05:36:33 GMT",
+        "ETag": "\"e68307ed2a8a9f402ff5f884f6c40825-6\""
+      },
+      "recorded": "2026-11-11T13:09:32Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.3.1-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "324817434",
+        "Last-Modified": "Mon, 19 Oct 2026 05:35:10 GMT",
+        "ETag": "\"74ff5ad595b7eb10bd7a3c2cb84bd76a-5\""
+      },
+      "recorded": "2026-11-11T13:09:32Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists-3.3.0-Windows.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "315148417",
+        "Last-Modified": "Mon, 19 Oct 2026 05:37:26 GMT",
+        "ETag": "\"71ef6bdf3856fb95b1ff5ed9460b875f-5\""
+      },
+      "recorded": "2026-11-11T13:09:32Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_322.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "318275146",
+        "Last-Modified": "Mon, 19 Oct 2026 07:38:40 GMT",
+        "ETag": "\"4b71224cb9ae715478a9fadc6b6e810e-5\""
+      },
+      "recorded": "2026-11-11T13:09:32Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_321.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "272321684",
+        "Last-Modified": "Mon, 19 Oct 2026 07:37:13 GMT",
+        "ETag": "\"c500ddb67a724aa912a9cfa0ff5818a2-5\""
+      },
+      "recorded": "2026-11-11T13:09:32Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_320.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "269090166",
+        "Last-Modified": "Mon, 19 Oct 2026 07:36:08 GMT",
+        "ETag": "\"1bb55950d1008dabef303d012eeb98ae-5\""
+      },
+      "recorded": "2026-11-11T13:09:32Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_313.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "257759883",
+        "Last-Modified": "Mon, 19 Oct 2026 07:36:01 GMT",
+        "ETag": "\"5f5693d54fc4fd1bed0ccda47aae0acd-4\""
+      },
+      "recorded": "2026-11-11T13:09:33Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_312.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "218413589",
+        "Last-Modified": "Mon, 19 Oct 2026 07:35:06 GMT",
+        "ETag": "\"3797990c61cc038caae81befbcd191f6-4\""
+      },
+      "recorded": "2026-11-11T13:09:33Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_310.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "255445849",
+        "Last-Modified": "Mon, 19 Oct 2026 07:34:46 GMT",
+        "ETag": "\"565a68757bc79f1f1e4f2fec8d4dea07-4\""
+      },
+      "recorded": "2026-11-11T13:09:33Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_301.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "255813726",
+        "Last-Modified": "Mon, 19 Oct 2026 07:34:13 GMT",
+        "ETag": "\"dc89e1f0b100b195bb91a476cfc9f989-4\""
+      },
+      "recorded": "2026-11-11T13:09:33Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists3_300.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "253480791",
+        "Last-Modified": "Mon, 19 Oct 2026 07:33:28 GMT",
+        "ETag": "\"effacaf66494f456d624fbb667895fef-4\""
+      },
+      "recorded": "2026-11-11T13:09:33Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_293.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "233440493",
+        "Last-Modified": "Mon, 19 Oct 2026 08:02:04 GMT",
+        "ETag": "\"fb4e3f569bee28ef9c34194ed462ed72-4\""
+      },
+      "recorded": "2026-11-11T13:09:33Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_292.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "233135814",
+        "Last-Modified": "Mon, 19 Oct 2026 07:31:08 GMT",
+        "ETag": "\"7a8352723610f8d3caec6f7277ff8b99-4\""
+      },
+      "recorded": "2026-11-11T13:09:33Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_291.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "233344291",
+        "Last-Modified": "Mon, 19 Oct 2026 07:29:29 GMT",
+        "ETag": "\"9e9955556aa5b55be14d30ae3a6a239e-4\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_290.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "219264420",
+        "Last-Modified": "Mon, 19 Oct 2026 07:29:00 GMT",
+        "ETag": "\"001195e3995432a206438c0babbc52f8-4\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_280.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "217421941",
+        "Last-Modified": "Mon, 19 Oct 2026 07:28:59 GMT",
+        "ETag": "\"a80f773d4851f23f921af33536d8de64-4\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_270.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "211333912",
+        "Last-Modified": "Mon, 19 Oct 2026 07:29:00 GMT",
+        "ETag": "\"72b368b4b0215eb4516076b9ab0223ea-4\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_260.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "208990890",
+        "Last-Modified": "Mon, 19 Oct 2026 07:30:12 GMT",
+        "ETag": "\"83dbee28ffe75cd696d0d7ef20dcb50a\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_251.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "204911549",
+        "Last-Modified": "Mon, 19 Oct 2026 07:28:19 GMT",
+        "ETag": "\"616d13432b17fa461aba972e0982d0a2\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_250.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "202421293",
+        "Last-Modified": "Mon, 19 Oct 2026 07:27:45 GMT",
+        "ETag": "\"8a5a640a316842632709affee030c164\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_240.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "202113280",
+        "Last-Modified": "Mon, 19 Oct 2026 07:27:01 GMT",
+        "ETag": "\"96e05bf85b7bf31fd4d8d743feab3490\""
+      },
+      "recorded": "2026-11-11T13:09:34Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_230.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "199720308",
+        "Last-Modified": "Mon, 19 Oct 2026 07:26:24 GMT",
+        "ETag": "\"9e43f98488d43379500a3098c8f47787\""
+      },
+      "recorded": "2026-11-11T13:09:35Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_220.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "200652175",
+        "Last-Modified": "Mon, 19 Oct 2026 07:27:43 GMT",
+        "ETag": "\"b22fb34c1ccbc3fa6b31baf8540a9d4c\""
+      },
+      "recorded": "2026-11-11T13:09:35Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_210.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "185870152",
+        "Last-Modified": "Mon, 19 Oct 2026 07:26:22 GMT",
+        "ETag": "\"208738591211ca914ac09013db8cc1ba\""
+      },
+      "recorded": "2026-11-11T13:09:35Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists2_200.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "165632919",
+        "Last-Modified": "Mon, 19 Oct 2026 07:25:49 GMT",
+        "ETag": "\"ba33e4f0a273e1c417b29426ef007df1\""
+      },
+      "recorded": "2026-11-11T13:09:35Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/bforartists_win64_100.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "125823888",
+        "Last-Modified": "Mon, 19 Oct 2026 07:52:31 GMT",
+        "ETag": "\"f83735a0a9c100c355fc92e9dfb8448b\""
+      },
+      "recorded": "2026-11-11T13:09:35Z"
+    },
+    {
+      "method": "HEAD",
+      "url": "https://downloads.bforartists.com/Bforartists_win64_095.zip",
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Length": "121691170",
+        "Last-Modified": "Mon, 19 Oct 2026 06:56:46 GMT",
+        "ETag": "\"ee4e8a3105f5f77873e1c5f4191f84f8\""
+      },
+      "recorded": "2026-11-11T13:09:35Z"
+    }
+  ]
+}

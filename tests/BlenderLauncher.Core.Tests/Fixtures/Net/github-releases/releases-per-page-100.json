@@ -1,0 +1,212 @@
+[
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/434740444",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.8.2",
+    "id": 434740444,
+    "tag_name": "v2.8.2",
+    "target_commitish": "main",
+    "name": "v2.8.2",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-11-05T03:09:42Z",
+    "published_at": "2026-11-05T03:12:23Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.8.2_Linux_x64.zip",
+        "content_type": "application/zip",
+        "size": 87058330,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.8.2/Blender_Launcher_v2.8.2_Linux_x64.zip"
+      },
+      {
+        "name": "Blender_Launcher_v2.8.2_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 57911513,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.8.2/Blender_Launcher_v2.8.2_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 🛠️ Fixes:\r\n\r\n- Fix Bforartists builds not being found after Bforartists moved its downloads to new servers\r\n- Fix the Install button staying visible in the download window while updating a build\r\n- Fix missing UI translations and fill gaps in the Japanese translation"
+  },
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/422040793",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.8.1",
+    "id": 422040793,
+    "tag_name": "v2.8.1",
+    "target_commitish": "main",
+    "name": "v2.8.1",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-10-23T16:01:02Z",
+    "published_at": "2026-10-23T16:03:37Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.8.1_Linux_x64.zip",
+        "content_type": "application/zip",
+        "size": 87686819,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.8.1/Blender_Launcher_v2.8.1_Linux_x64.zip"
+      },
+      {
+        "name": "Blender_Launcher_v2.8.1_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 57948215,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.8.1/Blender_Launcher_v2.8.1_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 🛠️ Fixes:\r\n\r\n- Fix a crash in the onboarding window on first launch\r\n- Fix the new builds check timer overflowing when the check interval was set above 596 hours. The maximum interval is now 596 hours, and higher saved values are lowered to it automatically\r\n- Version search query error messages are now localized"
+  },
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/421416639",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.8.0",
+    "id": 421416639,
+    "tag_name": "v2.8.0",
+    "target_commitish": "main",
+    "name": "v2.8.0",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-10-23T03:16:46Z",
+    "published_at": "2026-10-23T03:20:31Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.8.0_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 58599903,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.8.0/Blender_Launcher_v2.8.0_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 💡 Features:\r\n\r\n- Allow multiple Quick Launch builds, all listed in the tray menu\r\n- New Linux setting \"Record Bash Output Using Nohup\" to restore console output when using Bash arguments\r\n- Verify secure connections (TLS) with the operating system's certificate store, falling back to certifi on Linux systems without system certificates\r\n\r\n## 🛠️ Fixes:\r\n\r\n- Fix opening .blend files stored on network (UNC) paths on Windows\r\n- Fix a crash (SIGABRT) when closing the launcher while Blender builds are still running\r\n- Fix Bforartists macOS downloads picking the Intel build on Apple Silicon\r\n- Fix Bforartists release notes, which now open on the GitHub releases page\r\n- Fix scraper settings not being applied to the scraper modules\r\n- Fix the status message staying visible after the library loads in offline mode\r\n- Fix inconsistent greyed-out titles in the repository visibility view\r\n- Show a clearer warning when the stable builds cache is missing on a clean start\r\n- Distrust compromised eMudhra intermediate certificates (certifi 2026.10.19)"
+  },
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/356212722",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.7.6",
+    "id": 356212722,
+    "tag_name": "v2.7.6",
+    "target_commitish": "main",
+    "name": "v2.7.6",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-07-18T23:03:30Z",
+    "published_at": "2026-07-18T23:08:06Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.7.6_Linux_x64.zip",
+        "content_type": "application/zip",
+        "size": 112046315,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.6/Blender_Launcher_v2.7.6_Linux_x64.zip"
+      },
+      {
+        "name": "Blender_Launcher_v2.7.6_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 57588703,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.6/Blender_Launcher_v2.7.6_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 🛠️ Fixes:\r\n- Fix scraping builds not handling Cloudflare challenge responses correctly\r\n- Retry file removal when a permission error occurs\r\n- Add safeguards to launcher update request handling\r\n- Fix crash on launch caused by missing app version in the launching window\r\n- Fix crash when closing windows by stopping the task queue first"
+  },
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/328631731",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.7.1",
+    "id": 328631731,
+    "tag_name": "v2.7.1",
+    "target_commitish": "main",
+    "name": "v2.7.1",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-05-25T03:03:15Z",
+    "published_at": "2026-05-25T03:05:22Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.7.1_Linux_x64.zip",
+        "content_type": "application/zip",
+        "size": 111452993,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.1/Blender_Launcher_v2.7.1_Linux_x64.zip"
+      },
+      {
+        "name": "Blender_Launcher_v2.7.1_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 57673356,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.1/Blender_Launcher_v2.7.1_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 🛠️ Fixes:\r\n- Fix Blender console toggle on Windows"
+  },
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/328580926",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.7.0",
+    "id": 328580926,
+    "tag_name": "v2.7.0",
+    "target_commitish": "main",
+    "name": "v2.7.0",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-05-24T21:08:40Z",
+    "published_at": "2026-05-24T21:22:51Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.7.0_Linux_x64.zip",
+        "content_type": "application/zip",
+        "size": 111454098,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.0/Blender_Launcher_v2.7.0_Linux_x64.zip"
+      },
+      {
+        "name": "Blender_Launcher_v2.7.0_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 57673210,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.0/Blender_Launcher_v2.7.0_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 💡 Features:\r\n\r\n- Search bar for builds with version/date range filters and fuzzy matching\r\n- Chinese localization support\r\n- Setting to show PR label for Experimental builds\r\n- Setting to minimize or close the app when launching Blender\r\n- Allow fullscreen mode\r\n- Add GLIBC version warning on Linux when Blender fails to run\r\n\r\n## 🛠️ Fixes:\r\n\r\n- Fix some issues with Windows uninstall and registry key management\r\n- Fix launched Blender instances not being tracked correctly\r\n- Fix library reload duplication and favourites lifecycle\r\n- Fix window position clamped to screen so header stays reachable at high DPI\r\n- Fix macOS UI language detection via AppleLocale for Auto locale setting\r\n- Fix context menu first action firing on right-click\r\n- Fix saving and restoring sorting type\r\n- Fix search filter not restored on search bar reopen\r\n- Fix expired credentials warning message\r\n- Fix main window not showing when starting in compiled app mode\r\n- Fix installed button not showing on app restart in Downloads tab\r\n- Fix stable build status incorrectly bleeding to daily builds\r\n- Fix fork builds not being picked up in CLI launch mode\r\n- Fix generated .desktop files not conforming to original format (Linux)\r\n- Fix library build widget not getting shown after downloading a new build\r\n- Fix subversion and version edge cases with empty/None values\r\n- Fix minor translation issues and missing Japanese locale keys\r\n\r\n## ⚙️ Others:\r\n\r\n- Multiple refactoring and code consolidation\r\n- Dependency updates"
+  },
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/302781588",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.7.0-rc.1",
+    "id": 302781588,
+    "tag_name": "v2.7.0-rc.1",
+    "target_commitish": "main",
+    "name": "v2.7.0-rc.1",
+    "draft": false,
+    "prerelease": true,
+    "created_at": "2026-03-28T22:47:43Z",
+    "published_at": "2026-03-29T02:30:24Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.7.0-rc.1_Linux_x64.zip",
+        "content_type": "application/zip",
+        "size": 107423506,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.0-rc.1/Blender_Launcher_v2.7.0-rc.1_Linux_x64.zip"
+      },
+      {
+        "name": "Blender_Launcher_v2.7.0-rc.1_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 56981401,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.7.0-rc.1/Blender_Launcher_v2.7.0-rc.1_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 💡 Features:\r\n\r\n- Chinese localization support\r\n- Setting to show PR label display for Experimental builds\r\n- Setting to minimize or close the app when launching Blender\r\n\r\n## 🛠️ Fixes:\r\n\r\n- Fix installed button not showing on app restart in Downloads tab\r\n- Fix stable build status incorrectly bleeding to daily builds\r\n- Fix fork builds not being picked up in CLI launch mode\r\n- Fix generated .desktop files not matching original format (Linux)\r\n- Fix minor translation issues\r\n- Fix library build widget not getting shown after downloading a new build\r\n- Fix subversion and version edge cases with empty/None values\r\n\r\n## ⚙️ Others:\r\n\r\n- Multiple baked refactoring and consolidation"
+  },
+  {
+    "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases/291178527",
+    "html_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.6.1",
+    "id": 291178527,
+    "tag_name": "v2.6.1",
+    "target_commitish": "main",
+    "name": "v2.6.1",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-02-27T02:01:00Z",
+    "published_at": "2026-02-27T02:15:56Z",
+    "assets": [
+      {
+        "name": "Blender_Launcher_v2.6.1_Linux_x64.zip",
+        "content_type": "application/zip",
+        "size": 107260798,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.6.1/Blender_Launcher_v2.6.1_Linux_x64.zip"
+      },
+      {
+        "name": "Blender_Launcher_v2.6.1_Windows_x64.zip",
+        "content_type": "application/zip",
+        "size": 56776269,
+        "browser_download_url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v2.6.1/Blender_Launcher_v2.6.1_Windows_x64.zip"
+      }
+    ],
+    "body": "# What's Changed\r\n\r\n## 🛠️ Fixes:\r\n\r\n   - Fix some Blender Fork build not being visible in the download tab\r\n   - Fix speed issues when fetching some Blender builds\r\n\r\n"
+  }
+]

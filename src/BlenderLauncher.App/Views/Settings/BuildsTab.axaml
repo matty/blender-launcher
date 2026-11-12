@@ -1,0 +1,167 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             xmlns:controls="using:BlenderLauncher.App.Controls"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels.Settings"
+             x:Class="BlenderLauncher.App.Views.Settings.BuildsTab"
+             x:DataType="vm:SettingsViewModel">
+  <!--
+    Settings → Blender Builds: upstream's blender_builds_tab.py. The Linux-only bash arguments and nohup are
+    hidden; the startup arguments, which upstream stores but shows no control for on Windows, get one.
+  -->
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Classes="page">
+      <StackPanel>
+        <TextBlock Classes="title" Text="{loc:Tr settings.blender_builds.label}" />
+        <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.settings.subtitle.builds}" />
+      </StackPanel>
+
+      <!-- Visibility and downloading -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="RepoGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.blender_builds.visibility_and_downloading}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #RepoGroup.IsChecked}">
+            <Grid Margin="16,4,16,2" ColumnDefinitions="*,60,60">
+              <TextBlock Classes="group" Text="{loc:Tr ui.settings.builds.channel}" />
+              <TextBlock Grid.Column="1" Classes="group" HorizontalAlignment="Center" Text="{loc:Tr ui.settings.builds.show}"
+                         ToolTip.Tip="{loc:Tip repo.visibility_tooltip}" />
+              <TextBlock Grid.Column="2" Classes="group" HorizontalAlignment="Center" Text="{loc:Tr ui.settings.builds.download}"
+                         ToolTip.Tip="{loc:Tip repo.download_tooltip}" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding Repos}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:RepoRowViewModel">
+                  <Grid Margin="16,1" Height="34" ColumnDefinitions="*,60,60" Background="Transparent" ToolTip.Tip="{Binding Description}">
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                      <Border Width="8" Height="8" CornerRadius="2" Background="{Binding Colour}" VerticalAlignment="Center" />
+                      <TextBlock Text="{Binding Name}" FontSize="13" VerticalAlignment="Center" Foreground="{StaticResource BlTextSectionBrush}" />
+                    </StackPanel>
+                    <ToggleButton Grid.Column="1" Theme="{StaticResource BlEyeToggle}" HorizontalAlignment="Center" IsChecked="{Binding IsShown}"
+                                  AutomationProperties.Name="{Binding Name, StringFormat='Show {0}'}" ToolTip.Tip="{loc:Tip repo.visibility_tooltip}" />
+                    <ToggleButton Grid.Column="2" Theme="{StaticResource BlDownloadToggle}" HorizontalAlignment="Center" IsChecked="{Binding IsDownloaded}"
+                                  AutomationProperties.Name="{Binding Name, StringFormat='Download {0}'}" ToolTip.Tip="{loc:Tip repo.download_tooltip}" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Checking for builds -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="CheckGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.blender_builds.checking_for_builds}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #CheckGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.blender_builds.minimum_stable_blender_version_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.blender_builds.minimum_stable_build_to_scrape}" />
+              <ComboBox Grid.Column="1" MinWidth="120" ItemsSource="{Binding MinimumStableVersions}" SelectedIndex="{Binding MinimumStableIndex}"
+                        MaxDropDownHeight="320" AutomationProperties.Name="{loc:Tr settings.blender_builds.minimum_stable_build_to_scrape}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="Auto,*">
+              <CheckBox Content="{loc:Tr settings.blender_builds.check_automatically}" IsChecked="{Binding CheckAutomatically}" Margin="-4,0,0,0"
+                        ToolTip.Tip="{loc:Tip settings.blender_builds.check_automatically_tooltip}" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" Margin="20,0,0,0" IsEnabled="{Binding CheckAutomatically}"
+                          ToolTip.Tip="{loc:Tip settings.blender_builds.new_builds_check_frequency_tooltip}">
+                <TextBlock Classes="label" Margin="0" Text="{loc:Tr settings.blender_builds.interval_prefix}" />
+                <NumericUpDown Width="100" Minimum="{x:Static vm:SettingsViewModel.MinimumCheckInterval}"
+                               Maximum="{x:Static vm:SettingsViewModel.MaximumCheckInterval}" Value="{Binding CheckIntervalHours}"
+                               AutomationProperties.Name="{loc:Tr settings.blender_builds.interval_prefix}" />
+                <TextBlock Classes="note" Text="{loc:Tr settings.blender_builds.interval_suffix}" />
+              </StackPanel>
+            </Grid>
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.on_startup}" IsChecked="{Binding CheckOnStartup}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.on_startup_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.show_daily_archive_builds}" IsChecked="{Binding ShowDailyArchive}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.show_daily_archive_builds_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.show_experimental_archive_builds}" IsChecked="{Binding ShowExperimentalArchive}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.show_experimental_archive_builds_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.show_patch_archive_builds}" IsChecked="{Binding ShowPatchArchive}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.show_patch_archive_builds_tooltip}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Downloading and saving builds -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="SaveGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.blender_builds.downloading_and_saving_builds}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #SaveGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="260,*" IsEnabled="{Binding IsSimpleUpdateButton}" ToolTip.Tip="{Binding ShowUpdateButtonTooltip}">
+              <CheckBox Content="{loc:Tr settings.blender_builds.show_update_button}" IsChecked="{Binding ShowUpdateButton}" Margin="-4,0,0,0" />
+              <ComboBox Grid.Column="1" MinWidth="140" ItemsSource="{Binding BehaviourNames}" SelectedIndex="{Binding UpdateBehaviourIndex}"
+                        IsEnabled="{Binding ShowUpdateButton}" ToolTip.Tip="{loc:Tip settings.blender_builds.update_behavior_tooltip}"
+                        AutomationProperties.Name="{loc:Tr settings.blender_builds.update_behavior_tooltip}" />
+            </Grid>
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.use_advanced_update_button}" IsChecked="{Binding UseAdvancedUpdateButton}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.use_advanced_update_button_tooltip}" />
+            <ItemsControl ItemsSource="{Binding UpdateRows}" IsVisible="{Binding UseAdvancedUpdateButton}" Margin="24,0,0,4">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:UpdateRowViewModel">
+                  <Grid Margin="16,1" MinHeight="34" ColumnDefinitions="236,*">
+                    <CheckBox Content="{Binding Label}" IsChecked="{Binding IsShown}" Margin="-4,0,0,0" VerticalAlignment="Center" ToolTip.Tip="{Binding Tooltip}" />
+                    <ComboBox Grid.Column="1" MinWidth="140" SelectedIndex="{Binding BehaviourIndex}" IsEnabled="{Binding IsShown}"
+                              ItemsSource="{Binding BehaviourNames}"
+                              ToolTip.Tip="{Binding BehaviourTooltip}" AutomationProperties.Name="{Binding BehaviourTooltip}" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid Classes="row" ColumnDefinitions="260,*" ToolTip.Tip="{loc:Tip ui.settings.builds.mark_default_tooltip}">
+              <CheckBox Content="{loc:Tr ui.settings.builds.mark_default}" IsChecked="{Binding MarkNewDownloadsAsDefault}" Margin="-4,0,0,0" />
+              <ComboBox Grid.Column="1" MinWidth="180" ItemsSource="{Binding DefaultChannelNames}" SelectedIndex="{Binding DefaultChannelIndex}"
+                        IsEnabled="{Binding MarkNewDownloadsAsDefault}" AutomationProperties.Name="{loc:Tr ui.settings.builds.mark_default}" />
+            </Grid>
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.install_template}" IsChecked="{Binding InstallTemplate}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.install_template_tooltip}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Custom PR names -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="PrGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.blender_builds.pr_custom_names.title}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #PrGroup.IsChecked}">
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.pr_custom_names.fetch_during_scrape}" IsChecked="{Binding FetchPrTitles}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.pr_custom_names.fetch_during_scrape_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.pr_custom_names.prepend_pr_number}" IsChecked="{Binding PrependPrNumber}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.pr_custom_names.prepend_pr_number_tooltip}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Launching builds -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="LaunchGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.blender_builds.launching_builds}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #LaunchGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="260,*" RowDefinitions="Auto,Auto">
+              <CheckBox Content="{loc:Tr settings.blender_builds.quick_launch_global_shortcut}" IsChecked="{Binding QuickLaunchHotkeyEnabled}" Margin="-4,0,0,0"
+                        ToolTip.Tip="{loc:Tip settings.blender_builds.quick_launch_global_shortcut_tooltip}" />
+              <controls:HotkeyBox Grid.Column="1" Theme="{StaticResource BlTextBox}" Width="200" HorizontalAlignment="Left"
+                                  FontFamily="{StaticResource BlMonoFont}" Hotkey="{Binding QuickLaunchHotkey}" IsEnabled="{Binding QuickLaunchHotkeyEnabled}"
+                                  PlaceholderText="{loc:Tr ui.settings.builds.hotkey_placeholder}"
+                                  ToolTip.Tip="{loc:Tip settings.blender_builds.quick_launch_key_seq_tooltip}"
+                                  AutomationProperties.Name="{loc:Tr settings.blender_builds.quick_launch_global_shortcut}" />
+              <TextBlock Grid.Row="1" Grid.Column="1" Classes="note" Margin="0,4,0,2" Text="{loc:Tr ui.settings.builds.hotkey_hint}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.blender_builds.on_blender_launch_action_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.blender_builds.on_blender_launch_action}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding OnLaunchActionNames}" SelectedIndex="{Binding OnLaunchActionIndex}"
+                        AutomationProperties.Name="{loc:Tr settings.blender_builds.on_blender_launch_action}" />
+            </Grid>
+            <CheckBox Classes="row" Content="{loc:Tr settings.blender_builds.hide_console_on_startup}" IsChecked="{Binding HideConsole}"
+                      ToolTip.Tip="{loc:Tip settings.blender_builds.hide_console_on_startup_tooltip}" />
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.blender_builds.blender_startup_arguments_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr ui.settings.builds.startup_arguments}" />
+              <TextBox Grid.Column="1" Theme="{StaticResource BlTextBox}" FontFamily="{StaticResource BlMonoFont}" FontSize="11"
+                       Text="{Binding StartupArgumentsDraft}" PlaceholderText="{loc:Tr ui.settings.builds.startup_arguments_placeholder}"
+                       AutomationProperties.Name="{loc:Tr ui.settings.builds.startup_arguments}" />
+            </Grid>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

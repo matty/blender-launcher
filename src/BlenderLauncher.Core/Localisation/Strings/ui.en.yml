@@ -1,0 +1,565 @@
+# Strings that exist only in the new design and have no upstream key.
+# English is complete; other languages fall back to English per key until translated.
+# Upstream keys are reused where they exist (act.launch, act.download, act.installed, act.cancel, act.init,
+# act.a.check_tooltip, msg.popup.*); this file holds only what the design adds.
+# Wording follows the design, so it keeps "Favorites" as written.
+window:
+  title: Blender Launcher
+  minimise: Minimise
+  maximise: Maximise
+  restore: Restore
+  close: Close
+
+channel:
+  stable: Stable
+  lts: LTS
+  daily: Daily
+  experimental: Experimental
+  patch: Patch
+  bforartists: Bforartists
+  upbge-stable: UPBGE
+  upbge-weekly: UPBGE Weekly
+  custom: Custom
+
+sidebar:
+  library: Library
+  download: Download
+  all_builds: All builds
+  favorites: Favorites
+  new_count: "%{count} new"
+  disk_usage: Disk usage
+  disk_tooltip: "%{used} used by builds · %{free} free of %{total}"
+  no_library: No library folder
+  settings: Settings
+
+list:
+  title:
+    installed: Installed builds
+    favorites: Favorites
+    channel: "%{channel} builds"
+    download: "Download · %{channel}"
+  subtitle:
+    installed: "%{shown} of %{total} builds · %{size} on disk"
+    empty: No builds installed yet
+    no_library: No library folder chosen
+    checked: "checked %{time}"
+    checking: Checking for builds…
+  download_subtitle:
+    stable: Official releases
+    lts: Long-term support releases, maintained for two years
+    daily: Nightly builds from main and release branches
+    experimental: Feature branches under active development · not for production
+    patch: Builds of pull requests under review · not for production
+    bforartists: A fork of Blender with a reworked interface
+    upbge-stable: A fork of Blender for making games
+    upbge-weekly: Weekly builds of the UPBGE game engine fork
+  filter_placeholder: Filter by version, branch, hash
+  check_for_builds: Check for builds
+  column:
+    version: Version
+    channel: Channel
+    branch_commit: Branch · commit
+    branch: Branch
+    commit: Commit
+    built: Built
+    size: Size
+  favorite: Favorite
+  default_tag: Default
+  new_tag: New
+  running: Running
+  running_count: "%{count} running"
+  running_tooltip: Running instances
+  starting: Starting
+  unrecognised: Unrecognised build
+  unrecognised_hint: This folder holds no build information. Initialise it to add it to the library.
+  damaged: Damaged build
+  empty:
+    no_match_installed: "No installed builds match “%{query}”."
+    no_match: "No builds match “%{query}”."
+    no_favorites: No favorites yet — star a build to pin it here.
+    no_channel_installed: "No %{channel} builds installed."
+    no_builds_installed: No builds installed.
+    browse_downloads: Browse downloads
+    checking: Checking for builds…
+    none_available: "No %{channel} builds were found."
+    source_error: "%{message}"
+    offline: "No connection. Check your network, then try again."
+    no_library: Choose a library folder in Settings to see your builds.
+    retry: Try again
+
+detail:
+  no_selection: Select a build to see details.
+  launch_version: "Launch %{version}"
+  launch_new_instance: Launch new instance
+  starting: Starting…
+  instances_running:
+    one: "1 instance running"
+    many: "%{count} instances running"
+  quit_all: Quit all
+  download_size: "Download · %{size}"
+  download: Download
+  downloading: "Downloading · %{done} / %{total}"
+  downloading_unknown: "Downloading · %{done}"
+  extracting: Extracting…
+  finishing: Finishing…
+  show_in_library: Installed — show in library
+  section:
+    build: Build
+    installation: Installation
+    options: Options
+    more: More
+  field:
+    branch: Branch
+    commit: Commit
+    built: Built
+    python: Python
+    size: Size
+    installed: Installed
+    last_used: Last used
+  open_folder: Open folder
+  option:
+    use_as_default: Use as default
+    use_as_default_hint: Used by the hotkey and tray, and for .blend files no other build matches
+    favorite: Favorite
+    favorite_hint: Pin to the Favorites list
+    portable: Portable config
+    portable_hint: Keep preferences inside the build folder
+    replace_on_new_build: Replace on new build
+    replace_on_new_build_hint: Swap in the latest build from this branch
+  remove: Remove build
+
+time:
+  never: Never
+  just_now: Just now
+  today: "Today, %{time}"
+  yesterday: "Yesterday, %{time}"
+  minutes_ago:
+    one: "1 min ago"
+    many: "%{count} min ago"
+  hours_ago:
+    one: "1 hour ago"
+    many: "%{count} hours ago"
+
+units:
+  mb: "%{value} MB"
+  gb: "%{value} GB"
+  unknown: "—"
+
+status:
+  ready: Ready
+  builds_installed:
+    one: "%{count} build installed"
+    many: "%{count} builds installed"
+  default: Default
+  default_none: None
+  default_value: "%{name} (%{version})"
+  instances_running:
+    one: "1 instance running"
+    many: "%{count} instances running"
+  downloading_one: "Downloading %{name}"
+  downloading_many: "Downloading %{count} builds"
+  update_to: "Update to %{version}"
+  checking: Checking for builds…
+
+toast:
+  installed: "Installed %{builds}"
+  launching: "Launching %{name}…"
+  launch_failed: "Could not start %{name}: %{error}"
+  download_cancelled: Download cancelled
+  download_failed: "Download of %{name} failed: %{error}"
+  quit_before_remove: Quit running instances before removing this build
+  removed: "Removed %{name} · %{size} freed"
+  up_to_date: Build list is up to date
+  offline: "Offline mode: checks for builds are off until the launcher restarts"
+  new_builds:
+    one: "1 new build available"
+    many: "%{count} new builds available"
+  check_failed: "Check failed: %{error}"
+  closed: "Closed %{name}"
+  start_failed: "The launcher could not start its services. See the log for details."
+  copied: Copied to the clipboard
+
+error:
+  title: Something went wrong
+  message: Blender Launcher hit an unexpected error. It has been written to the log, and the launcher will try to carry on.
+  details: Details
+  open_log_folder: Open log folder
+  close: Close
+
+instance:
+  title: Blender Launcher is already running
+
+err:
+  scrape:
+    github_rate_limited: "%{source}: GitHub's request limit was reached. Try again later, or add a GitHub token in Settings."
+    http_status: "%{source}: the server returned HTTP %{status}."
+    with_source: "%{source}: %{message}"
+
+source:
+  stable: Stable
+  daily: Daily
+  experimental: Experimental
+  patch: Patch
+  bforartists: Bforartists
+  upbge-stable: UPBGE Stable
+  upbge-weekly: UPBGE Weekly
+  upstream-api: Blender version data
+  launcher-update: Launcher update check
+
+statusbar:
+  settings_later: Settings arrive in a later version
+
+# Build actions: the row context menu and the detail panel's More section. Upstream's act.a.* labels
+# are reused where they exist; these are the ones the port adds.
+menu:
+  launch_hint: Hold Shift to open the last file
+  open_last_hint: "Starts the build with --open-last, opening the last file it used (or Shift + Launch)"
+  config_hint: Hold Shift to open the user config folder even when a portable one exists
+  symlink_hint: Points the library's bl_symlink folder at this build
+  remove_hint: Hold Shift to swap Send to Trash and Delete From Drive
+  copy_hash: Copy build hash
+  shortcut: Create Shortcut…
+  rename: Rename…
+  rename_title: Rename build
+  rename_message: The name shown for this build in the library.
+  rename_confirm: Rename
+  update_title: Update build
+  update_to: "Update to %{version}"
+  not_recycled: "%{name} cannot go to the Recycle Bin (%{reason}). Delete it permanently?"
+  toast:
+    failed: "That did not work: %{error}"
+    folder_missing: "Folder not found: %{path}"
+    sample_only: Not available with sample data
+    frozen: "Updates frozen for %{name}"
+    unfrozen: "Updates unfrozen for %{name}"
+    registered: "%{name} is registered for .blend files"
+    shortcut_created: "Shortcut created: %{path}"
+    symlink_created: "bl_symlink now points to %{name}"
+    quit_first: Quit running instances of this build first
+    template_installed: "Template installed into %{name}"
+    template_none: "%{name} has no version folder to install the template into"
+    pr_not_found: "No title found for PR %{number}"
+    renamed: "Renamed to %{name}"
+    updating: "Updating %{name} to %{version}…"
+    updated: "Updated to %{name}"
+    update_failed: "Update of %{name} failed. See the log for details."
+    remove_failed: "Could not remove %{name}: %{error}"
+    removed_many:
+      one: "Removed 1 build"
+      many: "Removed %{count} builds"
+
+lists:
+  launch_previous: Previous
+  check_tooltip: "Check for new builds online (hold Shift to check every channel)"
+
+# Settings window. Upstream's settings.* keys are used for every control that upstream has;
+# these are the port's additions and corrections.
+settings:
+  title: Settings
+  nav_label: Settings
+  tab:
+    about: About
+  subtitle:
+    general: Library folder, language, background running and maintenance
+    appearance: Window, notifications and how the build lists look
+    connection: Identification, GitHub access and proxy
+    builds: Channels, checking for builds, updates and launching
+    about: Version, licence and credits
+  library:
+    browse: Browse…
+    none: No library folder chosen yet
+    in_use: Builds are read from this folder.
+    upstream_relative: "Your previous launcher used the relative library folder “%{path}”. Choose the folder it points to."
+    relative_title: Relative path
+    invalid_title: Library folder
+    problem:
+      empty: Choose a folder.
+      invalid_path: That is not a valid folder path.
+      does_not_exist: That folder does not exist.
+      is_a_file: That is a file, not a folder.
+      not_writable: The requested location has no write permissions!
+      inside_app_folder: That folder is inside Blender Launcher's own program folder, which is replaced when it updates and deleted when it is uninstalled. Choose a folder outside it.
+    warning:
+      protected_location: This folder is inside a location Windows protects, such as Program Files, so installing builds may fail.
+      blender_version_manager_root: This looks like a Blender Version Manager folder. Builds are kept in the library's channel folders, so existing builds here are not picked up.
+  language_names:
+    en: English
+    es: Español
+    fr: Français
+    ja: 日本語
+    zh: 中文
+  worker_automatic: "Automatic (%{count})"
+  worker_use_automatic: Use automatic
+  purge_busy: Wait for the running downloads to finish, then purge the temporary folder.
+  purge_no_library: Choose a library folder first.
+  purge_title: Purge Temp Folder
+  log_levels:
+    debug: DEBUG
+    info: INFO
+    warning: WARNING
+    error: ERROR
+  appearance:
+    look: Look
+    accent: Accent colour
+    accent_tooltip: The colour of selected rows, primary buttons and check boxes.
+    accent_blue: Blue
+    accent_orange: Orange
+    density: Row density
+    density_tooltip: Compact rows are shorter and show one line per build.
+    density_comfortable: Comfortable
+    density_compact: Compact
+    show_details: Show details panel
+    show_details_tooltip: Show the panel on the right with the selected build's details and options.
+    default_view: Default view
+    default_view_tooltip: The list shown when Blender Launcher starts.
+    start_up: Start-up
+    view_library: "Library · %{name}"
+    view_download: "Download · %{name}"
+  connection:
+    user_id_tooltip: |
+      Optional. Sent in the User-Agent of the launcher's requests when set; no ID is generated.
+      FORMAT: 8-64 characters (a-z, A-Z, 0-9, -)
+    user_id_placeholder: Not set
+    user_id_invalid: Use 8 to 64 letters, digits or hyphens. The previous value is kept.
+    token_placeholder: Not set
+    token_saved: A token is saved. Type a new one to replace it, or clear the field to remove it.
+    token_docs: How to create a GitHub token
+    secret_saved: Saved in Windows Credential Manager.
+    secret_failed: "Could not save to Windows Credential Manager: %{error}"
+    host_invalid: Enter a host name or an IP address.
+    tls_hint: Certificates are always checked against the Windows certificate store; this option is kept for compatibility with upstream settings.
+    proxy_types:
+      none: None
+      http: HTTP
+      https: HTTPS
+      socks4: SOCKS4
+      socks5: SOCKS5
+  builds:
+    channel: Channel
+    show: Show
+    download: Download
+    behaviour:
+      major: Major
+      minor: Minor
+      patch: Patch
+    mark_default: Make new downloads the default build
+    mark_default_tooltip: |
+      When a build of the chosen channel finishes downloading, it becomes the default build, used by the hotkey, the tray and .blend files that no other build matches.
+      DEFAULT: Off
+    hotkey_placeholder: Click, then press a key combination
+    hotkey_hint: Press it anywhere in Windows to start the default build. It does nothing while Settings is open.
+    startup_arguments: Startup arguments
+    startup_arguments_placeholder: For example --factory-startup
+  restart:
+    title: Restart required
+  about:
+    version: Version
+    commit: Commit
+    data_folder: Data folder
+    portable: portable
+    licence: Licence
+    licence_text: Blender Launcher is free software. You can redistribute it and change it under the terms of the GNU General Public License, version 3, as published by the Free Software Foundation.
+    warranty: This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    credits: Credits
+    credits_text: An independent reimplementation of Blender Launcher V2 by Victor-IX and contributors, which continues Blender Launcher by DotBow. Not affiliated with the Blender Foundation; Blender is a registered trademark of the Blender Foundation.
+    victor: Blender Launcher V2 (Victor-IX)
+    dotbow: Blender Launcher (DotBow)
+    source: Source code
+    licence_link: GNU GPL v3
+    docs: Documentation
+    links: Links
+    third_party: Third-party notices
+    open_data_folder: Open Data Folder
+
+# First-run wizard. Upstream's wizard.* texts are rewritten for the port's pages.
+first_run:
+  title: Blender Launcher Setup
+  steps_label: Setup
+  step:
+    welcome: Welcome
+    library: Library
+    channels: Channels
+    shortcuts: Shortcuts
+    appearance: Appearance
+    background: Background
+  step_count: "Step %{n} of %{total}"
+  welcome:
+    title: "Welcome to Blender Launcher %{v}"
+    text: A few questions to get you started. They take a minute, you only answer them once, and every choice can be changed later in Settings.
+    point_library: Choose where downloaded builds are kept
+    point_channels: Pick the kinds of builds you want to see
+    point_look: Set up shortcuts, the look and background running
+  library:
+    title: Library folder
+    subtitle: Every build you download is kept here, one folder per build. Choose a drive with room for them; each build takes 0.5 to 1.5 GB.
+    location: Library location
+    will_create: The folder will be created.
+    exists: Existing builds in this folder are picked up.
+    import_found: Settings from Blender Launcher V2 found
+    import_check: Import these settings
+    import_hint: Your channels, update options, default build and other preferences are copied. Blender Launcher V2 itself is not changed, and both launchers can share the library.
+    import_library: "Library folder: %{path}"
+    import_library_none: "Library folder: not set"
+    import_counts: "Settings to import: %{imported} · not needed by this launcher: %{skipped}"
+    import_secrets: Saved passwords and the GitHub token are copied to Windows Credential Manager.
+    import_details: Show what is imported
+    import_unreadable: "The settings file could not be read: %{error}"
+    relative: "Blender Launcher V2 used the relative library folder “%{path}”. Choose the folder it points to."
+  channels:
+    title: Channels
+    subtitle: Choose which kinds of builds show in the sidebar and are checked for new versions. Hidden channels can be turned on any time in Settings.
+  shortcuts:
+    title: Shortcuts and .blend files
+    subtitle: Start Blender Launcher from the Start Menu or the Desktop, and open .blend files with it.
+    start_menu: Add to the Start Menu
+    desktop: Add to the Desktop
+    file_association: Open .blend files with Blender Launcher
+    file_association_hint: Double-clicking a .blend file then opens it in the build that matches the version it was saved with. This can be undone in Settings.
+    later: These are set up when you finish, and can be changed later in Settings › General.
+  appearance:
+    title: Appearance
+    subtitle: How Blender Launcher looks. You see each change straight away.
+    accent: Accent colour
+    density: Row density
+    title_bar: Use the Windows title bar
+    title_bar_hint: Replaces the launcher's own dark title bar with the standard one from Windows.
+  background:
+    title: Running in the background
+    subtitle: Blender Launcher can stay in the notification area when its window is closed, so the tray menu, notifications about new builds and the quick-launch shortcut keep working.
+    tray: Keep running in the notification area when the window is closed
+    minimised: Start hidden in the notification area
+    hint: Quit from the tray icon's menu. Without this, closing the window quits Blender Launcher.
+  committing:
+    title: Saving your settings…
+    subtitle: This takes a moment.
+  error:
+    title: Setup could not finish
+    subtitle: "Something went wrong while saving your settings. You can continue with what was saved, or cancel and quit."
+    continue: Continue anyway
+  validating: Checking the folder…
+
+# Custom build dialog: upstream's custom_build.* keys are used for the field labels.
+custom_build:
+  edit_title: Edit build
+  edit_text: "Build information for: %{path}"
+  browse: Browse…
+  pick_title: Choose the executable
+  exe_invalid: Choose a .exe, .bat or .cmd file inside the build folder.
+  version_invalid: "Enter a version such as 4.2.0, 4.3.0-alpha or 2.79b."
+  time_invalid: "Enter the date and time as YYYY-MM-DD HH:MM."
+  time_placeholder: YYYY-MM-DD HH:MM
+  hash_placeholder: Optional
+  name_placeholder: Optional
+  detecting: Reading the build…
+  detect_failed: "Could not read the build: %{error}"
+  detected: Information read from the build.
+  saved: "Saved %{name}"
+  required: Required
+  label:
+    executable: Executable
+    version: Version
+    hash: Build hash
+    commit_time: Commit time
+    branch: Branch
+    custom_name: Custom name
+    favorite: Favorite
+
+# Launcher update dialog.
+update:
+  title: Update available
+  current: "You have %{current}."
+  installs: Update downloads the new version, closes Blender Launcher, installs it and starts it again. Your settings and library are kept.
+  # Self-update through Velopack.
+  progress_title: Updating Blender Launcher
+  progress_heading: "Updating to %{version}"
+  stage_downloading: Downloading…
+  stage_installing: Closing to install…
+  cancelling: Cancelling…
+  busy: Finish or cancel the running downloads first. Updating restarts Blender Launcher, which would stop them.
+  not_managed: This copy of Blender Launcher was not set up by its installer or portable zip, so it cannot update itself. Download the new version from the release page instead.
+  open_page: Open release page
+  failed_title: Update failed
+  failed: "The update to %{version} did not complete. Your current version is unchanged; see the log for details."
+  apply_failed: "%{version} is downloaded, but the installer could not be started. Your current version is unchanged; see the log for details."
+  updated: "Updated to %{version}"
+  up_to_date: "Blender Launcher %{version} is up to date."
+  close_launcher: Blender Launcher is running. Close it first, or use Update in its status bar.
+
+# Tray and notifications.
+tray:
+  launch_default: "Launch %{name} (%{version})"
+  build: "%{name} (%{version})"
+  no_default: No default build
+  no_default_message: Choose a default build first. Select a build in the library and tick “Use as default”; the tray and the quick-launch shortcut then start it.
+  favorites: Favorites
+  show: Show
+  hide: Hide
+  quit: Quit
+  hidden_notice: Blender Launcher is still running in the notification area. Turn off “Minimise to tray” in Settings to quit when the window closes.
+
+notify:
+  download_finished: "%{name} is installed and ready to launch"
+  download_failed: "Download of %{name} failed: %{error}"
+  check_failed: The check for new builds could not reach any source.
+
+quit:
+  title: Quit Blender Launcher?
+  message: "These tasks are still running and will be cancelled:"
+  question: Quit anyway?
+
+launch_picker:
+  title: Launch Blender
+  no_file: Launch a build
+  open_last: Open the last file
+  args: "Blender arguments: %{args}"
+  header_unreadable: "Found %{count} builds; the file's version could not be read"
+  load_failed: "Could not read the library: %{error}"
+  no_builds: No builds are installed. Download one in Blender Launcher first.
+  no_match: No installed build matches this search
+  saved: "Files made in %{short_v} will now use %{query}"
+  column:
+    build: Build
+    version: Version
+    branch: Branch
+    date: Date
+  default: Default
+  help_title: Blender Launcher command line
+  error_title: Blender Launcher
+
+# Windows integration: file association, start-up, shortcuts, hotkey, Add/Remove Programs, uninstall.
+integration:
+  failed_title: That did not work
+  hotkey_title: Quick-launch shortcut
+  hotkey_in_use: "The quick-launch shortcut %{key} is already used by another program. Choose another combination in Settings › Blender Builds."
+  hotkey_invalid: "The quick-launch shortcut “%{key}” is not a key combination Blender Launcher understands. Choose another one in Settings › Blender Builds."
+  hotkey_failed: "The quick-launch shortcut %{key} could not be registered: %{error}"
+  shortcut_title: Blender Launcher shortcut
+  shortcut_where: Where should the shortcut to Blender Launcher go?
+  start_menu: Start Menu
+  desktop: Desktop
+  shortcut_created: "Shortcut created: %{path}"
+  shortcut_kept: "The existing shortcut was kept: %{path}"
+  replace_title: Replace the shortcut?
+  replace_message: "“%{path}” already exists and starts another program, perhaps another copy of Blender Launcher. Replace it with a shortcut to this copy?"
+  replace: Replace
+  keep: Keep
+  assoc_registered: "Blender Launcher is now in the “Open with” list for .blend files. To make it the default, right-click a .blend file, choose Open with › Choose another app, pick Blender Launcher and choose Always."
+  assoc_unregistered: Blender Launcher was removed from the “Open with” list for .blend files.
+  assoc_state:
+    none: Not registered
+    this: "Registered: .blend files can be opened with this copy"
+    other: Registered to another copy of Blender Launcher; register again to use this one
+  startup_other: Set for another copy of Blender Launcher; ticking this switches it to this one
+  arp: Show in Installed apps
+  arp_tooltip: |
+    Adds Blender Launcher to Settings › Apps › Installed apps (Add/Remove Programs), from where it can be uninstalled.
+    Uninstalling keeps your library of Blender builds.
+    DEFAULT: Off
+  pending_failed: "Some first-run choices could not be set up: %{error}"
+  uninstall_title: Uninstall Blender Launcher
+  uninstall_confirm: "This removes Blender Launcher's settings, shortcuts, .blend file association, start-up entry and saved passwords. Your library of Blender builds is kept: %{library}"
+  uninstall_confirm_no_library: "This removes Blender Launcher's settings, shortcuts, .blend file association, start-up entry and saved passwords."
+  uninstall: Uninstall
+  uninstall_done: Blender Launcher was uninstalled
+  uninstall_failed: Blender Launcher was uninstalled, but some steps failed
+  uninstall_running: Blender Launcher is running. Quit it (including from the notification area), then uninstall again.

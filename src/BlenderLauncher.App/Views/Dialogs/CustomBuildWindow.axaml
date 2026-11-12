@@ -1,0 +1,144 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BlenderLauncher.App.Controls"
+        xmlns:loc="using:BlenderLauncher.App.Localisation"
+        xmlns:vm="using:BlenderLauncher.App.ViewModels"
+        x:Class="BlenderLauncher.App.Views.Dialogs.CustomBuildWindow"
+        x:DataType="vm:CustomBuildViewModel"
+        Title="{Binding Title}"
+        Width="580"
+        SizeToContent="Height"
+        CanResize="False" CanMinimize="False" CanMaximize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BlSurfaceDetailBrush}"
+        Foreground="{StaticResource BlTextBodyBrush}"
+        FontSize="12">
+  <!--
+    Custom build dialog, upstream's "Build Entry Creator": the folder, the executable with completion and a
+    picker, "Auto-detect information", then the .blinfo fields. Accept is enabled once the executable and the version
+    are valid. State in ViewModels/CustomBuildViewModel.
+  -->
+  <Window.Styles>
+    <Style Selector="TextBlock.label">
+      <Setter Property="Foreground" Value="{StaticResource BlTextSecondaryBrush}" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Margin" Value="0,0,14,0" />
+    </Style>
+    <Style Selector="TextBlock.error">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="{StaticResource BlDangerBrush}" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Margin" Value="0,4,0,0" />
+    </Style>
+    <Style Selector="TextBlock.required">
+      <Setter Property="Foreground" Value="{StaticResource BlDangerBrush}" />
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="Theme" Value="{StaticResource BlTextBox}" />
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="Theme" Value="{StaticResource BlButton}" />
+    </Style>
+    <Style Selector="CheckBox">
+      <Setter Property="Theme" Value="{StaticResource BlCheckBox}" />
+    </Style>
+    <Style Selector="AutoCompleteBox">
+      <Setter Property="Height" Value="30" />
+      <Setter Property="MinHeight" Value="30" />
+      <Setter Property="FontSize" Value="12" />
+    </Style>
+    <Style Selector="AutoCompleteBox /template/ TextBox#PART_TextBox">
+      <Setter Property="Theme" Value="{StaticResource BlTextBox}" />
+      <Setter Property="FontFamily" Value="{StaticResource BlMonoFont}" />
+      <Setter Property="FontSize" Value="11.5" />
+    </Style>
+    <Style Selector="Grid.form > TextBlock.label">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+  </Window.Styles>
+
+  <DockPanel>
+    <Border Name="TitleBarHost" DockPanel.Dock="Top" BorderBrush="{StaticResource BlLine0Brush}" BorderThickness="0,0,0,1">
+      <controls:AppTitleBar Name="TitleBar" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Background="{StaticResource BlSurfaceSidebarBrush}" BorderBrush="{StaticResource BlLine1Brush}"
+            BorderThickness="0,1,0,0" Padding="16,12">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+        <Button Name="CancelButton" MinWidth="92" Height="30" Content="{loc:Tr act.cancel}" AutomationProperties.AutomationId="CustomBuildCancel" />
+        <Button Name="AcceptButton" MinWidth="92" Height="30" Theme="{StaticResource BlPrimaryButton}" Content="{loc:Tr act.accept}"
+                IsEnabled="{Binding CanAccept}" AutomationProperties.AutomationId="CustomBuildAccept" />
+      </StackPanel>
+    </Border>
+
+    <StackPanel Margin="22,18,22,20" Spacing="14">
+      <StackPanel Spacing="3">
+        <TextBlock Classes="secondary" Text="{Binding Heading}" />
+        <TextBlock Classes="mono" FontSize="11.5" Foreground="{StaticResource BlTextSectionBrush}" Text="{Binding Folder}"
+                   TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Folder}" />
+      </StackPanel>
+
+      <!-- Executable and auto-detect -->
+      <Border Background="{StaticResource BlSurfaceSectionBrush}" BorderBrush="{StaticResource BlLine1Brush}" BorderThickness="1"
+              CornerRadius="{StaticResource BlRadiusRow}" Padding="14,12">
+        <StackPanel Spacing="10">
+          <Grid ColumnDefinitions="120,*,Auto">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+              <TextBlock Classes="label" Margin="0" Text="{loc:Tr ui.custom_build.label.executable}" />
+              <TextBlock Classes="required" Text=" *" ToolTip.Tip="{loc:Tr ui.custom_build.required}" />
+            </StackPanel>
+            <AutoCompleteBox Name="ExecutableBox" Grid.Column="1" Text="{Binding Executable}" ItemsSource="{Binding ExecutableCompletions}"
+                             FilterMode="StartsWith" MinimumPrefixLength="0" PlaceholderText="{loc:Tr custom_build.exe_placeholder}"
+                             AutomationProperties.Name="{loc:Tr ui.custom_build.label.executable}" AutomationProperties.AutomationId="Executable" />
+            <Button Name="BrowseButton" Grid.Column="2" Margin="8,0,0,0" Height="30" Content="{loc:Tr ui.custom_build.browse}" />
+          </Grid>
+          <TextBlock Classes="error" Margin="120,-4,0,0" Text="{Binding ExecutableError}" IsVisible="{Binding HasExecutableError}" />
+          <Grid ColumnDefinitions="120,Auto,*">
+            <Button Grid.Column="1" Height="30" Content="{loc:Tr custom_build.autodetect}" Command="{Binding AutoDetectCommand}"
+                    AutomationProperties.AutomationId="AutoDetect" />
+            <TextBlock Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="11.5" TextWrapping="Wrap"
+                       Text="{Binding DetectStatus}" IsVisible="{Binding HasDetectStatus}"
+                       Foreground="{StaticResource BlTextGroupBrush}" Classes.error="{Binding DetectFailed}" />
+          </Grid>
+        </StackPanel>
+      </Border>
+
+      <!-- Fields -->
+      <Grid Classes="form" ColumnDefinitions="134,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" Margin="0,2,0,0">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,7,0,0">
+          <TextBlock Classes="label" Margin="0" Text="{loc:Tr ui.custom_build.label.version}" />
+          <TextBlock Classes="required" Text=" *" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="0,0,0,10">
+          <TextBox Text="{Binding Version}" PlaceholderText="4.2.0" AutomationProperties.Name="{loc:Tr ui.custom_build.label.version}"
+                   AutomationProperties.AutomationId="Version" />
+          <TextBlock Classes="error" Text="{Binding VersionError}" IsVisible="{Binding HasVersionError}" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Classes="label" VerticalAlignment="Top" Margin="0,7,14,0" Text="{loc:Tr ui.custom_build.label.hash}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" FontFamily="{StaticResource BlMonoFont}" FontSize="11.5" Text="{Binding Hash}"
+                 PlaceholderText="{loc:Tr ui.custom_build.hash_placeholder}" AutomationProperties.Name="{loc:Tr ui.custom_build.label.hash}" />
+
+        <TextBlock Grid.Row="2" Classes="label" VerticalAlignment="Top" Margin="0,7,14,0" Text="{loc:Tr ui.custom_build.label.commit_time}" />
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
+          <TextBox FontFamily="{StaticResource BlMonoFont}" FontSize="11.5" Text="{Binding CommitTimeText}" Width="200" HorizontalAlignment="Left"
+                   PlaceholderText="{loc:Tr ui.custom_build.time_placeholder}" AutomationProperties.Name="{loc:Tr ui.custom_build.label.commit_time}" />
+          <TextBlock Classes="error" Text="{Binding TimeError}" IsVisible="{Binding HasTimeError}" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="3" Classes="label" VerticalAlignment="Top" Margin="0,7,14,0" Text="{loc:Tr ui.custom_build.label.branch}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" Text="{Binding Branch}" PlaceholderText="{Binding DefaultBranch}"
+                 AutomationProperties.Name="{loc:Tr ui.custom_build.label.branch}" />
+
+        <TextBlock Grid.Row="4" Classes="label" VerticalAlignment="Top" Margin="0,7,14,0" Text="{loc:Tr ui.custom_build.label.custom_name}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,0,0,10" Text="{Binding CustomName}" PlaceholderText="{loc:Tr ui.custom_build.name_placeholder}"
+                 AutomationProperties.Name="{loc:Tr ui.custom_build.label.custom_name}" />
+
+        <TextBlock Grid.Row="5" Classes="label" Text="{loc:Tr ui.custom_build.label.favorite}" />
+        <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding IsFavourite}" Margin="-4,0,0,0" HorizontalAlignment="Left"
+                  Content="{loc:Tr ui.detail.option.favorite_hint}" AutomationProperties.Name="{loc:Tr ui.custom_build.label.favorite}" />
+      </Grid>
+    </StackPanel>
+  </DockPanel>
+</Window>

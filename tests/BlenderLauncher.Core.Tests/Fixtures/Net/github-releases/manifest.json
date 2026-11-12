@@ -1,0 +1,42 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/latest",
+      "status": 302,
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "0",
+        "Location": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.8.2"
+      },
+      "recorded": "2026-11-11T13:09:44Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/tag/v2.8.2",
+      "status": 200,
+      "file": "v2.8.2.body",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "ETag": "W/\"31a2183175c8fad79946804fd33d7ed4\""
+      },
+      "recorded": "2026-11-11T13:09:44Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases?per_page=100",
+      "status": 200,
+      "file": "releases-per-page-100.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "ETag": "W/\"6a5dee7984ac215848c8bada5d691925a696e6210ed41b70e2d9b1dfbe3e2f1e\"",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "51",
+        "X-RateLimit-Reset": "1794405160",
+        "X-RateLimit-Resource": "core",
+        "X-RateLimit-Used": "9"
+      },
+      "recorded": "2026-11-11T13:09:45Z"
+    }
+  ]
+}

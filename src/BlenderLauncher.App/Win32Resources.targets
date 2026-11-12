@@ -1,0 +1,236 @@
+<Project>
+  <!--
+    The exe's native resources. The C# compiler can embed one icon, the manifest and a generated version
+    resource, but not a second icon, and the .blend file icon should live inside the exe (DefaultIcon "<exe>",1) so the
+    association never points at a loose file. So the whole resource file is written here instead and passed to the
+    compiler as Win32Resource; Native AOT copies the IL assembly's native resources into the exe, as does the apphost.
+
+    It holds:
+      VERSIONINFO 1         from Version, FileVersion, Product, Company, Copyright and AssemblyTitle (one version source)
+      RT_GROUP_ICON 32512   Assets/Icons/app.ico         icon index 0: the exe, windows, taskbar, tray
+      RT_GROUP_ICON 32513   Assets/Icons/blend-file.ico  icon index 1: the .blend file association's DefaultIcon
+      RT_MANIFEST 1         app.manifest
+  -->
+  <UsingTask TaskName="WriteWin32ResourceFile" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <OutputFile ParameterType="System.String" Required="true" />
+      <Icons ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <Manifest ParameterType="System.String" Required="true" />
+      <FileVersion ParameterType="System.String" Required="true" />
+      <ProductVersion ParameterType="System.String" Required="true" />
+      <FileDescription ParameterType="System.String" Required="true" />
+      <ProductName ParameterType="System.String" Required="true" />
+      <CompanyName ParameterType="System.String" Required="true" />
+      <LegalCopyright ParameterType="System.String" Required="true" />
+      <InternalName ParameterType="System.String" Required="true" />
+      <OriginalFilename ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Class" Language="cs"><![CDATA[
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
+
+public sealed class WriteWin32ResourceFile : Task
+{
+    [Required] public string OutputFile { get; set; }
+    [Required] public ITaskItem[] Icons { get; set; }
+    [Required] public string Manifest { get; set; }
+    [Required] public string FileVersion { get; set; }
+    [Required] public string ProductVersion { get; set; }
+    [Required] public string FileDescription { get; set; }
+    [Required] public string ProductName { get; set; }
+    [Required] public string CompanyName { get; set; }
+    [Required] public string LegalCopyright { get; set; }
+    [Required] public string InternalName { get; set; }
+    [Required] public string OriginalFilename { get; set; }
+
+    private const ushort RtIcon = 3, RtGroupIcon = 14, RtVersion = 16, RtManifest = 24;
+    private const ushort FirstGroupId = 32512; // IDI_APPLICATION, as the compiler's own icon resource
+
+    public override bool Execute()
+    {
+        Version version;
+        if (!Version.TryParse(FileVersion, out version))
+        {
+            Log.LogError("FileVersion '{0}' is not a version", FileVersion);
+            return false;
+        }
+
+        var output = new MemoryStream();
+        var w = new BinaryWriter(output);
+        WriteEntry(w, 0, 0, new byte[0], 0); // the empty first entry that marks a 32-bit .res file
+
+        ushort iconId = 1;
+        for (var g = 0; g < Icons.Length; g++)
+        {
+            var ico = File.ReadAllBytes(Icons[g].ItemSpec);
+            var count = BitConverter.ToUInt16(ico, 4);
+            var group = new MemoryStream();
+            var gw = new BinaryWriter(group);
+            gw.Write((ushort)0); gw.Write((ushort)1); gw.Write(count);
+            for (var i = 0; i < count; i++)
+            {
+                var e = 6 + 16 * i;
+                var size = BitConverter.ToInt32(ico, e + 8);
+                var offset = BitConverter.ToInt32(ico, e + 12);
+                var image = new byte[size];
+                Buffer.BlockCopy(ico, offset, image, 0, size);
+                WriteEntry(w, RtIcon, iconId, image, 0x1010);
+                gw.Write(ico, e, 8);          // width, height, colours, reserved, planes, bit count
+                gw.Write(size);
+                gw.Write(iconId);
+                iconId++;
+            }
+
+            WriteEntry(w, RtGroupIcon, (ushort)(FirstGroupId + g), group.ToArray(), 0x1030);
+        }
+
+        WriteEntry(w, RtVersion, 1, VersionInfo(version), 0x0030);
+        WriteEntry(w, RtManifest, 1, File.ReadAllBytes(Manifest), 0x0030);
+
+        Directory.CreateDirectory(Path.GetDirectoryName(OutputFile));
+        var bytes = output.ToArray();
+        if (!File.Exists(OutputFile) || !AreEqual(File.ReadAllBytes(OutputFile), bytes))
+        {
+            File.WriteAllBytes(OutputFile, bytes);
+        }
+
+        return true;
+    }
+
+    private static bool AreEqual(byte[] a, byte[] b)
+    {
+        if (a.Length != b.Length) return false;
+        for (var i = 0; i < a.Length; i++) if (a[i] != b[i]) return false;
+        return true;
+    }
+
+    // RESOURCEHEADER with ordinal type and name, language neutral, then the data padded to 4 bytes.
+    private static void WriteEntry(BinaryWriter w, ushort type, ushort name, byte[] data, ushort memoryFlags)
+    {
+        w.Write(data.Length);
+        w.Write(32);
+        w.Write((ushort)0xFFFF); w.Write(type);
+        w.Write((ushort)0xFFFF); w.Write(name);
+        w.Write(0);                 // DataVersion
+        w.Write(memoryFlags);
+        w.Write((ushort)0);         // LanguageId: neutral, as the compiler's resources
+        w.Write(0);                 // Version
+        w.Write(0);                 // Characteristics
+        w.Write(data);
+        Pad(w);
+    }
+
+    private static void Pad(BinaryWriter w)
+    {
+        while (w.BaseStream.Position % 4 != 0) w.Write((byte)0);
+    }
+
+    private byte[] VersionInfo(Version v)
+    {
+        var fixedInfo = new MemoryStream();
+        var f = new BinaryWriter(fixedInfo);
+        var ms = (uint)((Math.Max(v.Major, 0) << 16) | Math.Max(v.Minor, 0));
+        var ls = (uint)((Math.Max(v.Build, 0) << 16) | Math.Max(v.Revision, 0));
+        f.Write(0xFEEF04BDu); f.Write(0x00010000u);
+        f.Write(ms); f.Write(ls); f.Write(ms); f.Write(ls);
+        f.Write(0x3Fu); f.Write(0u);   // flags mask, flags
+        f.Write(0x4u); f.Write(0x1u);  // VOS__WINDOWS32, VFT_APP
+        f.Write(0u); f.Write(0u); f.Write(0u);
+
+        var strings = new List<byte[]>
+        {
+            Text("CompanyName", CompanyName),
+            Text("FileDescription", FileDescription),
+            Text("FileVersion", FileVersion),
+            Text("InternalName", InternalName),
+            Text("LegalCopyright", LegalCopyright),
+            Text("OriginalFilename", OriginalFilename),
+            Text("ProductName", ProductName),
+            Text("ProductVersion", ProductVersion),
+        };
+
+        // Language neutral, Unicode code page (0x04B0), as the compiler writes it.
+        var table = Block("000004b0", 1, new byte[0], 0, strings);
+        var stringFileInfo = Block("StringFileInfo", 1, new byte[0], 0, new List<byte[]> { table });
+        var translation = Block("Translation", 0, new byte[] { 0x00, 0x00, 0xB0, 0x04 }, 4, new List<byte[]>());
+        var varFileInfo = Block("VarFileInfo", 1, new byte[0], 0, new List<byte[]> { translation });
+        return Block("VS_VERSION_INFO", 0, fixedInfo.ToArray(), 52, new List<byte[]> { stringFileInfo, varFileInfo });
+    }
+
+    private static byte[] Text(string key, string value) =>
+        Block(key, 1, Encoding.Unicode.GetBytes(value + "\0"), value.Length + 1, new List<byte[]>());
+
+    // A version block: wLength, wValueLength, wType, the key, padding, the value, padding, the children (each aligned).
+    private static byte[] Block(string key, ushort type, byte[] value, int valueLength, List<byte[]> children)
+    {
+        var s = new MemoryStream();
+        var w = new BinaryWriter(s);
+        w.Write((ushort)0);
+        w.Write((ushort)valueLength);
+        w.Write(type);
+        w.Write(Encoding.Unicode.GetBytes(key + "\0"));
+        Pad(w);
+        w.Write(value);
+        foreach (var child in children)
+        {
+            Pad(w);
+            w.Write(child);
+        }
+
+        var bytes = s.ToArray();
+        bytes[0] = (byte)(bytes.Length & 0xFF);
+        bytes[1] = (byte)(bytes.Length >> 8);
+        return bytes;
+    }
+}
+]]></Code>
+    </Task>
+  </UsingTask>
+
+  <ItemGroup>
+    <_BlWin32Icon Include="$(MSBuildThisFileDirectory)Assets\Icons\app.ico" />
+    <_BlWin32Icon Include="$(MSBuildThisFileDirectory)Assets\Icons\blend-file.ico" />
+  </ItemGroup>
+
+  <Target Name="BlWriteWin32Resources"
+          BeforeTargets="CoreCompile"
+          DependsOnTargets="GetAssemblyVersion">
+    <PropertyGroup>
+      <!-- Here, not at the top level: IntermediateOutputPath is defined after this file is imported. -->
+      <_BlWin32ResourceFile>$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)', '$(AssemblyName).res'))</_BlWin32ResourceFile>
+    </PropertyGroup>
+    <WriteWin32ResourceFile OutputFile="$(_BlWin32ResourceFile)"
+                            Icons="@(_BlWin32Icon)"
+                            Manifest="$(MSBuildThisFileDirectory)$(ApplicationManifest)"
+                            FileVersion="$(FileVersion)"
+                            ProductVersion="$(Version)"
+                            FileDescription="$(AssemblyTitle)"
+                            ProductName="$(Product)"
+                            CompanyName="$(Company)"
+                            LegalCopyright="$(Copyright)"
+                            InternalName="$(AssemblyName)"
+                            OriginalFilename="$(ShippedExecutableName).exe" />
+    <ItemGroup>
+      <FileWrites Include="$(_BlWin32ResourceFile)" />
+    </ItemGroup>
+  </Target>
+
+  <!--
+    The writer runs on every build, because a version given on the command line (-p:Version=, as release.yml does)
+    changes no input file; it rewrites the file only when the bytes differ, so incremental builds stay incremental.
+  -->
+  <Target Name="BlUseWin32Resources" BeforeTargets="CoreCompile" AfterTargets="BlWriteWin32Resources">
+    <PropertyGroup>
+      <Win32Resource>$(_BlWin32ResourceFile)</Win32Resource>
+      <!-- The manifest and icon are inside the resource file; the compiler refuses them alongside it. -->
+      <Win32Manifest />
+      <ApplicationIcon />
+      <Win32Icon />
+    </PropertyGroup>
+  </Target>
+</Project>

@@ -1,0 +1,37 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://api.github.com/repos/UPBGE/upbge/releases?per_page=100",
+      "status": 200,
+      "file": "releases.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "ETag": "W/\"455e5d5c69532e6bc6223284fb42d4d5d2884284c518451202415c17089b88fb\"",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "54",
+        "X-RateLimit-Reset": "1794405160",
+        "X-RateLimit-Resource": "core",
+        "X-RateLimit-Used": "6"
+      },
+      "recorded": "2026-11-11T13:09:06Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.github.com/repos/UPBGE/upbge/tags?per_page=100",
+      "status": 200,
+      "file": "tags.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Last-Modified": "Wed, 11 Nov 2026 06:11:21 GMT",
+        "ETag": "W/\"a5cd52dd67607dc60e5e5f3f66c8523d2d8b13bef85e1ca4b73f32bb497e7d87\"",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "53",
+        "X-RateLimit-Reset": "1794405160",
+        "X-RateLimit-Resource": "core",
+        "X-RateLimit-Used": "7"
+      },
+      "recorded": "2026-11-11T13:09:07Z"
+    }
+  ]
+}

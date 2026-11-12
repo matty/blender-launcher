@@ -1,0 +1,64 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://builder.blender.org/download/daily/?format=json&v=1",
+      "status": 200,
+      "file": "daily.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:20Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://builder.blender.org/download/daily/archive/?format=json&v=1",
+      "status": 200,
+      "file": "daily_archive.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:20Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://builder.blender.org/download/experimental/?format=json&v=1",
+      "status": 200,
+      "file": "experimental.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:20Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://builder.blender.org/download/experimental/archive/?format=json&v=1",
+      "status": 200,
+      "file": "experimental_archive.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:20Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://builder.blender.org/download/patch/?format=json&v=1",
+      "status": 200,
+      "file": "patch.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:20Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://builder.blender.org/download/patch/archive/?format=json&v=1",
+      "status": 200,
+      "file": "patch_archive.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "recorded": "2026-11-11T13:12:20Z"
+    }
+  ]
+}

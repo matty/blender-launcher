@@ -1,0 +1,21 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="BlenderLauncher.App.App"
+             RequestedThemeVariant="Dark">
+  <!--
+    FluentTheme (dark) is the base; Theme/Controls.axaml (which merges Theme/Tokens.axaml) adds the design's tokens and
+    control themes, and Theme/Styles.axaml its typography and decoration classes. ThemeManager overrides the accent and
+    density tokens in Application.Resources at runtime.
+  -->
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://BlenderLauncher/Theme/Controls.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://BlenderLauncher/Theme/Styles.axaml" />
+  </Application.Styles>
+</Application>

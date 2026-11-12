@@ -1,0 +1,188 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Design tokens. Every colour, radius and
+    size the main window uses is here, once. Naming: Bl<Group><Role>[Brush|Color].
+
+    StaticResource is fine for everything except the runtime-switchable tokens, which must be used with
+    DynamicResource: the accent (BlAccent*), and density (BlRowHeight, BlRowSecondLineVisible). ThemeManager replaces
+    those at runtime from the settings (appearance.accent, appearance.density).
+
+    Channel colours live in ChannelPalette.cs (row view models expose them as brushes), mirrored here as
+    BlChannel<Name>Brush / BlChannel<Name>BackgroundBrush for XAML that needs a fixed channel.
+  -->
+
+  <!-- Fonts (embedded IBM Plex; see AppFonts.cs). Plex Sans is also the app-wide default family. -->
+  <FontFamily x:Key="BlSansFont">fonts:BlenderLauncher#IBM Plex Sans</FontFamily>
+  <FontFamily x:Key="BlMonoFont">fonts:BlenderLauncher#IBM Plex Mono</FontFamily>
+
+  <!-- Surfaces -->
+  <Color x:Key="BlSurfaceChromeColor">#181818</Color>       <!-- title bar and status bar -->
+  <Color x:Key="BlSurfaceWindowColor">#1c1c1c</Color>
+  <Color x:Key="BlSurfaceSidebarColor">#212121</Color>
+  <Color x:Key="BlSurfaceDetailColor">#242424</Color>
+  <Color x:Key="BlSurfaceMainColor">#2a2a2a</Color>
+  <SolidColorBrush x:Key="BlSurfaceChromeBrush" Color="#181818" />
+  <SolidColorBrush x:Key="BlSurfaceWindowBrush" Color="#1c1c1c" />
+  <SolidColorBrush x:Key="BlSurfaceSidebarBrush" Color="#212121" />
+  <SolidColorBrush x:Key="BlSurfaceDetailBrush" Color="#242424" />
+  <SolidColorBrush x:Key="BlSurfaceMainBrush" Color="#2a2a2a" />
+  <!-- Inset fields: filter box, progress track; path field in the detail panel; disk card and progress tracks. -->
+  <SolidColorBrush x:Key="BlSurfaceInsetBrush" Color="#1d1d1d" />
+  <SolidColorBrush x:Key="BlSurfaceInset2Brush" Color="#1b1b1b" />
+  <SolidColorBrush x:Key="BlSurfaceInset3Brush" Color="#1a1a1a" />
+  <!-- Detail section header and its hover; description card; menus and tooltips. -->
+  <SolidColorBrush x:Key="BlSurfaceSectionBrush" Color="#2b2b2b" />
+  <SolidColorBrush x:Key="BlSurfaceSectionHoverBrush" Color="#303030" />
+  <SolidColorBrush x:Key="BlSurfaceCardBrush" Color="#1f1f1f" />
+  <SolidColorBrush x:Key="BlSurfaceMenuBrush" Color="#2b2b2b" />
+  <SolidColorBrush x:Key="BlSurfaceTooltipBrush" Color="#2f2f2f" />
+  <!-- Bars: disk bar and status-bar progress track. -->
+  <SolidColorBrush x:Key="BlTrackBrush" Color="#2f2f2f" />
+  <SolidColorBrush x:Key="BlTrackStatusBrush" Color="#2d2d2d" />
+  <SolidColorBrush x:Key="BlDiskBarBrush" Color="#7a7a7a" />
+
+  <!-- Lines (darkest first) -->
+  <SolidColorBrush x:Key="BlLine0Brush" Color="#0d0d0d" />  <!-- under the title bar, above the status bar -->
+  <SolidColorBrush x:Key="BlLine1Brush" Color="#141414" />  <!-- sidebar and detail panel edges -->
+  <SolidColorBrush x:Key="BlLine2Brush" Color="#222222" />  <!-- list header rule -->
+  <SolidColorBrush x:Key="BlLine3Brush" Color="#2a2a2a" />  <!-- disk card border -->
+  <SolidColorBrush x:Key="BlLineDetailBrush" Color="#1a1a1a" />  <!-- between detail sections -->
+  <SolidColorBrush x:Key="BlLineFieldBrush" Color="#151515" />  <!-- filter box border -->
+  <SolidColorBrush x:Key="BlLineMenuBrush" Color="#141414" />
+
+  <!-- Text -->
+  <SolidColorBrush x:Key="BlTextHeadingBrush" Color="#f0f0f0" />
+  <SolidColorBrush x:Key="BlTextBodyBrush" Color="#e4e4e4" />
+  <SolidColorBrush x:Key="BlTextOnButtonBrush" Color="#f2f2f2" />
+  <SolidColorBrush x:Key="BlTextValueBrush" Color="#d0d0d0" />      <!-- detail values -->
+  <SolidColorBrush x:Key="BlTextSectionBrush" Color="#d6d6d6" />    <!-- detail section titles, option labels -->
+  <SolidColorBrush x:Key="BlTextSecondaryBrush" Color="#b4b4b4" />
+  <SolidColorBrush x:Key="BlTextSecondaryAltBrush" Color="#a8a8a8" />
+  <SolidColorBrush x:Key="BlTextLabelBrush" Color="#9a9a9a" />      <!-- version label (Alpha, Beta) -->
+  <SolidColorBrush x:Key="BlTextMutedBrush" Color="#8a8a8a" />
+  <SolidColorBrush x:Key="BlTextSubtitleBrush" Color="#8d8d8d" />
+  <SolidColorBrush x:Key="BlTextFieldLabelBrush" Color="#868686" /> <!-- detail label column -->
+  <SolidColorBrush x:Key="BlTextSublineBrush" Color="#858585" />    <!-- row second line -->
+  <SolidColorBrush x:Key="BlTextGroupBrush" Color="#7d7d7d" />      <!-- sidebar group label, option hints -->
+  <SolidColorBrush x:Key="BlTextMuted2Brush" Color="#7a7a7a" />     <!-- column headers, empty panel -->
+  <SolidColorBrush x:Key="BlTextFaintBrush" Color="#6f6f6f" />      <!-- hash, placeholder, disk path -->
+  <SolidColorBrush x:Key="BlTextVersionBrush" Color="#5f5f5f" />    <!-- status-bar version -->
+  <SolidColorBrush x:Key="BlTextTitleBarBrush" Color="#bdbdbd" />
+  <SolidColorBrush x:Key="BlTextSizeBrush" Color="#8f8f8f" />
+
+  <!-- Accent: blue by default; ThemeManager swaps these for orange. Use with DynamicResource. -->
+  <Color x:Key="BlAccentColor">#4772b3</Color>
+  <SolidColorBrush x:Key="BlAccentBrush" Color="#4772b3" />
+  <SolidColorBrush x:Key="BlAccentHoverBrush" Color="#5480c4" />
+  <SolidColorBrush x:Key="BlAccentRowBrush" Color="#34445e" />
+  <SolidColorBrush x:Key="BlAccentRowHoverBrush" Color="#3a4c69" />
+
+  <!-- Neutral (secondary) button -->
+  <SolidColorBrush x:Key="BlNeutralBrush" Color="#474747" />
+  <SolidColorBrush x:Key="BlNeutralHoverBrush" Color="#545454" />
+  <SolidColorBrush x:Key="BlNeutralPressedBrush" Color="#3e3e3e" />
+  <SolidColorBrush x:Key="BlNeutralBorderBrush" Color="#232323" />
+  <!-- Filled buttons in rows and the detail panel: a translucent black edge (rgba(0,0,0,.35)). -->
+  <SolidColorBrush x:Key="BlFilledButtonBorderBrush" Color="#59000000" />
+
+  <!-- Hover and selection -->
+  <SolidColorBrush x:Key="BlRowHoverBrush" Color="#313131" />
+  <SolidColorBrush x:Key="BlGhostHoverBrush" Color="#0fffffff" />   <!-- rgba(255,255,255,.06) -->
+  <SolidColorBrush x:Key="BlGhostPressedBrush" Color="#1affffff" />
+  <SolidColorBrush x:Key="BlOptionHoverBrush" Color="#0affffff" />  <!-- rgba(255,255,255,.04) -->
+
+  <!-- Sidebar items -->
+  <SolidColorBrush x:Key="BlNavActiveBrush" Color="#363636" />
+  <SolidColorBrush x:Key="BlNavActiveHoverBrush" Color="#3a3a3a" />
+  <SolidColorBrush x:Key="BlNavHoverBrush" Color="#2a2a2a" />
+  <SolidColorBrush x:Key="BlNavActiveTextBrush" Color="#f2f2f2" />
+  <SolidColorBrush x:Key="BlNavTextBrush" Color="#b5b5b5" />
+  <SolidColorBrush x:Key="BlNavAllDotBrush" Color="#8a8a8a" />
+  <SolidColorBrush x:Key="BlNavFavoritesDotBrush" Color="#d9b54a" />
+  <SolidColorBrush x:Key="BlBadgeBrush" Color="#c9c9c9" />          <!-- "N new" badge background -->
+  <SolidColorBrush x:Key="BlBadgeTextBrush" Color="#1c1c1c" />
+
+  <!-- States -->
+  <SolidColorBrush x:Key="BlRunningDotBrush" Color="#6fcf6f" />
+  <SolidColorBrush x:Key="BlRunningTextBrush" Color="#8fd18f" />
+  <SolidColorBrush x:Key="BlRunningPanelTextBrush" Color="#9ad69a" />
+  <SolidColorBrush x:Key="BlRunningPanelBrush" Color="#146fcf6f" />       <!-- rgba(111,207,111,.08) -->
+  <SolidColorBrush x:Key="BlRunningPanelBorderBrush" Color="#2e6fcf6f" /> <!-- rgba(111,207,111,.18) -->
+  <SolidColorBrush x:Key="BlInstalledTickBrush" Color="#79c07a" />
+  <SolidColorBrush x:Key="BlFavouriteOnBrush" Color="#e0bb4f" />
+  <SolidColorBrush x:Key="BlFavouriteOffBrush" Color="#5c5c5c" />
+  <SolidColorBrush x:Key="BlDangerBrush" Color="#e07a7a" />
+  <SolidColorBrush x:Key="BlDangerBorderBrush" Color="#3a2222" />
+  <SolidColorBrush x:Key="BlDangerHoverBrush" Color="#1fe06060" />        <!-- rgba(224,96,96,.12) -->
+  <SolidColorBrush x:Key="BlDangerHoverBorderBrush" Color="#5a2a2a" />
+  <SolidColorBrush x:Key="BlCloseHoverBrush" Color="#c42b1c" />
+  <SolidColorBrush x:Key="BlCaptionHoverBrush" Color="#2e2e2e" />
+  <SolidColorBrush x:Key="BlTagBorderBrush" Color="#5a5a5a" />            <!-- "Default" tag -->
+  <SolidColorBrush x:Key="BlTagTextBrush" Color="#d8d8d8" />
+  <SolidColorBrush x:Key="BlCheckOffBrush" Color="#1b1b1b" />
+  <SolidColorBrush x:Key="BlCheckOffBorderBrush" Color="#4a4a4a" />
+  <SolidColorBrush x:Key="BlScrollThumbBrush" Color="#4a4a4a" />
+  <SolidColorBrush x:Key="BlScrollThumbHoverBrush" Color="#5c5c5c" />
+  <SolidColorBrush x:Key="BlChevronBrush" Color="#a8a8a8" />
+
+  <!-- Channels (mirrors ChannelPalette.cs) -->
+  <SolidColorBrush x:Key="BlChannelStableBrush" Color="#7aa6e6" />
+  <SolidColorBrush x:Key="BlChannelStableBackgroundBrush" Color="#247aa6e6" />
+  <SolidColorBrush x:Key="BlChannelLtsBrush" Color="#82c784" />
+  <SolidColorBrush x:Key="BlChannelLtsBackgroundBrush" Color="#2482c784" />
+  <SolidColorBrush x:Key="BlChannelDailyBrush" Color="#eda15a" />
+  <SolidColorBrush x:Key="BlChannelDailyBackgroundBrush" Color="#24eda15a" />
+  <SolidColorBrush x:Key="BlChannelExperimentalBrush" Color="#c196e6" />
+  <SolidColorBrush x:Key="BlChannelExperimentalBackgroundBrush" Color="#26c196e6" />
+  <SolidColorBrush x:Key="BlChannelBforartistsBrush" Color="#e68a7a" />
+  <SolidColorBrush x:Key="BlChannelBforartistsBackgroundBrush" Color="#24e68a7a" />
+  <SolidColorBrush x:Key="BlChannelUpbgeBrush" Color="#6fc7c0" />
+  <SolidColorBrush x:Key="BlChannelUpbgeBackgroundBrush" Color="#246fc7c0" />
+  <SolidColorBrush x:Key="BlChannelCustomBrush" Color="#b0b0b0" />
+  <SolidColorBrush x:Key="BlChannelCustomBackgroundBrush" Color="#24b0b0b0" />
+
+  <!-- Radii -->
+  <CornerRadius x:Key="BlRadiusRow">6</CornerRadius>      <!-- rows, cards, primary detail button -->
+  <CornerRadius x:Key="BlRadiusButton">5</CornerRadius>   <!-- buttons and fields -->
+  <CornerRadius x:Key="BlRadiusPill">4</CornerRadius>     <!-- channel pills -->
+  <CornerRadius x:Key="BlRadiusTag">3</CornerRadius>      <!-- New / Default tags, checkbox -->
+  <CornerRadius x:Key="BlRadiusBadge">9</CornerRadius>
+  <CornerRadius x:Key="BlRadiusBar">2</CornerRadius>
+  <CornerRadius x:Key="BlRadiusWindow">8</CornerRadius>
+
+  <!-- Layout sizes -->
+  <x:Double x:Key="BlTitleBarHeight">34</x:Double>
+  <x:Double x:Key="BlStatusBarHeight">26</x:Double>
+  <x:Double x:Key="BlSidebarWidth">224</x:Double>
+  <x:Double x:Key="BlDetailPanelWidth">300</x:Double>
+  <x:Double x:Key="BlNavItemHeight">32</x:Double>
+  <x:Double x:Key="BlSectionHeaderHeight">32</x:Double>
+  <x:Double x:Key="BlFilterBoxWidth">260</x:Double>
+  <x:Double x:Key="BlControlHeight">30</x:Double>         <!-- filter box, "Check for builds", Remove build -->
+  <x:Double x:Key="BlRowButtonHeight">28</x:Double>       <!-- Launch / Download in rows -->
+  <x:Double x:Key="BlPrimaryButtonHeight">36</x:Double>   <!-- detail panel primary action -->
+  <x:Double x:Key="BlDetailLabelWidth">78</x:Double>
+  <x:Double x:Key="BlRowGap">2</x:Double>
+  <Thickness x:Key="BlSidebarPadding">10,14</Thickness>
+  <Thickness x:Key="BlMainHeaderPadding">24,18,24,14</Thickness>
+  <Thickness x:Key="BlListPadding">20,8,20,20</Thickness>
+  <Thickness x:Key="BlListHeaderPadding">36,0,36,8</Thickness>
+  <Thickness x:Key="BlRowPadding">16,0</Thickness>
+  <Thickness x:Key="BlDiskCardPadding">10,12</Thickness>
+  <x:Double x:Key="BlColumnGap">10</x:Double>
+  <x:Double x:Key="BlStatusBarGap">18</x:Double>
+
+  <!-- Density: comfortable by default; ThemeManager switches to compact (34, no second line). DynamicResource. -->
+  <x:Double x:Key="BlRowHeight">48</x:Double>
+  <x:Boolean x:Key="BlRowSecondLineVisible">True</x:Boolean>
+
+  <!-- Typography sizes -->
+  <x:Double x:Key="BlFontSizeTitle">20</x:Double>         <!-- main header title -->
+  <x:Double x:Key="BlFontSizeDetailVersion">28</x:Double>
+  <x:Double x:Key="BlFontSizeVersion">14</x:Double>       <!-- row version -->
+  <x:Double x:Key="BlFontSizeNav">13</x:Double>
+  <x:Double x:Key="BlFontSizeBody">12</x:Double>
+  <x:Double x:Key="BlFontSizeSmall">11</x:Double>
+  <x:Double x:Key="BlFontSizeTag">10</x:Double>
+</ResourceDictionary>

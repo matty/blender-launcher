@@ -1,0 +1,98 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:chrome="using:Avalonia.Controls.Chrome"
+             xmlns:theme="using:BlenderLauncher.App.Theme"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             x:Class="BlenderLauncher.App.Controls.AppTitleBar"
+             Height="34">
+  <!--
+    34 px custom title bar. Hit-testing is done by Windows through the element roles:
+    the drag area is TitleBar (HTCAPTION: move, double-click to maximise, Aero snap), and the caption buttons are
+    MinimizeButton / MaximizeButton / CloseButton (HTMINBUTTON / HTMAXBUTTON / HTCLOSE). HTMAXBUTTON is what makes
+    Windows 11 show the snap-layout flyout. Avalonia redirects the non-client mouse input over those buttons back
+    to pointer events, so the buttons still get hover, press and Click.
+    Roles only take effect while Window.ExtendClientAreaToDecorationsHint is true (see WindowChrome).
+  -->
+  <UserControl.Resources>
+    <ControlTheme x:Key="CaptionButtonTheme" TargetType="Button">
+      <Setter Property="Width" Value="46" />
+      <Setter Property="Height" Value="34" />
+      <Setter Property="Focusable" Value="False" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="#cfcfcf" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="PART_Background" Background="{TemplateBinding Background}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover">
+        <Setter Property="Background" Value="#2e2e2e" />
+        <Setter Property="Foreground" Value="#f0f0f0" />
+      </Style>
+      <Style Selector="^:pressed">
+        <Setter Property="Background" Value="#383838" />
+      </Style>
+      <Style Selector="^.close:pointerover">
+        <Setter Property="Background" Value="#c42b1c" />
+        <Setter Property="Foreground" Value="#ffffff" />
+      </Style>
+      <Style Selector="^.close:pressed">
+        <Setter Property="Background" Value="#b0281b" />
+        <Setter Property="Foreground" Value="#ffffff" />
+      </Style>
+    </ControlTheme>
+  </UserControl.Resources>
+
+  <Grid ColumnDefinitions="*,Auto" Background="#181818">
+    <!-- Drag area: everything left of the caption buttons. -->
+    <Border Name="DragArea"
+            Grid.Column="0"
+            Background="Transparent"
+            chrome:WindowDecorationProperties.ElementRole="TitleBar">
+      <StackPanel Orientation="Horizontal" Spacing="10" Margin="14,0,0,0" VerticalAlignment="Center">
+        <!-- The app icon at 16 px (the 32 px image from app.ico, so it stays sharp at 200 %). -->
+        <Image Source="/Assets/Icons/app-32.png" Width="16" Height="16" RenderOptions.BitmapInterpolationMode="HighQuality" />
+        <TextBlock Name="TitleText"
+                   FontFamily="{x:Static theme:AppFonts.PlexSans}"
+                   FontSize="12"
+                   Foreground="#bdbdbd"
+                   VerticalAlignment="Center" />
+      </StackPanel>
+    </Border>
+
+    <StackPanel Grid.Column="1" Orientation="Horizontal">
+      <Button Name="MinimiseButton"
+              Theme="{StaticResource CaptionButtonTheme}"
+              AutomationProperties.Name="{loc:Tr ui.window.minimise}"
+              chrome:WindowDecorationProperties.ElementRole="MinimizeButton">
+        <Path Data="M0,0.5 H10" Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1" Width="10" Height="1" />
+      </Button>
+      <Button Name="MaximiseButton"
+              Theme="{StaticResource CaptionButtonTheme}"
+              AutomationProperties.Name="{loc:Tr ui.window.maximise}"
+              chrome:WindowDecorationProperties.ElementRole="MaximizeButton">
+        <Panel Width="10" Height="10">
+          <Path Name="MaximiseGlyph" Data="M0.5,0.5 H9.5 V9.5 H0.5 Z"
+                Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1" />
+          <Path Name="RestoreGlyph" IsVisible="False"
+                Data="M2.5,0.5 H9.5 V7.5 M0.5,2.5 H7.5 V9.5 H0.5 Z"
+                Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1" />
+        </Panel>
+      </Button>
+      <Button Name="CloseButton"
+              Classes="close"
+              Theme="{StaticResource CaptionButtonTheme}"
+              AutomationProperties.Name="{loc:Tr ui.window.close}"
+              chrome:WindowDecorationProperties.ElementRole="CloseButton">
+        <Path Data="M0.5,0.5 L9.5,9.5 M9.5,0.5 L0.5,9.5"
+              Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1" Width="10" Height="10" />
+      </Button>
+    </StackPanel>
+  </Grid>
+</UserControl>

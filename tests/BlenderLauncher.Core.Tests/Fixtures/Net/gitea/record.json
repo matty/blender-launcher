@@ -1,0 +1,12 @@
+{
+  "requests": [
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=1", "file": "pulls_page1.json" },
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=2", "file": "pulls_page2.json" },
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=3", "file": "pulls_page3.json" },
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls?limit=50&sort=recentupdate&page=4", "file": "pulls_page4.json" },
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/162828", "file": "pull_162828.json" },
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/166147", "file": "pull_166147.json" },
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/163602", "file": "pull_163602.json" },
+    { "url": "https://projects.blender.org/api/v1/repos/blender/blender/pulls/9999999", "file": "pull_9999999.json" }
+  ]
+}

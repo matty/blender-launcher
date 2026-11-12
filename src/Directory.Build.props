@@ -1,0 +1,11 @@
+<Project>
+  <!-- Product code only. Test projects under tests/ import the root file directly and are not AOT-annotated. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!-- Turns on the trim, single-file and AOT analysers and marks the assembly AOT-compatible. -->
+    <IsAotCompatible>true</IsAotCompatible>
+    <!-- Warns (IL3058) when a referenced assembly is not itself marked AOT-compatible. -->
+    <VerifyReferenceAotCompatibility>true</VerifyReferenceAotCompatibility>
+  </PropertyGroup>
+</Project>

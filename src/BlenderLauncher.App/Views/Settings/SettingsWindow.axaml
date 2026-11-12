@@ -1,0 +1,197 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BlenderLauncher.App.Controls"
+        xmlns:loc="using:BlenderLauncher.App.Localisation"
+        xmlns:vm="using:BlenderLauncher.App.ViewModels.Settings"
+        xmlns:settings="using:BlenderLauncher.App.Views.Settings"
+        x:Class="BlenderLauncher.App.Views.Settings.SettingsWindow"
+        x:DataType="vm:SettingsViewModel"
+        Title="{loc:Tr ui.settings.title}"
+        Width="960" Height="700"
+        MinWidth="780" MinHeight="520"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False" CanMinimize="False"
+        Background="{StaticResource BlSurfaceMainBrush}"
+        Foreground="{StaticResource BlTextBodyBrush}"
+        FontSize="12">
+  <!--
+    Settings: modal over the main window, in its theme. Left: a tab list styled as the main window's sidebar
+    (General, Appearance, Connection, Blender Builds, About). Right: the selected tab (Views/Settings/*Tab.axaml), each a
+    scrolling page of collapsible groups. Shared look for the tabs is in Window.Styles below.
+  -->
+  <Window.Resources>
+    <ControlTheme x:Key="SettingsTabItem" TargetType="TabItem">
+      <Setter Property="Height" Value="{StaticResource BlNavItemHeight}" />
+      <Setter Property="Padding" Value="12,0" />
+      <Setter Property="Margin" Value="0,0,0,2" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Foreground" Value="{StaticResource BlNavTextBrush}" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="Cursor" Value="Arrow" />
+      <Setter Property="FocusAdorner" Value="{DynamicResource BlFocusRingInset}" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="PART_Root" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}"
+                  Padding="{TemplateBinding Padding}">
+            <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover /template/ Border#PART_Root">
+        <Setter Property="Background" Value="{StaticResource BlNavHoverBrush}" />
+      </Style>
+      <Style Selector="^:selected">
+        <Setter Property="Foreground" Value="{StaticResource BlNavActiveTextBrush}" />
+      </Style>
+      <Style Selector="^:selected /template/ Border#PART_Root">
+        <Setter Property="Background" Value="{StaticResource BlNavActiveBrush}" />
+      </Style>
+      <Style Selector="^:selected:pointerover /template/ Border#PART_Root">
+        <Setter Property="Background" Value="{StaticResource BlNavActiveHoverBrush}" />
+      </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="SettingsTabs" TargetType="TabControl">
+      <Setter Property="ItemContainerTheme" Value="{StaticResource SettingsTabItem}" />
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Vertical" />
+        </ItemsPanelTemplate>
+      </Setter>
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid ColumnDefinitions="200,*">
+            <Border Background="{StaticResource BlSurfaceSidebarBrush}" BorderBrush="{StaticResource BlLine1Brush}"
+                    BorderThickness="0,0,1,0" Padding="{StaticResource BlSidebarPadding}">
+              <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Classes="group" Margin="12,4,0,10" Text="{loc:Tr ui.settings.nav_label}" />
+                <TextBlock DockPanel.Dock="Bottom" Classes="mono" FontSize="11" Margin="12,0,0,2"
+                           Foreground="{StaticResource BlTextVersionBrush}" Text="{x:Static settings:SettingsWindow.VersionLabel}" />
+                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+              </DockPanel>
+            </Border>
+            <ContentPresenter Name="PART_SelectedContentHost" Grid.Column="1"
+                              Content="{TemplateBinding SelectedContent}"
+                              ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </ControlTheme>
+  </Window.Resources>
+
+  <Window.Styles>
+    <!-- A tab page: header, then groups. -->
+    <Style Selector="StackPanel.page">
+      <Setter Property="Margin" Value="28,20,28,28" />
+      <Setter Property="Spacing" Value="14" />
+    </Style>
+    <Style Selector="TextBlock.page-subtitle">
+      <Setter Property="Foreground" Value="{StaticResource BlTextSubtitleBrush}" />
+      <Setter Property="Margin" Value="0,2,0,4" />
+    </Style>
+    <!-- A collapsible group: a card with the detail panel's section header. -->
+    <Style Selector="Border.group">
+      <Setter Property="Background" Value="{StaticResource BlSurfaceDetailBrush}" />
+      <Setter Property="BorderBrush" Value="{StaticResource BlLine1Brush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+      <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+    <Style Selector="StackPanel.group-body">
+      <Setter Property="Margin" Value="0,6,0,8" />
+      <Setter Property="Spacing" Value="0" />
+    </Style>
+    <!-- A row: label column, then the control. -->
+    <Style Selector="Grid.row">
+      <Setter Property="Margin" Value="16,3" />
+      <Setter Property="MinHeight" Value="36" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="TextBlock.label">
+      <Setter Property="Foreground" Value="{StaticResource BlTextSecondaryBrush}" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Margin" Value="0,0,16,0" />
+    </Style>
+    <Style Selector="TextBlock.note">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextGroupBrush}" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.error">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="{StaticResource BlDangerBrush}" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="TextBlock.warning">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="{StaticResource BlFavouriteOnBrush}" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="CheckBox">
+      <Setter Property="Theme" Value="{StaticResource BlCheckBox}" />
+    </Style>
+    <Style Selector="Grid.row > CheckBox">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="CheckBox.row">
+      <Setter Property="Margin" Value="12,2" />
+      <Setter Property="Padding" Value="4,8" />
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="Height" Value="30" />
+      <Setter Property="MinHeight" Value="30" />
+      <Setter Property="MinWidth" Value="220" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="NumericUpDown">
+      <Setter Property="Height" Value="30" />
+      <Setter Property="MinHeight" Value="30" />
+      <Setter Property="Width" Value="120" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="FormatString" Value="0" />
+      <Setter Property="Increment" Value="1" />
+      <Setter Property="ParsingNumberStyle" Value="Integer" />
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="Theme" Value="{StaticResource BlButton}" />
+    </Style>
+    <Style Selector="Button.link">
+      <Setter Property="Theme" Value="{StaticResource BlGhostButton}" />
+      <Setter Property="Foreground" Value="{DynamicResource BlAccentHoverBrush}" />
+      <Setter Property="Padding" Value="6,3" />
+    </Style>
+  </Window.Styles>
+
+  <DockPanel>
+    <Border Name="TitleBarHost" DockPanel.Dock="Top" BorderBrush="{StaticResource BlLine0Brush}" BorderThickness="0,0,0,1">
+      <controls:AppTitleBar Name="TitleBar" />
+    </Border>
+
+    <TabControl Name="Tabs" Theme="{StaticResource SettingsTabs}">
+      <TabItem Header="{loc:Tr settings.general.label}" AutomationProperties.AutomationId="GeneralTab">
+        <settings:GeneralTab />
+      </TabItem>
+      <TabItem Header="{loc:Tr settings.appearance.label}" AutomationProperties.AutomationId="AppearanceTab">
+        <settings:AppearanceTab />
+      </TabItem>
+      <TabItem Header="{loc:Tr settings.connection.label}" AutomationProperties.AutomationId="ConnectionTab">
+        <settings:ConnectionTab />
+      </TabItem>
+      <TabItem Header="{loc:Tr settings.blender_builds.label}" AutomationProperties.AutomationId="BuildsTab">
+        <settings:BuildsTab />
+      </TabItem>
+      <TabItem Header="{loc:Tr ui.settings.tab.about}" AutomationProperties.AutomationId="AboutTab">
+        <settings:AboutTab />
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>

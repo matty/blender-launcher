@@ -1,0 +1,6 @@
+{ "requests": [
+  { "url": "https://download.blender.org/release/", "file": "index.html" },
+  { "url": "https://download.blender.org/release/Blender5.3/", "file": "Blender5.3.html" },
+  { "url": "https://download.blender.org/release/Blender5.2/", "file": "Blender5.2.html" },
+  { "url": "https://download.blender.org/release/Blender4.5/", "file": "Blender4.5.html" }
+] }

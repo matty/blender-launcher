@@ -1,0 +1,393 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BlenderLauncher.App.Controls"
+        xmlns:loc="using:BlenderLauncher.App.Localisation"
+        xmlns:theme="using:BlenderLauncher.App.Theme"
+        xmlns:vm="using:BlenderLauncher.App.ViewModels.FirstRun"
+        xmlns:svm="using:BlenderLauncher.App.ViewModels.Settings"
+        x:Class="BlenderLauncher.App.Views.FirstRun.FirstRunWindow"
+        x:DataType="vm:FirstRunViewModel"
+        Title="{loc:Tr ui.first_run.title}"
+        Width="860" Height="600"
+        CanResize="False" CanMaximize="False"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BlSurfaceMainBrush}"
+        Foreground="{StaticResource BlTextBodyBrush}"
+        FontSize="12">
+  <!--
+    First-run wizard. Left: the steps, styled as the main window's sidebar. Right: one page at a time (welcome,
+    library, channels, shortcuts, appearance, background), or the committing and error pages. Footer: Cancel on the
+    left (quits, as upstream), Back and Next/Finish on the right. State in ViewModels/FirstRun/FirstRunViewModel.
+  -->
+  <Window.Styles>
+    <Style Selector="StackPanel.page">
+      <Setter Property="Margin" Value="34,28,34,24" />
+      <Setter Property="Spacing" Value="16" />
+    </Style>
+    <Style Selector="TextBlock.page-subtitle">
+      <Setter Property="Foreground" Value="{StaticResource BlTextSubtitleBrush}" />
+      <Setter Property="FontSize" Value="12.5" />
+      <Setter Property="LineHeight" Value="19" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Margin" Value="0,6,0,0" />
+    </Style>
+    <Style Selector="Border.group">
+      <Setter Property="Background" Value="{StaticResource BlSurfaceDetailBrush}" />
+      <Setter Property="BorderBrush" Value="{StaticResource BlLine1Brush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+      <Setter Property="Padding" Value="16,12" />
+    </Style>
+    <Style Selector="TextBlock.field">
+      <Setter Property="Foreground" Value="{StaticResource BlTextSecondaryBrush}" />
+      <Setter Property="Margin" Value="0,0,0,6" />
+    </Style>
+    <Style Selector="TextBlock.note">
+      <Setter Property="FontSize" Value="11.5" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextGroupBrush}" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="LineHeight" Value="17" />
+    </Style>
+    <Style Selector="TextBlock.error">
+      <Setter Property="FontSize" Value="11.5" />
+      <Setter Property="Foreground" Value="{StaticResource BlDangerBrush}" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="TextBlock.warning">
+      <Setter Property="FontSize" Value="11.5" />
+      <Setter Property="Foreground" Value="{StaticResource BlFavouriteOnBrush}" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="LineHeight" Value="17" />
+    </Style>
+    <Style Selector="CheckBox">
+      <Setter Property="Theme" Value="{StaticResource BlCheckBox}" />
+      <Setter Property="FontSize" Value="12.5" />
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="Height" Value="30" />
+      <Setter Property="MinHeight" Value="30" />
+      <Setter Property="MinWidth" Value="200" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="Theme" Value="{StaticResource BlButton}" />
+    </Style>
+    <Style Selector="Button.footer">
+      <Setter Property="MinWidth" Value="92" />
+      <Setter Property="Height" Value="30" />
+    </Style>
+    <!-- Step list -->
+    <Style Selector="Border.step">
+      <Setter Property="Height" Value="{StaticResource BlNavItemHeight}" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+      <Setter Property="Padding" Value="10,0" />
+      <Setter Property="Margin" Value="0,0,0,2" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Border.step.current">
+      <Setter Property="Background" Value="{StaticResource BlNavActiveBrush}" />
+    </Style>
+    <Style Selector="Border.step > Grid > TextBlock.step-title">
+      <Setter Property="Foreground" Value="{StaticResource BlNavTextBrush}" />
+    </Style>
+    <Style Selector="Border.step.current > Grid > TextBlock.step-title">
+      <Setter Property="Foreground" Value="{StaticResource BlNavActiveTextBrush}" />
+    </Style>
+    <Style Selector="Border.step-number">
+      <Setter Property="Width" Value="20" />
+      <Setter Property="Height" Value="20" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="BorderBrush" Value="#4a4a4a" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Border.step-number.current">
+      <Setter Property="BorderBrush" Value="{DynamicResource BlAccentBrush}" />
+      <Setter Property="Background" Value="{DynamicResource BlAccentBrush}" />
+    </Style>
+    <Style Selector="Border.step-number.current TextBlock">
+      <Setter Property="Foreground" Value="#ffffff" />
+    </Style>
+    <Style Selector="Border.step-number.done">
+      <Setter Property="BorderBrush" Value="#3d5a3e" />
+      <Setter Property="Background" Value="#263526" />
+    </Style>
+  </Window.Styles>
+
+  <DockPanel>
+    <Border Name="TitleBarHost" DockPanel.Dock="Top" BorderBrush="{StaticResource BlLine0Brush}" BorderThickness="0,0,0,1">
+      <controls:AppTitleBar Name="TitleBar" />
+    </Border>
+
+    <!-- Footer -->
+    <Border DockPanel.Dock="Bottom" Background="{StaticResource BlSurfaceSidebarBrush}" BorderBrush="{StaticResource BlLine1Brush}"
+            BorderThickness="0,1,0,0" Padding="16,12" IsVisible="{Binding !IsCommitting}">
+      <Grid ColumnDefinitions="Auto,*,Auto">
+        <Button Classes="footer" Content="{loc:Tr act.cancel}" Command="{Binding CancelCommand}"
+                AutomationProperties.AutomationId="WizardCancel" />
+        <TextBlock Grid.Column="1" Classes="small muted" Margin="16,0" VerticalAlignment="Center"
+                   Text="{Binding StepText}" IsVisible="{Binding IsOnPages}" />
+        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsOnPages}">
+          <Button Classes="footer" Content="{loc:Tr act.back}" Command="{Binding BackCommand}" IsVisible="{Binding CanGoBack}"
+                  AutomationProperties.AutomationId="WizardBack" />
+          <Button Classes="footer" Theme="{StaticResource BlPrimaryButton}" Content="{loc:Tr act.next}" Command="{Binding NextCommand}"
+                  IsVisible="{Binding IsNotLastPage}" IsDefault="True" AutomationProperties.AutomationId="WizardNext" />
+          <Button Classes="footer" Theme="{StaticResource BlPrimaryButton}" Content="{loc:Tr act.finish}" Command="{Binding NextCommand}"
+                  IsVisible="{Binding IsLastPage}" AutomationProperties.AutomationId="WizardFinish" />
+        </StackPanel>
+        <Button Grid.Column="2" Classes="footer" Theme="{StaticResource BlPrimaryButton}" Content="{loc:Tr ui.first_run.error.continue}"
+                Command="{Binding ContinueAnywayCommand}" IsVisible="{Binding IsError}" AutomationProperties.AutomationId="WizardContinue" />
+      </Grid>
+    </Border>
+
+    <!-- Steps -->
+    <Border DockPanel.Dock="Left" Width="210" Background="{StaticResource BlSurfaceSidebarBrush}" BorderBrush="{StaticResource BlLine1Brush}"
+            BorderThickness="0,0,1,0" Padding="12,18,12,14">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="8,0,0,18">
+          <Image Source="/Assets/Icons/app-64.png" Width="22" Height="22" VerticalAlignment="Center"
+                 RenderOptions.BitmapInterpolationMode="HighQuality" />
+          <TextBlock Classes="group" VerticalAlignment="Center" Text="{loc:Tr ui.first_run.steps_label}" />
+        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Steps}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:FirstRunStep">
+              <Border Classes="step" Classes.current="{Binding IsCurrent}">
+                <Grid ColumnDefinitions="Auto,*">
+                  <Border Classes="step-number" Classes.current="{Binding IsCurrent}" Classes.done="{Binding IsDone}" VerticalAlignment="Center">
+                    <Panel>
+                      <TextBlock Text="{Binding Number}" FontSize="10.5" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 Foreground="{StaticResource BlTextSecondaryBrush}" IsVisible="{Binding !IsDone}" />
+                      <Path Data="M1,4.5 L4,7.5 L10,1" Stroke="#82c784" StrokeThickness="1.6" StrokeLineCap="Round" StrokeJoin="Round"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding IsDone}" />
+                    </Panel>
+                  </Border>
+                  <TextBlock Grid.Column="1" Classes="step-title" Text="{Binding Title}" FontSize="13" Margin="12,0,0,0" VerticalAlignment="Center" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </DockPanel>
+    </Border>
+
+    <Panel>
+      <!-- ===================================================================== pages -->
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled" IsVisible="{Binding IsOnPages}">
+        <Panel>
+          <!-- Welcome -->
+          <StackPanel Classes="page" IsVisible="{Binding IsWelcome}" Spacing="22">
+            <Image Source="/Assets/Icons/app-128.png" Width="64" Height="64" HorizontalAlignment="Left" Margin="0,12,0,0"
+                   RenderOptions.BitmapInterpolationMode="HighQuality" />
+            <StackPanel>
+              <TextBlock Classes="display" Text="{Binding WelcomeTitle}" TextWrapping="Wrap" />
+              <TextBlock Classes="page-subtitle" FontSize="13" LineHeight="21" Margin="0,10,0,0" MaxWidth="520" HorizontalAlignment="Left"
+                         Text="{loc:Tr ui.first_run.welcome.text}" />
+            </StackPanel>
+            <StackPanel Spacing="10" Margin="0,4,0,0">
+              <StackPanel Orientation="Horizontal" Spacing="12">
+                <Border Width="6" Height="6" CornerRadius="3" Background="{DynamicResource BlAccentBrush}" VerticalAlignment="Center" />
+                <TextBlock FontSize="13" Foreground="{StaticResource BlTextSectionBrush}" Text="{loc:Tr ui.first_run.welcome.point_library}" />
+              </StackPanel>
+              <StackPanel Orientation="Horizontal" Spacing="12">
+                <Border Width="6" Height="6" CornerRadius="3" Background="{DynamicResource BlAccentBrush}" VerticalAlignment="Center" />
+                <TextBlock FontSize="13" Foreground="{StaticResource BlTextSectionBrush}" Text="{loc:Tr ui.first_run.welcome.point_channels}" />
+              </StackPanel>
+              <StackPanel Orientation="Horizontal" Spacing="12">
+                <Border Width="6" Height="6" CornerRadius="3" Background="{DynamicResource BlAccentBrush}" VerticalAlignment="Center" />
+                <TextBlock FontSize="13" Foreground="{StaticResource BlTextSectionBrush}" Text="{loc:Tr ui.first_run.welcome.point_look}" />
+              </StackPanel>
+            </StackPanel>
+          </StackPanel>
+
+          <!-- Library -->
+          <StackPanel Classes="page" IsVisible="{Binding IsLibrary}">
+            <StackPanel>
+              <TextBlock Classes="title" Text="{loc:Tr ui.first_run.library.title}" />
+              <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.first_run.library.subtitle}" />
+            </StackPanel>
+            <StackPanel>
+              <TextBlock Classes="field" Text="{loc:Tr ui.first_run.library.location}" />
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBox Theme="{StaticResource BlTextBox}" FontFamily="{StaticResource BlMonoFont}" FontSize="11.5"
+                         Text="{Binding LibraryPath}" AutomationProperties.Name="{loc:Tr ui.first_run.library.location}"
+                         AutomationProperties.AutomationId="LibraryPath" />
+                <Button Grid.Column="1" Margin="8,0,0,0" Height="30" Content="{loc:Tr ui.settings.library.browse}"
+                        Command="{Binding BrowseLibraryCommand}" AutomationProperties.AutomationId="BrowseLibrary" />
+              </Grid>
+              <StackPanel Spacing="4" Margin="0,8,0,0">
+                <TextBlock Classes="error" Text="{Binding LibraryProblemText}" IsVisible="{Binding HasLibraryProblem}" />
+                <TextBlock Classes="note" Text="{Binding LibraryNoteText}" IsVisible="{Binding HasLibraryNote}" />
+                <TextBlock Classes="warning" Text="{Binding LibraryWarningText}" IsVisible="{Binding HasLibraryWarning}" />
+                <TextBlock Classes="warning" Text="{Binding RelativeHint}" IsVisible="{Binding HasRelativeHint}" />
+              </StackPanel>
+            </StackPanel>
+
+            <Border Classes="group" IsVisible="{Binding HasUpstream}" Margin="0,4,0,0">
+              <StackPanel Spacing="8">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                  <Border Width="20" Height="20" CornerRadius="10" Background="#297aa6e6" VerticalAlignment="Center">
+                    <TextBlock Text="i" FontSize="11" FontWeight="Bold" Foreground="#7aa6e6" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                  </Border>
+                  <TextBlock Classes="version" FontSize="13" VerticalAlignment="Center" Text="{loc:Tr ui.first_run.library.import_found}" />
+                </StackPanel>
+                <TextBlock Classes="mono small faint" Text="{Binding UpstreamPath}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding UpstreamPath}" />
+                <TextBlock Classes="error" Text="{Binding UpstreamError}" IsVisible="{Binding HasUpstreamError}" />
+                <CheckBox Content="{loc:Tr ui.first_run.library.import_check}" IsChecked="{Binding ImportUpstream}" IsEnabled="{Binding CanImport}"
+                          Margin="-4,2,0,0" AutomationProperties.AutomationId="ImportUpstream" />
+                <TextBlock Classes="note" Text="{loc:Tr ui.first_run.library.import_hint}" />
+                <ItemsControl ItemsSource="{Binding ImportSummary}" IsVisible="{Binding ImportUpstream}" Margin="0,2,0,0">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2">
+                        <TextBlock Text="•" Foreground="{StaticResource BlTextGroupBrush}" />
+                        <TextBlock Text="{Binding}" Foreground="{StaticResource BlTextSectionBrush}" TextWrapping="Wrap" MaxWidth="520" />
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Expander Header="{loc:Tr ui.first_run.library.import_details}" IsVisible="{Binding ImportUpstream}" HorizontalAlignment="Stretch">
+                  <TextBox IsReadOnly="True" Text="{Binding ImportDetails}" MaxHeight="160" FontSize="11" FontFamily="{StaticResource BlMonoFont}"
+                           AcceptsReturn="True" TextWrapping="NoWrap" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </Expander>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+
+          <!-- Channels -->
+          <StackPanel Classes="page" IsVisible="{Binding IsChannels}">
+            <StackPanel>
+              <TextBlock Classes="title" Text="{loc:Tr ui.first_run.channels.title}" />
+              <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.first_run.channels.subtitle}" />
+            </StackPanel>
+            <Border Classes="group" Padding="0,8">
+              <StackPanel>
+                <Grid Margin="16,2,16,4" ColumnDefinitions="*,64,64">
+                  <TextBlock Classes="group" Text="{loc:Tr ui.settings.builds.channel}" />
+                  <TextBlock Grid.Column="1" Classes="group" HorizontalAlignment="Center" Text="{loc:Tr ui.settings.builds.show}"
+                             ToolTip.Tip="{loc:Tip repo.visibility_tooltip}" />
+                  <TextBlock Grid.Column="2" Classes="group" HorizontalAlignment="Center" Text="{loc:Tr ui.settings.builds.download}"
+                             ToolTip.Tip="{loc:Tip repo.download_tooltip}" />
+                </Grid>
+                <ItemsControl ItemsSource="{Binding Settings.Repos}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="svm:RepoRowViewModel">
+                      <Grid Margin="16,1" Height="36" ColumnDefinitions="*,64,64" Background="Transparent" ToolTip.Tip="{Binding Description}">
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                          <Border Width="8" Height="8" CornerRadius="2" Background="{Binding Colour}" VerticalAlignment="Center" />
+                          <TextBlock Text="{Binding Name}" FontSize="13" VerticalAlignment="Center" Foreground="{StaticResource BlTextSectionBrush}" />
+                        </StackPanel>
+                        <ToggleButton Grid.Column="1" Theme="{StaticResource BlEyeToggle}" HorizontalAlignment="Center" IsChecked="{Binding IsShown}"
+                                      AutomationProperties.Name="{Binding Name, StringFormat='Show {0}'}" />
+                        <ToggleButton Grid.Column="2" Theme="{StaticResource BlDownloadToggle}" HorizontalAlignment="Center" IsChecked="{Binding IsDownloaded}"
+                                      AutomationProperties.Name="{Binding Name, StringFormat='Download {0}'}" />
+                      </Grid>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+
+          <!-- Shortcuts -->
+          <StackPanel Classes="page" IsVisible="{Binding IsShortcuts}">
+            <StackPanel>
+              <TextBlock Classes="title" Text="{loc:Tr ui.first_run.shortcuts.title}" />
+              <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.first_run.shortcuts.subtitle}" />
+            </StackPanel>
+            <Border Classes="group" Padding="12,10">
+              <StackPanel Spacing="2">
+                <!-- An installed copy already has both shortcuts: Velopack's Setup.exe made them. -->
+                <StackPanel Spacing="2" IsVisible="{Binding ShowShortcutChoices}">
+                  <CheckBox Content="{loc:Tr ui.first_run.shortcuts.start_menu}" IsChecked="{Binding AddToStartMenu}" Padding="6,7"
+                            AutomationProperties.AutomationId="StartMenu" />
+                  <CheckBox Content="{loc:Tr ui.first_run.shortcuts.desktop}" IsChecked="{Binding AddToDesktop}" Padding="6,7"
+                            AutomationProperties.AutomationId="Desktop" />
+                  <Border Height="1" Background="{StaticResource BlLine1Brush}" Margin="4,8" />
+                </StackPanel>
+                <CheckBox Content="{loc:Tr ui.first_run.shortcuts.file_association}" IsChecked="{Binding RegisterFileAssociation}" Padding="6,7"
+                          AutomationProperties.AutomationId="FileAssociation" />
+                <TextBlock Classes="note" Margin="32,0,8,6" Text="{loc:Tr ui.first_run.shortcuts.file_association_hint}" />
+              </StackPanel>
+            </Border>
+            <Grid ColumnDefinitions="Auto,*">
+              <Border Width="18" Height="18" CornerRadius="9" Background="#297aa6e6" VerticalAlignment="Top" Margin="0,0,10,0">
+                <TextBlock Text="i" FontSize="10" FontWeight="Bold" Foreground="#7aa6e6" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <TextBlock Grid.Column="1" Classes="note" Text="{loc:Tr ui.first_run.shortcuts.later}" />
+            </Grid>
+          </StackPanel>
+
+          <!-- Appearance -->
+          <StackPanel Classes="page" IsVisible="{Binding IsAppearance}">
+            <StackPanel>
+              <TextBlock Classes="title" Text="{loc:Tr ui.first_run.appearance.title}" />
+              <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.first_run.appearance.subtitle}" />
+            </StackPanel>
+            <Border Classes="group">
+              <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="170,*">
+                  <TextBlock Classes="secondary" VerticalAlignment="Center" Text="{loc:Tr ui.first_run.appearance.accent}" />
+                  <ComboBox Grid.Column="1" ItemsSource="{Binding Settings.AccentNames}" SelectedIndex="{Binding Settings.AccentIndex}"
+                            AutomationProperties.Name="{loc:Tr ui.first_run.appearance.accent}" />
+                </Grid>
+                <Grid ColumnDefinitions="170,*">
+                  <TextBlock Classes="secondary" VerticalAlignment="Center" Text="{loc:Tr ui.first_run.appearance.density}" />
+                  <ComboBox Grid.Column="1" ItemsSource="{Binding Settings.DensityNames}" SelectedIndex="{Binding Settings.DensityIndex}"
+                            AutomationProperties.Name="{loc:Tr ui.first_run.appearance.density}" />
+                </Grid>
+                <Border Height="1" Background="{StaticResource BlLine1Brush}" Margin="0,4" />
+                <StackPanel Spacing="2">
+                  <CheckBox Content="{loc:Tr ui.first_run.appearance.title_bar}" IsChecked="{Binding Settings.UseSystemTitleBar}" Margin="-4,0,0,0"
+                            AutomationProperties.AutomationId="SystemTitleBar" />
+                  <TextBlock Classes="note" Margin="26,0,0,0" Text="{loc:Tr ui.first_run.appearance.title_bar_hint}" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+
+          <!-- Background -->
+          <StackPanel Classes="page" IsVisible="{Binding IsBackground}">
+            <StackPanel>
+              <TextBlock Classes="title" Text="{loc:Tr ui.first_run.background.title}" />
+              <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.first_run.background.subtitle}" />
+            </StackPanel>
+            <Border Classes="group" Padding="12,10">
+              <StackPanel Spacing="2">
+                <CheckBox Content="{loc:Tr ui.first_run.background.tray}" IsChecked="{Binding Settings.MinimiseToTray}" Padding="6,7"
+                          AutomationProperties.AutomationId="MinimiseToTray" />
+                <CheckBox Content="{loc:Tr ui.first_run.background.minimised}" IsChecked="{Binding Settings.LaunchMinimisedToTray}"
+                          IsEnabled="{Binding Settings.MinimiseToTray}" Padding="6,7" Margin="24,0,0,0" />
+                <TextBlock Classes="note" Margin="8,6,8,4" Text="{loc:Tr ui.first_run.background.hint}" />
+              </StackPanel>
+            </Border>
+          </StackPanel>
+        </Panel>
+      </ScrollViewer>
+
+      <!-- ===================================================================== committing -->
+      <StackPanel IsVisible="{Binding IsCommitting}" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="14" Width="320">
+        <TextBlock Classes="title" HorizontalAlignment="Center" Text="{loc:Tr ui.first_run.committing.title}" />
+        <ProgressBar Theme="{StaticResource BlProgressBar}" IsIndeterminate="True" />
+        <TextBlock Classes="subtitle" HorizontalAlignment="Center" Text="{loc:Tr ui.first_run.committing.subtitle}" />
+      </StackPanel>
+
+      <!-- ===================================================================== error -->
+      <DockPanel IsVisible="{Binding IsError}" Margin="34,28,34,24">
+        <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,16">
+          <StackPanel Orientation="Horizontal" Spacing="12">
+            <Border Width="26" Height="26" CornerRadius="13" Background="#29e07a7a" VerticalAlignment="Center">
+              <TextBlock Text="!" FontSize="14" FontWeight="Bold" Foreground="#e07a7a" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <TextBlock Classes="title" VerticalAlignment="Center" Text="{loc:Tr ui.first_run.error.title}" />
+          </StackPanel>
+          <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.first_run.error.subtitle}" />
+        </StackPanel>
+        <TextBox IsReadOnly="True" Text="{Binding ErrorText}" FontSize="11" FontFamily="{StaticResource BlMonoFont}" AcceptsReturn="True"
+                 TextWrapping="NoWrap" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 VerticalContentAlignment="Top" />
+      </DockPanel>
+    </Panel>
+  </DockPanel>
+</Window>

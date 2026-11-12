@@ -1,0 +1,683 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="using:Avalonia.Controls.Converters">
+  <!--
+    Control themes for the design. FluentTheme (dark) stays the base; these replace it where the design
+    differs. Keyed themes are opted into with Theme="{StaticResource Key}"; the implicit ones ({x:Type ...}) restyle
+    every instance.
+
+    Keyed:     BlButton (neutral / secondary; classes: accent, small, large, icon), BlPrimaryButton (accent fill),
+               BlGhostButton, BlDangerButton, BlFilterBox (TextBox), BlCheckBox, BlListBox, BlListRow (ListBoxItem),
+               BlSectionHeader (ToggleButton, IsChecked = expanded), BlProgressBar (classes: thin, large),
+               BlScrollThumb
+    Implicit:  ScrollBar (thin), ToolTip, ContextMenu, MenuFlyoutPresenter, MenuItem, Separator
+  -->
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Theme/Tokens.axaml" />
+    <ResourceInclude Source="/Theme/Forms.axaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <conv:PlatformKeyGestureConverter x:Key="BlKeyGestureConverter" />
+
+  <!--
+    Keyboard focus: one ring in the accent colour, shown only for keyboard focus (:focus-visible) and applied to
+    every control by Theme/Styles.axaml in place of Fluent's white rectangle. BlFocusRing sits 1 px outside the control
+    (buttons, check boxes, sort headers); BlFocusRingInset is drawn inside it, for full-width controls whose outside
+    would be clipped by a scroll viewer (list rows, sidebar entries, detail section headers).
+  -->
+  <FocusAdornerTemplate x:Key="BlFocusRing">
+    <!-- Adorners are clipped to the control's bounds by default, which would hide a ring drawn outside them. -->
+    <Border Margin="-3" BorderThickness="2" CornerRadius="7" BorderBrush="{DynamicResource BlAccentBrush}"
+            AdornerLayer.IsClipEnabled="False" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="BlFocusRingInset">
+    <Border BorderThickness="2" CornerRadius="6" BorderBrush="{DynamicResource BlAccentBrush}" />
+  </FocusAdornerTemplate>
+
+  <!-- ===================================================================== Buttons -->
+  <ControlTheme x:Key="BlButton" TargetType="Button">
+    <Setter Property="Background" Value="{StaticResource BlNeutralBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource BlNeutralBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusButton}" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Height" Value="{StaticResource BlControlHeight}" />
+    <Setter Property="Padding" Value="12,0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Cursor" Value="Arrow" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}"
+                          Foreground="{TemplateBinding Foreground}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                          RecognizesAccessKey="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource BlNeutralHoverBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource BlNeutralPressedBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.45" />
+    </Style>
+    <!-- Keyboard focus: the shared ring (BlFocusRing, applied in Styles.axaml), so no border change here. -->
+    <!-- Accent fill: the selected row's Launch / Download button and the detail panel's primary action. -->
+    <Style Selector="^.accent">
+      <Setter Property="Background" Value="{DynamicResource BlAccentBrush}" />
+      <Setter Property="BorderBrush" Value="{StaticResource BlFilledButtonBorderBrush}" />
+      <Setter Property="Foreground" Value="#ffffff" />
+      <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+    <Style Selector="^.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource BlAccentHoverBrush}" />
+    </Style>
+    <Style Selector="^.accent:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource BlAccentBrush}" />
+    </Style>
+    <!-- Row buttons (Launch, Download, Installed's Launch): 28 high. -->
+    <Style Selector="^.small">
+      <Setter Property="Height" Value="{StaticResource BlRowButtonHeight}" />
+      <Setter Property="Padding" Value="14,0" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextOnButtonBrush}" />
+    </Style>
+    <!-- The detail panel's primary action: 36 high, radius 6, 13 px semibold. -->
+    <Style Selector="^.large">
+      <Setter Property="Height" Value="{StaticResource BlPrimaryButtonHeight}" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <!-- Square icon button (the detail panel's open-folder button): set Width and Height to match. -->
+    <Style Selector="^.icon">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Width" Value="28" />
+      <Setter Property="Height" Value="26" />
+      <Setter Property="CornerRadius" Value="4" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="BlPrimaryButton" TargetType="Button" BasedOn="{StaticResource BlButton}">
+    <Setter Property="Background" Value="{DynamicResource BlAccentBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource BlFilledButtonBorderBrush}" />
+    <Setter Property="Foreground" Value="#ffffff" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource BlAccentHoverBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource BlAccentBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- Borderless, transparent: favourite star, cancel cross, "Quit all". Hover is a faint white wash. -->
+  <ControlTheme x:Key="BlGhostButton" TargetType="Button" BasedOn="{StaticResource BlButton}">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextSecondaryBrush}" />
+    <Setter Property="Height" Value="NaN" />
+    <Setter Property="Padding" Value="6,2" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusPill}" />
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource BlGhostHoverBrush}" />
+      <Setter Property="Foreground" Value="#ffffff" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource BlGhostPressedBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- "Remove build": outlined in dark red. -->
+  <ControlTheme x:Key="BlDangerButton" TargetType="Button" BasedOn="{StaticResource BlButton}">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{StaticResource BlDangerBorderBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource BlDangerBrush}" />
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource BlDangerHoverBrush}" />
+      <Setter Property="BorderBrush" Value="{StaticResource BlDangerHoverBorderBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource BlDangerHoverBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- ===================================================================== Filter box -->
+  <!-- 260 × 30 inset field with a magnifier; PlaceholderText carries the hint. Based on Fluent's TextBox. -->
+  <ControlTheme x:Key="BlFilterBox" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+    <Setter Property="Width" Value="{StaticResource BlFilterBoxWidth}" />
+    <Setter Property="Height" Value="{StaticResource BlControlHeight}" />
+    <Setter Property="MinHeight" Value="{StaticResource BlControlHeight}" />
+    <Setter Property="Padding" Value="0,0,8,0" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="{StaticResource BlSurfaceInsetBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource BlLineFieldBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusButton}" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="CaretBrush" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource BlAccentBrush}" />
+    <Setter Property="PlaceholderForeground" Value="{StaticResource BlTextFaintBrush}" />
+    <Setter Property="InnerLeftContent">
+      <Template>
+        <Path Margin="10,0,8,0" Width="13" Height="13" VerticalAlignment="Center"
+              Stroke="{StaticResource BlTextMutedBrush}" StrokeThickness="1.4" StrokeLineCap="Round"
+              Stretch="Uniform" Data="M7,2 A5,5 0 1 1 6.99,2 Z M10.6,10.6 L14,14" />
+      </Template>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="{StaticResource BlSurfaceInsetBrush}" />
+      <Setter Property="BorderBrush" Value="#262626" />
+    </Style>
+
+    <Style Selector="^:focus">
+      <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    </Style>
+    <Style Selector="^:focus /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="{StaticResource BlSurfaceInsetBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource BlAccentBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+  </ControlTheme>
+
+  <!-- ===================================================================== Check box -->
+  <!-- 14 px box, accent when checked, white tick. Content is the label (and optionally a hint line under it). -->
+  <ControlTheme x:Key="BlCheckBox" TargetType="CheckBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextSectionBrush}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Padding" Value="4,5" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Cursor" Value="Arrow" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <Grid ColumnDefinitions="Auto,*">
+            <Border Name="PART_Box" Width="14" Height="14" CornerRadius="{StaticResource BlRadiusTag}"
+                    VerticalAlignment="Top" Margin="0,1,0,0"
+                    Background="{StaticResource BlCheckOffBrush}"
+                    BorderBrush="{StaticResource BlCheckOffBorderBrush}"
+                    BorderThickness="1">
+              <Viewbox Name="PART_Tick" Width="10" Height="10" IsVisible="False">
+                <Canvas Width="12" Height="12">
+                  <Path Data="M2,6.5 L4.5,9 L10,3" Stroke="#ffffff" StrokeThickness="1.8"
+                        StrokeLineCap="Round" StrokeJoin="Round" />
+                </Canvas>
+              </Viewbox>
+            </Border>
+            <ContentPresenter Name="PART_ContentPresenter" Grid.Column="1" Margin="9,0,0,0"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="Center"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{StaticResource BlOptionHoverBrush}" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#PART_Box">
+      <Setter Property="Background" Value="{DynamicResource BlAccentBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource BlAccentBrush}" />
+    </Style>
+    <Style Selector="^:checked /template/ Viewbox#PART_Tick">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.45" />
+    </Style>
+  </ControlTheme>
+
+  <!-- ===================================================================== Scroll bars -->
+  <ControlTheme x:Key="BlScrollThumb" TargetType="Thumb">
+    <Setter Property="Background" Value="{StaticResource BlScrollThumbBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent">
+          <Border Name="PART_Bar" Margin="3" CornerRadius="3" Background="{TemplateBinding Background}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{StaticResource BlScrollThumbHoverBrush}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{StaticResource BlScrollThumbHoverBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- Thin, always the same width (10 px with a 4 px thumb), no arrow buttons; replaces Fluent's everywhere. -->
+  <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+    <Setter Property="Cursor" Value="Arrow" />
+    <Style Selector="^:vertical">
+      <Setter Property="Width" Value="10" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="Transparent">
+            <Track Name="PART_Track"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="Vertical"
+                   IsDirectionReversed="True">
+              <Thumb Name="thumb" Theme="{StaticResource BlScrollThumb}" MinHeight="24" />
+            </Track>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^:horizontal">
+      <Setter Property="Height" Value="10" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="Transparent">
+            <Track Name="PART_Track"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="Horizontal">
+              <Thumb Name="thumb" Theme="{StaticResource BlScrollThumb}" MinWidth="24" />
+            </Track>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <!-- ===================================================================== Lists -->
+  <!--
+    A list row: 48 high (34 compact, DynamicResource BlRowHeight), radius 6, 2 px gap, hover #313131, selected and
+    selected-hover in the accent's row colours. The row content lays out its own columns.
+  -->
+  <ControlTheme x:Key="BlListRow" TargetType="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="MinHeight" Value="{DynamicResource BlRowHeight}" />
+    <Setter Property="Padding" Value="{StaticResource BlRowPadding}" />
+    <Setter Property="Margin" Value="0,0,0,2" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Cursor" Value="Arrow" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource BlRowHoverBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource BlAccentRowBrush}" />
+    </Style>
+    <Style Selector="^:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource BlAccentRowHoverBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- A plain list: no chrome, the thin scroll bar, rows themed with BlListRow, virtualised. -->
+  <ControlTheme x:Key="BlListBox" TargetType="ListBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="{StaticResource BlListPadding}" />
+    <Setter Property="ItemContainerTheme" Value="{StaticResource BlListRow}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto"
+                        AllowAutoHide="False">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            Margin="{TemplateBinding Padding}" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- ===================================================================== Detail section header -->
+  <!-- 32 high, #2b2b2b, chevron rotated -90° when collapsed. Bind IsChecked to the section's expanded state. -->
+  <ControlTheme x:Key="BlSectionHeader" TargetType="ToggleButton">
+    <Setter Property="Background" Value="{StaticResource BlSurfaceSectionBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextSectionBrush}" />
+    <Setter Property="Height" Value="{StaticResource BlSectionHeaderHeight}" />
+    <Setter Property="Padding" Value="14,0" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Cursor" Value="Arrow" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+          <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+            <Path Name="PART_Chevron" Width="8" Height="8" VerticalAlignment="Center"
+                  Data="M1,2 L4,6 L7,2 Z" Fill="{StaticResource BlChevronBrush}"
+                  RenderTransform="rotate(-90deg)">
+              <Path.Transitions>
+                <Transitions>
+                  <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" />
+                </Transitions>
+              </Path.Transitions>
+            </Path>
+            <ContentPresenter Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              VerticalAlignment="Center" />
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{StaticResource BlSurfaceSectionHoverBrush}" />
+    </Style>
+    <Style Selector="^:checked /template/ Path#PART_Chevron">
+      <Setter Property="RenderTransform" Value="rotate(0deg)" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{StaticResource BlSurfaceSectionHoverBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- ===================================================================== Progress -->
+  <!--
+    Row progress: 6 high, inset track with a dark edge, accent fill. Classes: thin (4 px, status bar), large (8 px,
+    detail panel). Indeterminate shows a pulsing full bar.
+  -->
+  <ControlTheme x:Key="BlProgressBar" TargetType="ProgressBar">
+    <Setter Property="Height" Value="6" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="Background" Value="{StaticResource BlSurfaceInsetBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource BlAccentBrush}" />
+    <Setter Property="BorderBrush" Value="#191919" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="3" />
+    <Setter Property="Maximum" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                ClipToBounds="True">
+          <Panel>
+            <Border Name="PART_Indicator" Background="{TemplateBinding Foreground}" HorizontalAlignment="Left" />
+            <Border Name="PART_Pulse" Background="{TemplateBinding Foreground}" IsVisible="False" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.thin">
+      <Setter Property="Height" Value="4" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusBar}" />
+      <Setter Property="Background" Value="{StaticResource BlTrackStatusBrush}" />
+    </Style>
+    <Style Selector="^.large">
+      <Setter Property="Height" Value="8" />
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Background" Value="{StaticResource BlSurfaceInset3Brush}" />
+      <Setter Property="BorderBrush" Value="{StaticResource BlLineFieldBrush}" />
+    </Style>
+    <Style Selector="^:indeterminate /template/ Border#PART_Indicator">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:indeterminate /template/ Border#PART_Pulse">
+      <Setter Property="IsVisible" Value="True" />
+      <Style.Animations>
+        <Animation Duration="0:0:1.6" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="Opacity" Value="0.25" />
+          </KeyFrame>
+          <KeyFrame Cue="50%">
+            <Setter Property="Opacity" Value="0.8" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="Opacity" Value="0.25" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+  </ControlTheme>
+
+  <!-- ===================================================================== Tooltip -->
+  <ControlTheme x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+    <Setter Property="Background" Value="{StaticResource BlSurfaceTooltipBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource BlLineMenuBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusPill}" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Padding" Value="8,5" />
+    <Setter Property="MaxWidth" Value="360" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          Padding="{TemplateBinding Padding}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Foreground="{TemplateBinding Foreground}"
+                          TextWrapping="Wrap" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- ===================================================================== Menus -->
+  <ControlTheme x:Key="{x:Type ContextMenu}" TargetType="ContextMenu">
+    <Setter Property="Background" Value="{StaticResource BlSurfaceMenuBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource BlLineMenuBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+    <Setter Property="Padding" Value="4" />
+    <Setter Property="MinWidth" Value="180" />
+    <Setter Property="MaxWidth" Value="420" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                MaxWidth="{TemplateBinding MaxWidth}"
+                MinHeight="{TemplateBinding MinHeight}"
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+          <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Grid.IsSharedSizeScope="True" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type MenuFlyoutPresenter}" TargetType="MenuFlyoutPresenter">
+    <Setter Property="Background" Value="{StaticResource BlSurfaceMenuBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource BlLineMenuBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusRow}" />
+    <Setter Property="Padding" Value="4" />
+    <Setter Property="MinWidth" Value="160" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+          <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Grid.IsSharedSizeScope="True" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type Separator}" TargetType="Separator">
+    <Setter Property="Background" Value="#3a3a3a" />
+    <Setter Property="Height" Value="1" />
+    <Setter Property="Margin" Value="6,4" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- 28 px items, rounded hover in the row-hover grey; submenus open to the right; a tick for checked items. -->
+  <ControlTheme x:Key="{x:Type MenuItem}" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{StaticResource BlTextBodyBrush}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Padding" Value="8,0" />
+    <Setter Property="MinHeight" Value="28" />
+    <Setter Property="CornerRadius" Value="{StaticResource BlRadiusPill}" />
+    <Setter Property="Cursor" Value="Arrow" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_LayoutRoot"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Padding="{TemplateBinding Padding}"
+                  MinHeight="{TemplateBinding MinHeight}">
+            <Grid VerticalAlignment="Center">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="BlMenuItemIcon" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="BlMenuItemGesture" />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="BlMenuItemChevron" />
+              </Grid.ColumnDefinitions>
+              <Panel Name="PART_IconColumn" Grid.Column="0" Width="16" Margin="0,0,8,0" IsVisible="False">
+                <ContentPresenter Name="PART_IconPresenter" Content="{TemplateBinding Icon}"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Viewbox Name="PART_Tick" Width="10" Height="10" IsVisible="False">
+                  <Canvas Width="12" Height="12">
+                    <Path Data="M2,6.5 L4.5,9 L10,3" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.6"
+                          StrokeLineCap="Round" StrokeJoin="Round" />
+                  </Canvas>
+                </Viewbox>
+              </Panel>
+              <ContentPresenter Name="PART_HeaderPresenter" Grid.Column="1"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+              <TextBlock Name="PART_InputGestureText" Grid.Column="2" Margin="24,0,0,0"
+                         VerticalAlignment="Center" FontSize="11"
+                         Foreground="{StaticResource BlTextMutedBrush}"
+                         Text="{TemplateBinding InputGesture, Converter={StaticResource BlKeyGestureConverter}}" />
+              <Path Name="PART_ChevronPath" Grid.Column="3" Margin="12,0,0,0" Width="8" Height="8"
+                    VerticalAlignment="Center" Data="M2,1 L6,4 L2,7 Z" Fill="{StaticResource BlChevronBrush}" />
+            </Grid>
+          </Border>
+          <Popup Name="PART_Popup"
+                 WindowManagerAddShadowHint="False"
+                 Placement="RightEdgeAlignedTop"
+                 HorizontalOffset="2"
+                 VerticalOffset="-5"
+                 IsLightDismissEnabled="False"
+                 IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}">
+            <Border Background="{StaticResource BlSurfaceMenuBrush}"
+                    BorderBrush="{StaticResource BlLineMenuBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource BlRadiusRow}"
+                    Padding="4"
+                    MinWidth="160">
+              <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                Grid.IsSharedSizeScope="True" />
+              </ScrollViewer>
+            </Border>
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{StaticResource BlRowHoverBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{StaticResource BlRowHoverBrush}" />
+    </Style>
+    <Style Selector="^:open /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{StaticResource BlRowHoverBrush}" />
+    </Style>
+    <Style Selector="^:icon /template/ Panel#PART_IconColumn">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked /template/ Panel#PART_IconColumn">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked /template/ Viewbox#PART_Tick">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:empty /template/ Path#PART_ChevronPath">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{StaticResource BlTextFaintBrush}" />
+    </Style>
+    <Style Selector="^.danger">
+      <Setter Property="Foreground" Value="{StaticResource BlDangerBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

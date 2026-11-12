@@ -1,0 +1,136 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="BlenderLauncher.App.Spikes.ThemeGalleryWindow"
+        Title="Theme gallery"
+        Width="1100" Height="860"
+        Background="{StaticResource BlSurfaceMainBrush}"
+        Foreground="{StaticResource BlTextBodyBrush}"
+        FontSize="12">
+  <!-- Developer gallery of every control theme and style class: BlenderLauncher.exe, switch "spike theme". Not translated. -->
+  <ScrollViewer>
+    <StackPanel Margin="24" Spacing="18">
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBlock Classes="title" Text="Theme gallery" />
+        <Button Name="AccentButton" Theme="{StaticResource BlButton}" Content="Toggle accent" Margin="24,0,0,0" />
+        <Button Name="DensityButton" Theme="{StaticResource BlButton}" Content="Toggle density" />
+      </StackPanel>
+
+      <TextBlock Classes="group" Text="Buttons" />
+      <WrapPanel Orientation="Horizontal">
+        <Button Theme="{StaticResource BlButton}" Content="Check for builds" Margin="0,0,8,8" />
+        <Button Theme="{StaticResource BlButton}" Classes="small" Content="Launch" Margin="0,0,8,8" />
+        <Button Theme="{StaticResource BlButton}" Classes="small accent" Content="Launch" Margin="0,0,8,8" />
+        <Button Theme="{StaticResource BlPrimaryButton}" Classes="large" Content="Launch 5.2.2" Width="260" Margin="0,0,8,8" />
+        <Button Theme="{StaticResource BlGhostButton}" Content="Quit all" Margin="0,0,8,8" />
+        <Button Theme="{StaticResource BlDangerButton}" Content="Remove build" Width="200" Margin="0,0,8,8" />
+        <Button Theme="{StaticResource BlButton}" Classes="icon" Margin="0,0,8,8" ToolTip.Tip="Open folder">
+          <Path Width="13" Height="13" Stretch="Uniform" Stroke="{StaticResource BlTextValueBrush}" StrokeThickness="1.3"
+                Data="M1.5,4 A1,1 0 0 1 2.5,3 H6 L7.5,4.5 H13.5 A1,1 0 0 1 14.5,5.5 V12 A1,1 0 0 1 13.5,13 H2.5 A1,1 0 0 1 1.5,12 Z" />
+        </Button>
+        <Button Theme="{StaticResource BlButton}" Content="Disabled" IsEnabled="False" Margin="0,0,8,8" />
+      </WrapPanel>
+
+      <TextBlock Classes="group" Text="Filter box, check boxes, tooltip" />
+      <StackPanel Orientation="Horizontal" Spacing="24">
+        <TextBox Theme="{StaticResource BlFilterBox}" PlaceholderText="Filter by version, branch, hash" />
+        <StackPanel Width="260" Spacing="2">
+          <CheckBox Theme="{StaticResource BlCheckBox}" IsChecked="True">
+            <StackPanel Spacing="1">
+              <TextBlock Text="Use as default" />
+              <TextBlock Classes="small" Foreground="{StaticResource BlTextGroupBrush}" TextWrapping="Wrap"
+                         Text="Used by the hotkey and tray, and for .blend files no other build matches" />
+            </StackPanel>
+          </CheckBox>
+          <CheckBox Theme="{StaticResource BlCheckBox}" Content="Portable config" />
+        </StackPanel>
+        <Border Classes="card" Width="200" ToolTip.Tip="38.2 GB used by builds · 120 GB free of 1 TB">
+          <TextBlock Classes="small muted" Text="Hover me: tooltip" />
+        </Border>
+      </StackPanel>
+
+      <TextBlock Classes="group" Text="Pills, tags, badge, running" />
+      <WrapPanel>
+        <Border Classes="pill stable" Margin="0,0,8,8"><TextBlock Text="Stable" /></Border>
+        <Border Classes="pill lts" Margin="0,0,8,8"><TextBlock Text="LTS" /></Border>
+        <Border Classes="pill daily" Margin="0,0,8,8"><TextBlock Text="Daily" /></Border>
+        <Border Classes="pill experimental" Margin="0,0,8,8"><TextBlock Text="Experimental" /></Border>
+        <Border Classes="pill bforartists" Margin="0,0,8,8"><TextBlock Text="Bforartists" /></Border>
+        <Border Classes="pill upbge" Margin="0,0,8,8"><TextBlock Text="UPBGE" /></Border>
+        <Border Classes="pill custom" Margin="0,0,8,8"><TextBlock Text="Custom" /></Border>
+        <Border Classes="tag default" Margin="8,0,8,8"><TextBlock Text="Default" /></Border>
+        <Border Classes="tag" Background="{StaticResource BlChannelDailyBackgroundBrush}" Margin="0,0,8,8">
+          <TextBlock Foreground="{StaticResource BlChannelDailyBrush}" Text="New" />
+        </Border>
+        <Border Classes="badge" Margin="0,0,8,8"><TextBlock Text="2 new" /></Border>
+        <StackPanel Orientation="Horizontal" Spacing="6" Margin="8,0,0,8">
+          <Ellipse Classes="running" />
+          <TextBlock Classes="small" Foreground="{StaticResource BlRunningTextBrush}" Text="Running" />
+        </StackPanel>
+      </WrapPanel>
+
+      <TextBlock Classes="group" Text="Menu (drawn inline; right-click the list for the real popup), tooltip" />
+      <StackPanel Orientation="Horizontal" Spacing="24">
+        <ContextMenu HorizontalAlignment="Left" VerticalAlignment="Top" Width="240">
+          <MenuItem Header="Launch" InputGesture="Enter" />
+          <MenuItem Header="Open Previous File" />
+          <MenuItem Header="Debug">
+            <MenuItem Header="Debug Log" />
+          </MenuItem>
+          <MenuItem Header="Favorite" ToggleType="CheckBox" IsChecked="True" />
+          <Separator />
+          <MenuItem Header="Copy Build Hash" />
+          <MenuItem Header="Send to Trash" Classes="danger" InputGesture="Delete" />
+        </ContextMenu>
+        <ToolTip VerticalAlignment="Top" Content="38.2 GB used by builds · 120 GB free of 1 TB" />
+      </StackPanel>
+
+      <TextBlock Classes="group" Text="Progress" />
+      <StackPanel Spacing="10" Width="320" HorizontalAlignment="Left">
+        <ProgressBar Theme="{StaticResource BlProgressBar}" Value="0.42" />
+        <ProgressBar Theme="{StaticResource BlProgressBar}" Classes="thin" Width="90" HorizontalAlignment="Left" Value="0.6" />
+        <ProgressBar Theme="{StaticResource BlProgressBar}" Classes="large" Value="0.75" />
+        <ProgressBar Theme="{StaticResource BlProgressBar}" IsIndeterminate="True" />
+      </StackPanel>
+
+      <TextBlock Classes="group" Text="Typography" />
+      <StackPanel Spacing="4">
+        <TextBlock Classes="display" Text="5.2.2" />
+        <TextBlock Classes="title" Text="Installed builds" />
+        <TextBlock Classes="subtitle" Text="7 of 7 builds · 2.79 GB on disk" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Classes="version" Text="5.4.0" />
+          <TextBlock Classes="label" Text="Alpha" />
+          <TextBlock Classes="body mono secondary" Text="main" />
+          <TextBlock Classes="body mono faint" Text="c47e1b2" />
+        </StackPanel>
+        <TextBlock Classes="small" Foreground="{StaticResource BlTextSublineBrush}" Text="Blender 5.4 Alpha · 日本語のテキスト · 中文文本" />
+      </StackPanel>
+
+      <TextBlock Classes="group" Text="Section headers and list rows" />
+      <Grid ColumnDefinitions="300,24,*">
+        <Border Background="{StaticResource BlSurfaceDetailBrush}">
+          <StackPanel>
+            <ToggleButton Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="Build" />
+            <ToggleButton Theme="{StaticResource BlSectionHeader}" IsChecked="False" Content="Installation" />
+          </StackPanel>
+        </Border>
+        <ListBox Name="Rows" Grid.Column="2" Theme="{StaticResource BlListBox}" Height="200" Padding="0" SelectedIndex="1">
+          <ListBox.ContextMenu>
+            <ContextMenu>
+              <MenuItem Header="Launch" InputGesture="Enter" />
+              <MenuItem Header="Open Previous File" />
+              <MenuItem Header="Debug">
+                <MenuItem Header="Debug Log" />
+                <MenuItem Header="Factory Startup" />
+              </MenuItem>
+              <MenuItem Header="Favorite" ToggleType="CheckBox" IsChecked="True" />
+              <Separator />
+              <MenuItem Header="Copy Build Hash" />
+              <MenuItem Header="Send to Trash" Classes="danger" InputGesture="Delete" />
+            </ContextMenu>
+          </ListBox.ContextMenu>
+        </ListBox>
+      </Grid>
+    </StackPanel>
+  </ScrollViewer>
+</Window>

@@ -1,0 +1,12 @@
+{
+  "requests": [
+    {
+      "url": "https://github.com/Victor-IX/Blender-Launcher-V2/releases/latest",
+      "file": "latest-tag-page.html"
+    },
+    {
+      "url": "https://api.github.com/repos/Victor-IX/Blender-Launcher-V2/releases?per_page=100",
+      "file": "releases-per-page-100.json"
+    }
+  ]
+}

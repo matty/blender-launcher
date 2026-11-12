@@ -1,0 +1,352 @@
+[
+  {
+    "number": 166292,
+    "title": "Cycles: Use closed-form inversion for Burley BSSRDF sampling",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166292",
+    "updated_at": "2026-11-10T13:39:03+01:00"
+  },
+  {
+    "number": 166365,
+    "title": "Cleanup: Mesh: Remove unused EditMeshSymmetryHelper class",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166365",
+    "updated_at": "2026-11-10T13:35:14+01:00"
+  },
+  {
+    "number": 166363,
+    "title": "Refactor: Mesh: Draw: Changes to original index handling",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166363",
+    "updated_at": "2026-11-10T13:34:42+01:00"
+  },
+  {
+    "number": 161040,
+    "title": "Deps: Enable CUDA/OptiX support for Windows ARM64",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/161040",
+    "updated_at": "2026-11-10T13:08:56+01:00"
+  },
+  {
+    "number": 163436,
+    "title": "Cycles: Enable local shader sorting with CUDA/OptiX",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/163436",
+    "updated_at": "2026-11-10T13:08:46+01:00"
+  },
+  {
+    "number": 153545,
+    "title": "Cycles: Add specular albedo pass and improve denoising passes",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/153545",
+    "updated_at": "2026-11-10T13:08:26+01:00"
+  },
+  {
+    "number": 166321,
+    "title": "Overlay: Port Edit Lattice shaders to BSL",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166321",
+    "updated_at": "2026-11-10T12:44:13+01:00"
+  },
+  {
+    "number": 166212,
+    "title": "Overlay: Port depth only shader to BSL",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166212",
+    "updated_at": "2026-11-10T12:44:13+01:00"
+  },
+  {
+    "number": 166034,
+    "title": "Overlay: Port wireframe to BSL",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166034",
+    "updated_at": "2026-11-10T12:44:13+01:00"
+  },
+  {
+    "number": 165989,
+    "title": "Overlay: Port Outline shaders to BSL",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165989",
+    "updated_at": "2026-11-10T12:44:13+01:00"
+  },
+  {
+    "number": 161159,
+    "title": "Fix: Vulkan: Re-apply cache used access info patch and fix crash caused by not updating push constants",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/161159",
+    "updated_at": "2026-11-10T12:27:26+01:00"
+  },
+  {
+    "number": 166348,
+    "title": "Fix: UI TreeView: Drop behavior on inverted sort for unsortable items.",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166348",
+    "updated_at": "2026-11-10T12:22:50+01:00"
+  },
+  {
+    "number": 166248,
+    "title": "Core/RNA: Make RNA_copy_property work without Main pointer.",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166248",
+    "updated_at": "2026-11-10T11:56:44+01:00"
+  },
+  {
+    "number": 166149,
+    "title": "Fix: Geometry Nodes: disk playback memory growth",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166149",
+    "updated_at": "2026-11-10T11:23:45+01:00"
+  },
+  {
+    "number": 166308,
+    "title": "EEVEE: Fix panoramic overscan increasing cubeface density",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166308",
+    "updated_at": "2026-11-10T10:57:27+01:00"
+  },
+  {
+    "number": 166181,
+    "title": "WIP: Draw: Sculpt meshlets",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166181",
+    "updated_at": "2026-11-10T10:33:52+01:00"
+  },
+  {
+    "number": 166150,
+    "title": "Fix: Geometry Nodes: disk bake memory growth",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166150",
+    "updated_at": "2026-11-10T10:15:56+01:00"
+  },
+  {
+    "number": 166372,
+    "title": "Fix #165763: Blade tool preview flickers back to playhead at split points",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166372",
+    "updated_at": "2026-11-10T10:08:56+01:00"
+  },
+  {
+    "number": 166316,
+    "title": "Fix #165907: Node tools in remote repositories not supported",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166316",
+    "updated_at": "2026-11-10T10:04:27+01:00"
+  },
+  {
+    "number": 166375,
+    "title": "WIP: VSE: Use property split in add strip panels",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166375",
+    "updated_at": "2026-11-10T09:54:40+01:00"
+  },
+  {
+    "number": 165368,
+    "title": "Refactor: Vulkan: Dynamic rendering local read",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165368",
+    "updated_at": "2026-11-10T09:25:42+01:00"
+  },
+  {
+    "number": 166343,
+    "title": "Fix: Geometry Nodes: wrong usage value for menu input on menu sockets",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166343",
+    "updated_at": "2026-11-10T09:05:49+01:00"
+  },
+  {
+    "number": 166301,
+    "title": "Refactor: Sculpt: Standardize calculation of brush-local matrices",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166301",
+    "updated_at": "2026-11-10T08:59:38+01:00"
+  },
+  {
+    "number": 164606,
+    "title": "Draw: Meshlet based culling",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164606",
+    "updated_at": "2026-11-10T08:51:15+01:00"
+  },
+  {
+    "number": 166370,
+    "title": "Various fixes",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166370",
+    "updated_at": "2026-11-10T08:46:37+01:00"
+  },
+  {
+    "number": 165008,
+    "title": "RNA: Support shortcuts for brush properties",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165008",
+    "updated_at": "2026-11-10T08:39:40+01:00"
+  },
+  {
+    "number": 166371,
+    "title": "Fix #158256: VSE: Switch View node always uses its first input",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166371",
+    "updated_at": "2026-11-10T08:28:59+01:00"
+  },
+  {
+    "number": 165518,
+    "title": "Remesh: Show warning dialog when voxel remesh estimated vertex count is high",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165518",
+    "updated_at": "2026-11-10T08:22:39+01:00"
+  },
+  {
+    "number": 165836,
+    "title": "Fix: Sculpt: Update node bounds after restoring original positions",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165836",
+    "updated_at": "2026-11-10T07:57:39+01:00"
+  },
+  {
+    "number": 165942,
+    "title": "Refactor: Sculpt: Simplify sample plane accumulation",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165942",
+    "updated_at": "2026-11-10T07:36:34+01:00"
+  },
+  {
+    "number": 164649,
+    "title": "Sculpt: Add brush-level rake rotation toggle",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164649",
+    "updated_at": "2026-11-10T06:08:04+01:00"
+  },
+  {
+    "number": 165161,
+    "title": "Sculpt: Add tip roundness to remaining brush variants",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165161",
+    "updated_at": "2026-11-10T05:56:11+01:00"
+  },
+  {
+    "number": 166366,
+    "title": "fix(obj): export packed image textures",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166366",
+    "updated_at": "2026-11-10T05:16:28+01:00"
+  },
+  {
+    "number": 165602,
+    "title": "3D Texture Paint: Implement Smear brush",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165602",
+    "updated_at": "2026-11-10T05:00:39+01:00"
+  },
+  {
+    "number": 166258,
+    "title": "IO: Support FBX in collection import",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166258",
+    "updated_at": "2026-11-10T04:18:31+01:00"
+  },
+  {
+    "number": 165964,
+    "title": "Fix: Curve Profile: Aligning handles ignores the active handle",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165964",
+    "updated_at": "2026-11-10T03:30:59+01:00"
+  },
+  {
+    "number": 166362,
+    "title": "Refactor: Mesh: Some more changes split from lazy BMesh conversion branch",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166362",
+    "updated_at": "2026-11-10T02:26:20+01:00"
+  },
+  {
+    "number": 164825,
+    "title": "Change BLI_ewa_filter to match other math_interp functions",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164825",
+    "updated_at": "2026-11-10T01:57:03+01:00"
+  },
+  {
+    "number": 166358,
+    "title": "Tests: Mesh: Add UI tests for edit mesh box and pick select",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166358",
+    "updated_at": "2026-11-10T01:49:43+01:00"
+  },
+  {
+    "number": 166266,
+    "title": "WIP: Modeling: Enhanced face dissolve for Edge/Face Contextual Create in BMesh",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166266",
+    "updated_at": "2026-11-10T01:31:49+01:00"
+  },
+  {
+    "number": 166340,
+    "title": "Fix: Geometry Node: wrong data-block with input nodes",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166340",
+    "updated_at": "2026-11-10T01:09:19+01:00"
+  },
+  {
+    "number": 166360,
+    "title": "Fix: Mesh: Possible arbitrary active face when applying modifiers",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166360",
+    "updated_at": "2026-11-10T00:53:51+01:00"
+  },
+  {
+    "number": 166359,
+    "title": "Fix: Mesh: Incorrect copying in recently added selection validation",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166359",
+    "updated_at": "2026-11-10T00:49:25+01:00"
+  },
+  {
+    "number": 166337,
+    "title": "Fix: Shader Nodes: math nodes have unused inputs after inlining",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166337",
+    "updated_at": "2026-11-10T00:35:49+01:00"
+  },
+  {
+    "number": 166332,
+    "title": "Fix: Geometry Nodes: data race in Format String node with varying format strings",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166332",
+    "updated_at": "2026-11-10T00:32:10+01:00"
+  },
+  {
+    "number": 166330,
+    "title": "Fix: Geometry Nodes: negative friction leads to NaN values in XPBD solver",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166330",
+    "updated_at": "2026-11-10T00:30:59+01:00"
+  },
+  {
+    "number": 166328,
+    "title": "Geometry Nodes: support mixing complex list types",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166328",
+    "updated_at": "2026-11-10T00:29:16+01:00"
+  },
+  {
+    "number": 161351,
+    "title": "Fix #159665: bundle syncing with Get and Set Geometry Bundle Nodes",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/161351",
+    "updated_at": "2026-11-10T00:28:33+01:00"
+  },
+  {
+    "number": 166349,
+    "title": "Refactor: Draw: Split edit mesh measurement text into helpers",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166349",
+    "updated_at": "2026-11-10T00:27:21+01:00"
+  },
+  {
+    "number": 166352,
+    "title": "Tests: Register edit mesh snapping UI tests",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166352",
+    "updated_at": "2026-11-09T23:25:48+01:00"
+  }
+]

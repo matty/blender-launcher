@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Blender Launcher at 16-24 px: flat colours, no inner walls or lid highlight. -->
+  <polygon points="44.9,150.0 128.0,198.0 128.0,248.0 44.9,200.0" fill="#3d7cc0" />
+  <polygon points="128.0,198.0 211.1,150.0 211.1,200.0 128.0,248.0" fill="#265787" />
+  <polygon points="44.9,150.0 128.0,102.0 211.1,150.0 128.0,198.0" fill="#ffc47a" />
+  <clipPath id="box"><polygon points="44.9,150.0 128.0,102.0 211.1,150.0 211.1,200.0 128.0,248.0 44.9,200.0"/></clipPath><polygon points="44.9,150.0 128.0,102.0 211.1,150.0 128.0,198.0" fill="none" stroke="#9cc3ea" stroke-width="8" stroke-linejoin="miter" clip-path="url(#box)"/>
+  <polygon points="41.0,106.5 134.2,129.8 138.0,143.2 44.9,120.0" fill="#c4620a" />
+  <polygon points="134.2,129.8 200.8,60.7 204.7,74.2 138.0,143.2" fill="#a35208" />
+  <polygon points="41.0,106.5 107.7,37.5 200.8,60.7 134.2,129.8" fill="#f08a1c" />
+</svg>

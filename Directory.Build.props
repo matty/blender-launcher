@@ -1,0 +1,26 @@
+<Project>
+  <!-- Shared by every project in the repository. src/Directory.Build.props adds the AOT settings for product code. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
+
+    <!--
+      Single version source: the assembly and file versions, the exe's version resource (Win32Resources.targets)
+      and AppIdentity.Version all come from it. release.yml overrides it from the tag with -p:Version=X.Y.Z.
+    -->
+    <Version>1.0.0-beta.1</Version>
+
+    <Authors>Blender Launcher contributors</Authors>
+    <Company>Blender Launcher contributors</Company>
+    <Product>Blender Launcher</Product>
+    <Copyright>Copyright © Blender Launcher contributors. Licensed under GPL-3.0.</Copyright>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+
+    <Deterministic>true</Deterministic>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+</Project>

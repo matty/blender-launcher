@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BlenderLauncher.App.Controls"
+        xmlns:loc="using:BlenderLauncher.App.Localisation"
+        x:Class="BlenderLauncher.App.Views.Dialogs.UpdateProgressWindow"
+        Width="420"
+        SizeToContent="Height"
+        CanResize="False" CanMinimize="False" CanMaximize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BlSurfaceDetailBrush}"
+        Foreground="{StaticResource BlTextBodyBrush}"
+        FontSize="12">
+  <!--
+    The self-update's progress: the step, a bar, and Cancel while Velopack downloads. Built and driven by
+    UpdateProgressWindow.RunAsync; closes itself when the update finishes.
+  -->
+  <DockPanel>
+    <Border Name="TitleBarHost" DockPanel.Dock="Top" BorderBrush="{StaticResource BlLine0Brush}" BorderThickness="0,0,0,1">
+      <controls:AppTitleBar Name="TitleBar" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom"
+            Background="{StaticResource BlSurfaceSidebarBrush}"
+            BorderBrush="{StaticResource BlLine1Brush}"
+            BorderThickness="0,1,0,0"
+            Padding="16,12">
+      <Button Name="CancelButton" Theme="{StaticResource BlButton}" MinWidth="84" HorizontalAlignment="Right"
+              Content="{loc:Tr act.cancel}" />
+    </Border>
+
+    <StackPanel Margin="20,20,22,22" Spacing="10">
+      <TextBlock Name="HeadingText" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource BlTextBodyBrush}" />
+      <TextBlock Name="StageText" FontSize="12" Foreground="{StaticResource BlTextSectionBrush}" />
+      <ProgressBar Name="Bar" Theme="{StaticResource BlProgressBar}" Minimum="0" Maximum="1" IsIndeterminate="True" />
+    </StackPanel>
+  </DockPanel>
+</Window>

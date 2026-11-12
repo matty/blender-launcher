@@ -1,0 +1,520 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels"
+             xmlns:rows="using:BlenderLauncher.App.ViewModels.Rows"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             xmlns:lists="using:BlenderLauncher.App.Views.Lists"
+             xmlns:detail="using:BlenderLauncher.App.Views.Detail"
+             x:Class="BlenderLauncher.App.Views.Lists.BuildListPanel"
+             x:DataType="vm:BuildListViewModel">
+  <!--
+    The main area: header, optional source-error banner, column
+    header, then the installed or download list (virtualised BlListBox) or an empty state. The host Border supplies
+    the #2a2a2a background. Row buttons, double-click, keys, drops and the context menu are handled in the code-behind
+    and forwarded to BuildListViewModel; nothing here uses reflection bindings.
+  -->
+  <UserControl.Resources>
+    <StreamGeometry x:Key="StarGeometry">M8,1.6 L9.9,5.6 L14.3,6.1 L11,9.1 L11.9,13.4 L8,11.2 L4.1,13.4 L5,9.1 L1.7,6.1 L6.1,5.6 Z</StreamGeometry>
+    <StreamGeometry x:Key="PlayGeometry">M2,1 L9,5 L2,9 Z</StreamGeometry>
+    <StreamGeometry x:Key="FileGeometry">M2.5,0.75 L6.5,0.75 L9.25,3.5 L9.25,9.25 L2.5,9.25 Z M6.5,0.75 L6.5,3.5 L9.25,3.5</StreamGeometry>
+    <StreamGeometry x:Key="DownloadGeometry">M6,1 L6,8 M3,5.5 L6,8.5 L9,5.5 M1.5,11 L10.5,11</StreamGeometry>
+    <StreamGeometry x:Key="TickGeometry">M2,6.5 L4.5,9 L10,3</StreamGeometry>
+    <StreamGeometry x:Key="CrossGeometry">M1,1 L9,9 M9,1 L1,9</StreamGeometry>
+    <StreamGeometry x:Key="RefreshGeometry">M13.5,8 A5.5,5.5 0 1 1 11.6,3.8 M13.5,2 L13.5,5.5 L10,5.5</StreamGeometry>
+    <StreamGeometry x:Key="SortArrowGeometry">M1,5.5 L4,2.5 L7,5.5</StreamGeometry>
+    <SolidColorBrush x:Key="DropTargetBrush" Color="#264ea13a" />
+    <SolidColorBrush x:Key="DropTargetBorderBrush" Color="#4ea13a" />
+    <SolidColorBrush x:Key="ProgressTextBrush" Color="#bdbdbd" />
+    <SolidColorBrush x:Key="CancelBrush" Color="#9a9a9a" />
+    <SolidColorBrush x:Key="SpinnerTrackBrush" Color="#59ffffff" />
+  </UserControl.Resources>
+
+  <UserControl.Styles>
+    <!-- Rows are named for UI Automation and screen readers: "5.4.0 Alpha, Daily". -->
+    <Style Selector="ListBoxItem" x:DataType="rows:BuildRowViewModel">
+      <Setter Property="AutomationProperties.Name" Value="{Binding AccessibleName}" />
+    </Style>
+
+    <!-- Row text -->
+    <Style Selector="TextBlock.cell">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+      <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+    <Style Selector="TextBlock.sub">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextSublineBrush}" />
+      <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+      <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+    <Style Selector="TextBlock.colhead">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextMuted2Brush}" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Damaged rows: the name in the danger colour. -->
+    <Style Selector=":is(Control).damaged TextBlock.problem-name">
+      <Setter Property="Foreground" Value="{StaticResource BlDangerBrush}" />
+    </Style>
+
+    <!-- Sortable column headers: plain text, brighter when active or hovered, with an arrow when active. -->
+    <Style Selector="Button.sort">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextMuted2Brush}" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <ContentPresenter Name="PART_ContentPresenter" Background="{TemplateBinding Background}"
+                            Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="Button.sort:pointerover">
+      <Setter Property="Foreground" Value="{StaticResource BlTextSecondaryBrush}" />
+    </Style>
+    <Style Selector="Button.sort.active">
+      <Setter Property="Foreground" Value="{StaticResource BlTextSecondaryAltBrush}" />
+    </Style>
+    <Style Selector="Button.sort Path.arrow">
+      <Setter Property="IsVisible" Value="False" />
+      <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+    </Style>
+    <Style Selector="Button.sort.active Path.arrow">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="Button.sort.active.desc Path.arrow">
+      <Setter Property="RenderTransform" Value="rotate(180deg)" />
+    </Style>
+
+    <!-- Favourite star -->
+    <Style Selector="Path.star">
+      <Setter Property="Stroke" Value="{StaticResource BlFavouriteOffBrush}" />
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.fav:pointerover Path.star">
+      <Setter Property="Stroke" Value="#8a8a8a" />
+    </Style>
+    <Style Selector="Button.fav.on Path.star">
+      <Setter Property="Stroke" Value="{StaticResource BlFavouriteOnBrush}" />
+      <Setter Property="Fill" Value="{StaticResource BlFavouriteOnBrush}" />
+    </Style>
+
+    <!--
+      Launch button states: Launch (play icon), Starting (spinner, built on first use), and "open previous file" while
+      Shift is held over it (the code-behind sets the "previous" class). One icon and one label, restyled per state.
+    -->
+    <Style Selector="Button.launch Path.launch-icon">
+      <Setter Property="Data" Value="{StaticResource PlayGeometry}" />
+      <Setter Property="Fill" Value="{Binding $parent[Button].Foreground}" />
+      <Setter Property="StrokeThickness" Value="0" />
+    </Style>
+    <Style Selector="Button.launch TextBlock.launch-text">
+      <Setter Property="Text" Value="{loc:Tr act.launch}" />
+    </Style>
+    <Style Selector="Button.launch.previous:not(.starting) Path.launch-icon">
+      <Setter Property="Data" Value="{StaticResource FileGeometry}" />
+      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Stroke" Value="{Binding $parent[Button].Foreground}" />
+      <Setter Property="StrokeThickness" Value="1.2" />
+    </Style>
+    <Style Selector="Button.launch.previous:not(.starting) TextBlock.launch-text">
+      <Setter Property="Text" Value="{loc:Tr ui.lists.launch_previous}" />
+    </Style>
+    <Style Selector="Button.launch.starting Path.launch-icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="Button.launch.starting TextBlock.launch-text">
+      <Setter Property="Text" Value="{loc:Tr ui.list.starting}" />
+    </Style>
+
+    <!-- Spinners: the ring rotates only while its "spin" class is set, so idle rows animate nothing. -->
+    <Style Selector="Panel.spinner.spin">
+      <Style.Animations>
+        <Animation Duration="0:0:0.7" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="RotateTransform.Angle" Value="0" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="RotateTransform.Angle" Value="360" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="Viewbox.refresh.spin">
+      <Style.Animations>
+        <Animation Duration="0:0:0.9" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="RotateTransform.Angle" Value="0" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="RotateTransform.Angle" Value="360" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+
+    <!-- A .blend dragged over an installed row: upstream's green. -->
+    <Style Selector="ListBoxItem.drop-target /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource DropTargetBrush}" />
+      <Setter Property="BorderBrush" Value="{StaticResource DropTargetBorderBrush}" />
+    </Style>
+
+    <!-- The progress cancel cross -->
+    <Style Selector="Button.cancel">
+      <Setter Property="Width" Value="20" />
+      <Setter Property="Height" Value="20" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Foreground" Value="{StaticResource CancelBrush}" />
+    </Style>
+  </UserControl.Styles>
+
+  <DockPanel>
+    <!-- ============================================================ header -->
+    <Grid Name="Header" DockPanel.Dock="Top" Margin="{StaticResource BlMainHeaderPadding}"
+          ColumnDefinitions="*,Auto,Auto" ColumnSpacing="16">
+      <StackPanel Spacing="3" VerticalAlignment="Center">
+        <TextBlock Classes="title ellipsis" Text="{Binding Title}" />
+        <TextBlock Classes="body subtitle" Text="{Binding Subtitle}" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
+      </StackPanel>
+      <TextBox Name="FilterBox" Grid.Column="1" Theme="{StaticResource BlFilterBox}"
+               Text="{Binding FilterText}"
+               PlaceholderText="{loc:Tr ui.list.filter_placeholder}"
+               AutomationProperties.Name="{loc:Tr ui.list.filter_placeholder}" />
+      <Button Name="CheckButton" Grid.Column="2" Theme="{StaticResource BlButton}"
+              IsVisible="{Binding Shell.IsDownloadView}"
+              ToolTip.Tip="{loc:Tr ui.lists.check_tooltip}">
+        <StackPanel Orientation="Horizontal" Spacing="7">
+          <Viewbox Classes="refresh" Classes.spin="{Binding Shell.IsChecking}" Width="13" Height="13"
+                   RenderTransformOrigin="50%,50%">
+            <Viewbox.RenderTransform>
+              <RotateTransform />
+            </Viewbox.RenderTransform>
+            <Canvas Width="16" Height="16">
+              <Path Data="{StaticResource RefreshGeometry}" Stroke="{StaticResource BlTextBodyBrush}" StrokeThickness="1.6"
+                    StrokeLineCap="Round" StrokeJoin="Round" />
+            </Canvas>
+          </Viewbox>
+          <TextBlock Text="{loc:Tr ui.list.check_for_builds}" VerticalAlignment="Center" />
+        </StackPanel>
+      </Button>
+    </Grid>
+
+    <!-- ============================================================ source error banner (rows still shown) -->
+    <Border DockPanel.Dock="Top" Margin="20,0,20,10" Padding="12,7" CornerRadius="{StaticResource BlRadiusRow}"
+            Background="{StaticResource BlDangerHoverBrush}" BorderBrush="{StaticResource BlDangerBorderBrush}" BorderThickness="1"
+            IsVisible="{Binding HasErrorBanner}">
+      <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+        <TextBlock Text="{Binding ErrorBannerText}" FontSize="12" Foreground="{StaticResource BlDangerBrush}"
+                   TextWrapping="Wrap" VerticalAlignment="Center" />
+        <Button Name="BannerRetryButton" Grid.Column="1" Theme="{StaticResource BlButton}" Classes="small"
+                Content="{loc:Tr ui.list.empty.retry}" />
+      </Grid>
+    </Border>
+
+    <!-- ============================================================ column headers (hidden over an empty state) -->
+    <Panel DockPanel.Dock="Top" IsVisible="{Binding !IsEmpty}">
+    <Border Name="InstalledHeader" BorderBrush="{StaticResource BlLine2Brush}" BorderThickness="0,0,0,1"
+            Padding="37,0,37,8" IsVisible="{Binding Shell.IsInstalledView}">
+      <lists:ListColumnsPanel Layout="Installed">
+        <Button lists:ListColumnsPanel.Column="1" Classes="sort sort-version" Classes.active="{Binding IsSortedByVersion}"
+                Classes.desc="{Binding IsSortDescending}">
+          <StackPanel Orientation="Horizontal" Spacing="4">
+            <TextBlock Classes="colhead" Foreground="{Binding $parent[Button].Foreground}" Text="{loc:Tr ui.list.column.version}" />
+            <Path Classes="arrow" Width="8" Height="8" Data="{StaticResource SortArrowGeometry}"
+                  Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.3" VerticalAlignment="Center" />
+          </StackPanel>
+        </Button>
+        <TextBlock lists:ListColumnsPanel.Column="2" Classes="colhead" Text="{loc:Tr ui.list.column.channel}" />
+        <TextBlock lists:ListColumnsPanel.Column="3" Classes="colhead" Text="{loc:Tr ui.list.column.branch_commit}" />
+        <Button lists:ListColumnsPanel.Column="4" Classes="sort sort-built" Classes.active="{Binding IsSortedByBuilt}"
+                Classes.desc="{Binding IsSortDescending}">
+          <StackPanel Orientation="Horizontal" Spacing="4">
+            <TextBlock Classes="colhead" Foreground="{Binding $parent[Button].Foreground}" Text="{loc:Tr ui.list.column.built}" />
+            <Path Classes="arrow" Width="8" Height="8" Data="{StaticResource SortArrowGeometry}"
+                  Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.3" VerticalAlignment="Center" />
+          </StackPanel>
+        </Button>
+        <TextBlock lists:ListColumnsPanel.Column="5" Classes="colhead" HorizontalAlignment="Right" Text="{loc:Tr ui.list.column.size}" />
+      </lists:ListColumnsPanel>
+    </Border>
+    <Border Name="DownloadHeader" BorderBrush="{StaticResource BlLine2Brush}" BorderThickness="0,0,0,1"
+            Padding="37,0,37,8" IsVisible="{Binding Shell.IsDownloadView}">
+      <lists:ListColumnsPanel Layout="Download">
+        <Button lists:ListColumnsPanel.Column="0" Classes="sort sort-version" Classes.active="{Binding IsSortedByVersion}"
+                Classes.desc="{Binding IsSortDescending}">
+          <StackPanel Orientation="Horizontal" Spacing="4">
+            <TextBlock Classes="colhead" Foreground="{Binding $parent[Button].Foreground}" Text="{loc:Tr ui.list.column.version}" />
+            <Path Classes="arrow" Width="8" Height="8" Data="{StaticResource SortArrowGeometry}"
+                  Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.3" VerticalAlignment="Center" />
+          </StackPanel>
+        </Button>
+        <TextBlock lists:ListColumnsPanel.Column="1" Classes="colhead" Text="{loc:Tr ui.list.column.branch}" />
+        <TextBlock lists:ListColumnsPanel.Column="2" Classes="colhead" Text="{loc:Tr ui.list.column.commit}" />
+        <Button lists:ListColumnsPanel.Column="3" Classes="sort sort-built" Classes.active="{Binding IsSortedByBuilt}"
+                Classes.desc="{Binding IsSortDescending}">
+          <StackPanel Orientation="Horizontal" Spacing="4">
+            <TextBlock Classes="colhead" Foreground="{Binding $parent[Button].Foreground}" Text="{loc:Tr ui.list.column.built}" />
+            <Path Classes="arrow" Width="8" Height="8" Data="{StaticResource SortArrowGeometry}"
+                  Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.3" VerticalAlignment="Center" />
+          </StackPanel>
+        </Button>
+        <TextBlock lists:ListColumnsPanel.Column="4" Classes="colhead" HorizontalAlignment="Right" Text="{loc:Tr ui.list.column.size}" />
+      </lists:ListColumnsPanel>
+    </Border>
+    </Panel>
+
+    <Panel>
+      <!-- ============================================================ installed list -->
+      <lists:RecyclingListBox Name="InstalledList" Theme="{StaticResource BlListBox}"
+               detail:BuildContextMenu.Shell="{Binding Shell}"
+               ItemsSource="{Binding InstalledRows}"
+               SelectionMode="Multiple"
+               DragDrop.AllowDrop="True"
+               IsVisible="{Binding ShowInstalledList}">
+        <lists:RecyclingListBox.RowTemplate>
+          <DataTemplate x:DataType="rows:InstalledBuildRowViewModel">
+            <lists:ListColumnsPanel Layout="Installed" Background="Transparent" Classes.damaged="{Binding IsDamaged}">
+
+              <!-- Favourite star -->
+              <Button Classes="fav" Classes.on="{Binding IsFavourite}" Theme="{StaticResource BlGhostButton}"
+                      Width="24" Height="24" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                      IsVisible="{Binding IsRecognised}" ToolTip.Tip="{loc:Tr ui.list.favorite}"
+                      AutomationProperties.Name="{loc:Tr ui.list.favorite}">
+                <Path Classes="star" Width="13" Height="13" Stretch="Uniform" Data="{StaticResource StarGeometry}"
+                      StrokeThickness="1.1" StrokeJoin="Round" />
+              </Button>
+
+              <!-- Version, label, Default tag; name on the second line (comfortable density only) -->
+              <StackPanel lists:ListColumnsPanel.Column="1" Spacing="2" VerticalAlignment="Center" IsVisible="{Binding IsRecognised}">
+                <Grid ColumnDefinitions="Auto,*,Auto" HorizontalAlignment="Left">
+                  <TextBlock Classes="version" Text="{Binding Version}" VerticalAlignment="Center" />
+                  <TextBlock Grid.Column="1" Classes="body label ellipsis" Margin="8,0,0,0" Text="{Binding Label}" IsVisible="{Binding HasLabel}"
+                             VerticalAlignment="Center" />
+                  <Border Grid.Column="2" Classes="tag default" Margin="8,0,0,0" IsVisible="{Binding IsDefault}">
+                    <TextBlock Text="{loc:Tr ui.list.default_tag}" />
+                  </Border>
+                </Grid>
+                <TextBlock Classes="sub" Text="{Binding Name}" IsVisible="{DynamicResource BlRowSecondLineVisible}" />
+              </StackPanel>
+
+              <!-- Unrecognised or damaged folder: the folder name, what is wrong, and why (spans to the size column) -->
+              <lists:LazyContent lists:ListColumnsPanel.Column="1" lists:ListColumnsPanel.ColumnSpan="5" VerticalAlignment="Center"
+                                 IsActive="{Binding !IsRecognised}">
+                <DataTemplate x:DataType="rows:InstalledBuildRowViewModel">
+                  <StackPanel Spacing="2">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                      <TextBlock Classes="version problem-name" Text="{Binding FolderName}" VerticalAlignment="Center" />
+                      <TextBlock Classes="body label" Text="{loc:Tr ui.list.unrecognised}" IsVisible="{Binding IsUnrecognised}"
+                                 VerticalAlignment="Center" />
+                      <TextBlock Classes="body problem-name" Text="{loc:Tr ui.list.damaged}" IsVisible="{Binding IsDamaged}"
+                                 VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Panel IsVisible="{DynamicResource BlRowSecondLineVisible}">
+                      <TextBlock Classes="sub" Text="{loc:Tr ui.list.unrecognised_hint}" IsVisible="{Binding IsUnrecognised}" />
+                      <TextBlock Classes="sub" Text="{Binding ErrorText}" IsVisible="{Binding IsDamaged}" />
+                    </Panel>
+                  </StackPanel>
+                </DataTemplate>
+              </lists:LazyContent>
+
+              <!-- Channel pill -->
+              <Border lists:ListColumnsPanel.Column="2" Classes="pill" Background="{Binding ChannelBackground}" IsVisible="{Binding IsRecognised}">
+                <TextBlock Text="{Binding ChannelName}" Foreground="{Binding ChannelForeground}" />
+              </Border>
+
+              <!-- Branch · commit -->
+              <!-- The branch gives way (ellipsis) before the hash, as the design's flex row. -->
+              <Grid lists:ListColumnsPanel.Column="3" ColumnDefinitions="*,Auto" ColumnSpacing="8" HorizontalAlignment="Left"
+                    VerticalAlignment="Center" IsVisible="{Binding IsRecognised}">
+                <TextBlock Classes="cell mono" Foreground="{StaticResource BlTextSecondaryBrush}" Text="{Binding Branch}" />
+                <TextBlock Grid.Column="1" Classes="cell mono" Foreground="{StaticResource BlTextFaintBrush}" Text="{Binding ShortHash}" />
+              </Grid>
+
+              <TextBlock lists:ListColumnsPanel.Column="4" Classes="cell" Foreground="{StaticResource BlTextSecondaryAltBrush}" Text="{Binding BuiltText}"
+                         IsVisible="{Binding IsRecognised}" />
+              <TextBlock lists:ListColumnsPanel.Column="5" Classes="cell mono" Foreground="{StaticResource BlTextSizeBrush}" Text="{Binding SizeText}"
+                         HorizontalAlignment="Right" IsVisible="{Binding IsRecognised}" />
+
+              <!-- Running indicator and Launch / Initialise / Remove -->
+              <StackPanel lists:ListColumnsPanel.Column="6" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <lists:LazyContent IsActive="{Binding IsRunning}" VerticalAlignment="Center">
+                  <DataTemplate x:DataType="rows:InstalledBuildRowViewModel">
+                    <StackPanel Orientation="Horizontal" Spacing="6" ToolTip.Tip="{loc:Tr ui.list.running_tooltip}">
+                      <Border Width="7" Height="7" CornerRadius="3.5" Background="{StaticResource BlRunningDotBrush}"
+                              BoxShadow="0 0 6 0 #b36fcf6f" VerticalAlignment="Center" />
+                      <TextBlock FontSize="11" Foreground="{StaticResource BlRunningTextBrush}" Text="{Binding RunningText}"
+                                 VerticalAlignment="Center" />
+                    </StackPanel>
+                  </DataTemplate>
+                </lists:LazyContent>
+
+                <Button Theme="{StaticResource BlButton}" Classes="small launch"
+                        Classes.accent="{Binding $parent[ListBoxItem].IsSelected}"
+                        Classes.starting="{Binding IsStarting}"
+                        IsVisible="{Binding IsRecognised}">
+                  <StackPanel Orientation="Horizontal" Spacing="7">
+                    <Panel Width="10" Height="10" VerticalAlignment="Center">
+                      <Path Classes="launch-icon" />
+                      <lists:LazyContent IsActive="{Binding IsStarting}">
+                        <DataTemplate x:DataType="rows:InstalledBuildRowViewModel">
+                          <Panel Classes="spinner spin" RenderTransformOrigin="50%,50%">
+                            <Panel.RenderTransform>
+                              <RotateTransform />
+                            </Panel.RenderTransform>
+                            <Ellipse Stroke="{StaticResource SpinnerTrackBrush}" StrokeThickness="1.5" />
+                            <Arc Stroke="#ffffff" StrokeThickness="1.5" StartAngle="-90" SweepAngle="90" />
+                          </Panel>
+                        </DataTemplate>
+                      </lists:LazyContent>
+                    </Panel>
+                    <TextBlock Classes="launch-text" VerticalAlignment="Center" />
+                  </StackPanel>
+                </Button>
+
+                <lists:LazyContent IsActive="{Binding !IsRecognised}">
+                  <DataTemplate x:DataType="rows:InstalledBuildRowViewModel">
+                    <Panel>
+                      <Button Theme="{StaticResource BlButton}" Classes="small init" IsVisible="{Binding IsUnrecognised}"
+                              Content="{loc:Tr act.init}" ToolTip.Tip="{loc:Tr ui.list.unrecognised_hint}" />
+                      <Button Theme="{StaticResource BlDangerButton}" Classes="remove" Height="{StaticResource BlRowButtonHeight}"
+                              Padding="14,0" IsVisible="{Binding IsDamaged}" Content="{loc:Tr act.remove}" />
+                    </Panel>
+                  </DataTemplate>
+                </lists:LazyContent>
+              </StackPanel>
+            </lists:ListColumnsPanel>
+          </DataTemplate>
+        </lists:RecyclingListBox.RowTemplate>
+      </lists:RecyclingListBox>
+
+      <!-- ============================================================ download list -->
+      <lists:RecyclingListBox Name="DownloadList" Theme="{StaticResource BlListBox}"
+               detail:BuildContextMenu.Shell="{Binding Shell}"
+               ItemsSource="{Binding AvailableRows}"
+               SelectionMode="Single"
+               IsVisible="{Binding ShowDownloadList}">
+        <lists:RecyclingListBox.RowTemplate>
+          <DataTemplate x:DataType="rows:AvailableBuildRowViewModel">
+            <lists:ListColumnsPanel Layout="Download" Background="Transparent">
+
+              <StackPanel Spacing="2" VerticalAlignment="Center">
+                <Grid ColumnDefinitions="Auto,*,Auto" HorizontalAlignment="Left">
+                  <TextBlock Classes="version" Text="{Binding Version}" VerticalAlignment="Center" />
+                  <TextBlock Grid.Column="1" Classes="body label ellipsis" Margin="8,0,0,0" Text="{Binding Label}" IsVisible="{Binding HasLabel}"
+                             VerticalAlignment="Center" />
+                  <Panel Grid.Column="2" Margin="8,0,0,0" IsVisible="{Binding !IsInstalled}" VerticalAlignment="Center">
+                    <Border Classes="tag" Background="{Binding ChannelBackground}" IsVisible="{Binding IsNew}">
+                      <TextBlock Foreground="{Binding ChannelForeground}" Text="{loc:Tr ui.list.new_tag}" />
+                    </Border>
+                  </Panel>
+                </Grid>
+                <TextBlock Classes="sub" Text="{Binding Name}" IsVisible="{DynamicResource BlRowSecondLineVisible}" />
+              </StackPanel>
+
+              <TextBlock lists:ListColumnsPanel.Column="1" Classes="cell mono" Foreground="{StaticResource BlTextSecondaryBrush}" Text="{Binding Branch}" />
+              <TextBlock lists:ListColumnsPanel.Column="2" Classes="cell mono" Foreground="{StaticResource BlTextMuted2Brush}" Text="{Binding ShortHash}" />
+              <TextBlock lists:ListColumnsPanel.Column="3" Classes="cell" Foreground="{StaticResource BlTextSecondaryAltBrush}" Text="{Binding BuiltText}" />
+              <TextBlock lists:ListColumnsPanel.Column="4" Classes="cell mono" Foreground="{StaticResource BlTextSizeBrush}" Text="{Binding SizeText}"
+                         HorizontalAlignment="Right" />
+
+              <Panel lists:ListColumnsPanel.Column="5" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <!-- Idle: Download -->
+                <Button Theme="{StaticResource BlButton}" Classes="small download"
+                        Classes.accent="{Binding $parent[ListBoxItem].IsSelected}"
+                        IsVisible="{Binding IsIdle}">
+                  <StackPanel Orientation="Horizontal" Spacing="7">
+                    <Path Width="12" Height="12" Data="{StaticResource DownloadGeometry}" Stroke="{Binding $parent[Button].Foreground}"
+                          StrokeThickness="1.4" StrokeLineCap="Round" StrokeJoin="Round" VerticalAlignment="Center" />
+                    <TextBlock Text="{loc:Tr act.download}" VerticalAlignment="Center" />
+                  </StackPanel>
+                </Button>
+
+                <!-- Busy: progress, percentage, cancel -->
+                <lists:LazyContent IsActive="{Binding IsBusy}">
+                  <DataTemplate x:DataType="rows:AvailableBuildRowViewModel">
+                    <StackPanel Orientation="Horizontal" Spacing="8" Width="150" ToolTip.Tip="{Binding StageText}">
+                      <ProgressBar Theme="{StaticResource BlProgressBar}" Width="90" VerticalAlignment="Center"
+                                   Value="{Binding Progress}" IsIndeterminate="{Binding IsIndeterminate}" />
+                      <TextBlock Width="32" FontSize="11" FontWeight="Medium" Classes="mono" TextAlignment="Right"
+                                 Foreground="{StaticResource ProgressTextBrush}" Text="{Binding PercentText}" VerticalAlignment="Center" />
+                      <Button Theme="{StaticResource BlGhostButton}" Classes="cancel" IsEnabled="{Binding CanCancel}"
+                              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                              ToolTip.Tip="{loc:Tr act.cancel}" AutomationProperties.Name="{loc:Tr act.cancel}">
+                        <Path Width="10" Height="10" Data="{StaticResource CrossGeometry}" Stroke="{Binding $parent[Button].Foreground}"
+                              StrokeThickness="1.5" />
+                      </Button>
+                    </StackPanel>
+                  </DataTemplate>
+                </lists:LazyContent>
+
+                <!-- Installed: tick, "Installed", Launch -->
+                <lists:LazyContent IsActive="{Binding IsInstalled}">
+                  <DataTemplate x:DataType="rows:AvailableBuildRowViewModel">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                      <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                        <Path Width="12" Height="12" Data="{StaticResource TickGeometry}" Stroke="{StaticResource BlInstalledTickBrush}"
+                              StrokeThickness="1.6" StrokeLineCap="Round" StrokeJoin="Round" VerticalAlignment="Center" />
+                        <TextBlock FontSize="11" Foreground="{StaticResource BlTextMutedBrush}" Text="{loc:Tr act.installed}"
+                                   VerticalAlignment="Center" />
+                      </StackPanel>
+                <Button Theme="{StaticResource BlButton}" Classes="small launch launch-installed" Padding="12,0" FontWeight="Normal"
+                        Classes.starting="{Binding InstalledRow.IsStarting, FallbackValue=False}">
+                  <StackPanel Orientation="Horizontal" Spacing="7">
+                    <Panel Width="10" Height="10" VerticalAlignment="Center">
+                      <Path Classes="launch-icon" />
+                      <lists:LazyContent IsActive="{Binding InstalledRow.IsStarting, FallbackValue=False}">
+                        <DataTemplate x:DataType="rows:AvailableBuildRowViewModel">
+                          <Panel Classes="spinner spin" RenderTransformOrigin="50%,50%">
+                            <Panel.RenderTransform>
+                              <RotateTransform />
+                            </Panel.RenderTransform>
+                            <Ellipse Stroke="{StaticResource SpinnerTrackBrush}" StrokeThickness="1.5" />
+                            <Arc Stroke="#ffffff" StrokeThickness="1.5" StartAngle="-90" SweepAngle="90" />
+                          </Panel>
+                        </DataTemplate>
+                      </lists:LazyContent>
+                    </Panel>
+                    <TextBlock Classes="launch-text" VerticalAlignment="Center" />
+                  </StackPanel>
+                </Button>
+                    </StackPanel>
+                  </DataTemplate>
+                </lists:LazyContent>
+              </Panel>
+            </lists:ListColumnsPanel>
+          </DataTemplate>
+        </lists:RecyclingListBox.RowTemplate>
+      </lists:RecyclingListBox>
+
+      <!-- ============================================================ empty and error states -->
+      <StackPanel Margin="20,64,20,20" Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Top"
+                  MaxWidth="460" IsVisible="{Binding IsEmpty}">
+        <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+          <Panel Classes="spinner" Classes.spin="{Binding IsEmptyBusy}" Width="13" Height="13" VerticalAlignment="Center"
+                 RenderTransformOrigin="50%,50%" IsVisible="{Binding IsEmptyBusy}">
+            <Panel.RenderTransform>
+              <RotateTransform />
+            </Panel.RenderTransform>
+            <Ellipse Stroke="#3a3a3a" StrokeThickness="1.5" />
+            <Arc Stroke="{StaticResource BlTextMutedBrush}" StrokeThickness="1.5" StartAngle="-90" SweepAngle="90" />
+          </Panel>
+          <TextBlock FontSize="13" Foreground="{StaticResource BlTextMutedBrush}" Text="{Binding EmptyText}"
+                     TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" />
+        </StackPanel>
+        <Button Name="BrowseDownloadsButton" Theme="{StaticResource BlButton}" Height="{StaticResource BlRowButtonHeight}"
+                Padding="14,0" HorizontalAlignment="Center" IsVisible="{Binding ShowBrowseDownloads}"
+                Content="{loc:Tr ui.list.empty.browse_downloads}" />
+        <Button Name="RetryButton" Theme="{StaticResource BlButton}" Height="{StaticResource BlRowButtonHeight}"
+                Padding="14,0" HorizontalAlignment="Center" IsVisible="{Binding ShowRetry}"
+                Content="{loc:Tr ui.list.empty.retry}" />
+      </StackPanel>
+    </Panel>
+  </DockPanel>
+</UserControl>

@@ -1,0 +1,99 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels.Settings"
+             x:Class="BlenderLauncher.App.Views.Settings.AboutTab"
+             x:DataType="vm:SettingsViewModel">
+  <!--
+    Settings → About: version and commit, the GPL-3.0 notice with its no-warranty statement, credits, links,
+    the third-party notices (THIRD-PARTY-NOTICES.md, embedded) and the log and data folders. GPL-3.0 section 5(d) asks an
+    interactive program to show these.
+  -->
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Classes="page">
+      <!-- Identity -->
+      <StackPanel Orientation="Horizontal" Spacing="16" Margin="0,4,0,4">
+        <Image Source="/Assets/Icons/app-128.png" Width="52" Height="52" VerticalAlignment="Center"
+               RenderOptions.BitmapInterpolationMode="HighQuality" />
+        <StackPanel VerticalAlignment="Center" Spacing="3">
+          <TextBlock Classes="title" Text="{Binding AppName}" />
+          <StackPanel Orientation="Horizontal" Spacing="14">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <TextBlock Classes="label" Margin="0" Text="{loc:Tr ui.settings.about.version}" />
+              <SelectableTextBlock FontFamily="{StaticResource BlMonoFont}" Foreground="{StaticResource BlTextValueBrush}" Text="{Binding VersionText}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="6" IsVisible="{Binding HasCommit}">
+              <TextBlock Classes="label" Margin="0" Text="{loc:Tr ui.settings.about.commit}" />
+              <SelectableTextBlock FontFamily="{StaticResource BlMonoFont}" Foreground="{StaticResource BlTextValueBrush}" Text="{Binding CommitText}" />
+            </StackPanel>
+          </StackPanel>
+        </StackPanel>
+      </StackPanel>
+
+      <!-- Licence -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="LicenceGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr ui.settings.about.licence}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #LicenceGroup.IsChecked}" Margin="16,10,16,12" Spacing="8">
+            <TextBlock TextWrapping="Wrap" LineHeight="18" Foreground="{StaticResource BlTextSectionBrush}" Text="{loc:Tr ui.settings.about.licence_text}" />
+            <TextBlock TextWrapping="Wrap" LineHeight="18" Foreground="{StaticResource BlTextSecondaryBrush}" Text="{loc:Tr ui.settings.about.warranty}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Credits and links -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="CreditsGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr ui.settings.about.credits}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #CreditsGroup.IsChecked}" Margin="16,10,16,10" Spacing="8">
+            <TextBlock TextWrapping="Wrap" LineHeight="18" Foreground="{StaticResource BlTextSectionBrush}" Text="{loc:Tr ui.settings.about.credits_text}" />
+            <WrapPanel Orientation="Horizontal" Margin="-6,0,0,0">
+              <Button Classes="link" Content="{loc:Tr ui.settings.about.source}" Command="{Binding OpenLinkCommand}"
+                      CommandParameter="{x:Static vm:SettingsViewModel.SourceUrl}" ToolTip.Tip="{x:Static vm:SettingsViewModel.SourceUrl}" />
+              <Button Classes="link" Content="{loc:Tr ui.settings.about.licence_link}" Command="{Binding OpenLinkCommand}"
+                      CommandParameter="{x:Static vm:SettingsViewModel.LicenceUrl}" ToolTip.Tip="{x:Static vm:SettingsViewModel.LicenceUrl}" />
+              <Button Classes="link" Content="{loc:Tr ui.settings.about.docs}" Command="{Binding OpenLinkCommand}"
+                      CommandParameter="{x:Static vm:SettingsViewModel.DocumentationUrl}" ToolTip.Tip="{x:Static vm:SettingsViewModel.DocumentationUrl}" />
+              <Button Classes="link" Content="{loc:Tr ui.settings.about.victor}" Command="{Binding OpenLinkCommand}"
+                      CommandParameter="{x:Static vm:SettingsViewModel.UpstreamUrl}" ToolTip.Tip="{x:Static vm:SettingsViewModel.UpstreamUrl}" />
+              <Button Classes="link" Content="{loc:Tr ui.settings.about.dotbow}" Command="{Binding OpenLinkCommand}"
+                      CommandParameter="{x:Static vm:SettingsViewModel.OriginalUrl}" ToolTip.Tip="{x:Static vm:SettingsViewModel.OriginalUrl}" />
+            </WrapPanel>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Folders -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="FoldersGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr ui.settings.about.data_folder}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #FoldersGroup.IsChecked}" Margin="16,10,16,12" Spacing="10">
+            <Grid ColumnDefinitions="*,Auto" IsVisible="{Binding HasDataFolder}">
+              <SelectableTextBlock FontFamily="{StaticResource BlMonoFont}" FontSize="11" Foreground="{StaticResource BlTextValueBrush}"
+                                   VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding DataFolder}" />
+              <Border Grid.Column="1" Classes="tag default" Margin="10,0,0,0" VerticalAlignment="Top" IsVisible="{Binding IsPortable}">
+                <TextBlock Text="{loc:Tr ui.settings.about.portable}" />
+              </Border>
+            </Grid>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Button Content="{loc:Tr settings.general.logging.open_log_folder}" Command="{Binding OpenLogFolderCommand}" IsEnabled="{Binding HasLogFolder}" />
+              <Button Content="{loc:Tr ui.settings.about.open_data_folder}" Command="{Binding OpenDataFolderCommand}" IsEnabled="{Binding HasDataFolder}" />
+            </StackPanel>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Third-party notices -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="NoticesGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="False" Content="{loc:Tr ui.settings.about.third_party}" />
+          <Border IsVisible="{Binding #NoticesGroup.IsChecked}" Margin="12,10,12,12">
+            <TextBox Theme="{StaticResource BlTextBox}" IsReadOnly="True" Height="300" TextWrapping="Wrap" AcceptsReturn="True"
+                     VerticalContentAlignment="Top" Padding="10,8" FontFamily="{StaticResource BlMonoFont}" FontSize="11"
+                     Text="{Binding ThirdPartyNotices, Mode=OneWay}" AutomationProperties.Name="{loc:Tr ui.settings.about.third_party}" />
+          </Border>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

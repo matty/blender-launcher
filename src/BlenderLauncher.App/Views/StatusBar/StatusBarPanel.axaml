@@ -1,0 +1,96 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             x:Class="BlenderLauncher.App.Views.StatusBar.StatusBarPanel"
+             x:DataType="vm:StatusBarViewModel"
+             FontSize="{StaticResource BlFontSizeSmall}"
+             Foreground="{StaticResource BlTextMutedBrush}">
+  <!--
+    The status bar: 11 px, gap 18, padding 0/14. Left: Default, running count, downloads.
+    Right: the toast (or else the check status), "Update to X", the version. Region contract in
+    ViewModels/StatusBarViewModel.cs. The host Border supplies the 26 px height, #181818 and the top line.
+  -->
+  <UserControl.Resources>
+    <!-- The version label as a link (only when an update repository is set): no chrome, lighter on hover. -->
+    <ControlTheme x:Key="VersionLinkTheme" TargetType="Button">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextVersionBrush}" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <ContentPresenter Name="PART_ContentPresenter" Background="{TemplateBinding Background}"
+                            Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                            Padding="{TemplateBinding Padding}" />
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource BlTextSecondaryBrush}" />
+      </Style>
+    </ControlTheme>
+
+    <!-- "Update to X": a compact accent button sized for the 26 px bar. -->
+    <ControlTheme x:Key="UpdateButtonTheme" TargetType="Button">
+      <Setter Property="Background" Value="{DynamicResource BlAccentBrush}" />
+      <Setter Property="Foreground" Value="{StaticResource BlTextOnButtonBrush}" />
+      <Setter Property="CornerRadius" Value="{StaticResource BlRadiusPill}" />
+      <Setter Property="Height" Value="18" />
+      <Setter Property="Padding" Value="8,0" />
+      <Setter Property="FontSize" Value="{StaticResource BlFontSizeSmall}" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <ContentPresenter Name="PART_ContentPresenter" Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BlAccentHoverBrush}" />
+      </Style>
+    </ControlTheme>
+  </UserControl.Resources>
+
+  <DockPanel Margin="14,0" VerticalAlignment="Center">
+    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="{StaticResource BlStatusBarGap}"
+                Margin="18,0,0,0">
+      <TextBlock Name="ToastText" VerticalAlignment="Center" Foreground="{StaticResource BlTextBodyBrush}"
+                 IsVisible="{Binding Shell.Toasts.HasToast}" Text="{Binding Shell.Toasts.Text}" />
+      <TextBlock Name="StatusText" VerticalAlignment="Center" Foreground="{StaticResource BlTextFaintBrush}"
+                 IsVisible="{Binding ShowStatus}" Text="{Binding StatusText}" />
+      <Button Name="UpdateButton" Theme="{StaticResource UpdateButtonTheme}" VerticalAlignment="Center"
+              IsVisible="{Binding HasUpdate}" Command="{Binding UpdateCommand}" Content="{Binding UpdateText}" />
+      <Button Name="VersionLink" Theme="{StaticResource VersionLinkTheme}" VerticalAlignment="Center"
+              IsVisible="{Binding CanOpenReleasePage}" Command="{Binding OpenReleasePageCommand}">
+        <TextBlock Classes="mono" Text="{Binding VersionText}" />
+      </Button>
+      <TextBlock Name="VersionText" Classes="mono" VerticalAlignment="Center"
+                 Foreground="{StaticResource BlTextVersionBrush}"
+                 IsVisible="{Binding !CanOpenReleasePage}" Text="{Binding VersionText}" />
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Spacing="{StaticResource BlStatusBarGap}" ClipToBounds="True">
+      <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+        <TextBlock Foreground="{StaticResource BlTextFaintBrush}" Text="{loc:Tr ui.status.default}" />
+        <TextBlock Name="DefaultText" Foreground="#cfcfcf" Text="{Binding DefaultText}" />
+      </StackPanel>
+
+      <StackPanel Name="RunningPanel" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center"
+                  IsVisible="{Binding HasRunning}">
+        <Ellipse Width="6" Height="6" Fill="{StaticResource BlRunningDotBrush}" VerticalAlignment="Center" />
+        <TextBlock Foreground="{StaticResource BlRunningPanelTextBrush}" Text="{Binding RunningText}" />
+      </StackPanel>
+
+      <StackPanel Name="DownloadPanel" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center"
+                  IsVisible="{Binding HasDownloads}">
+        <TextBlock Text="{Binding DownloadText}" />
+        <ProgressBar Theme="{StaticResource BlProgressBar}" Classes="thin" Width="90" VerticalAlignment="Center"
+                     IsIndeterminate="{Binding IsDownloadIndeterminate}" Value="{Binding DownloadProgress}" />
+        <TextBlock Classes="mono" Foreground="{StaticResource BlTextTitleBarBrush}" Text="{Binding DownloadPercentText}" />
+      </StackPanel>
+    </StackPanel>
+  </DockPanel>
+</UserControl>

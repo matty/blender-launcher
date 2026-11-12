@@ -1,0 +1,143 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:BlenderLauncher.App.Localisation"
+             xmlns:vm="using:BlenderLauncher.App.ViewModels.Settings"
+             x:Class="BlenderLauncher.App.Views.Settings.GeneralTab"
+             x:DataType="vm:SettingsViewModel">
+  <!-- Settings → General; upstream's general_tab.py, without WinGet and the Linux/macOS-only parts. -->
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Classes="page">
+      <StackPanel>
+        <TextBlock Classes="title" Text="{loc:Tr settings.general.label}" />
+        <TextBlock Classes="page-subtitle" Text="{loc:Tr ui.settings.subtitle.general}" />
+      </StackPanel>
+
+      <!-- Application -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="AppGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.general.app.label}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #AppGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="190,*" RowDefinitions="Auto,Auto">
+              <TextBlock Classes="label" Text="{loc:Tr settings.general.app.library_folder}" />
+              <Grid Grid.Column="1" ColumnDefinitions="*,Auto">
+                <TextBox Theme="{StaticResource BlTextBox}" IsReadOnly="True" FontFamily="{StaticResource BlMonoFont}" FontSize="11"
+                         Text="{Binding LibraryFolderText, Mode=OneWay}" ToolTip.Tip="{Binding LibraryFolderText}"
+                         AutomationProperties.Name="{loc:Tr settings.general.app.library_folder}" />
+                <Button Grid.Column="1" Margin="8,0,0,0" Content="{loc:Tr ui.settings.library.browse}"
+                        Command="{Binding ChooseLibraryFolderCommand}" AutomationProperties.AutomationId="BrowseLibrary" />
+              </Grid>
+              <StackPanel Grid.Row="1" Grid.Column="1" Spacing="4" Margin="0,6,0,2">
+                <TextBlock Classes="error" Text="{Binding LibraryProblem}" IsVisible="{Binding HasLibraryProblem}" />
+                <TextBlock Classes="warning" Text="{Binding LibraryWarning}" IsVisible="{Binding HasLibraryWarning}" />
+                <TextBlock Classes="warning" Text="{Binding UpstreamRelativeHint}" IsVisible="{Binding HasUpstreamRelativeHint}" />
+              </StackPanel>
+            </Grid>
+
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.general.app.language_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.general.app.language}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding LanguageNames}" SelectedIndex="{Binding LanguageIndex}"
+                        AutomationProperties.Name="{loc:Tr settings.general.app.language}" />
+            </Grid>
+
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.general.app.worker_count_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.general.app.worker_count}" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                <NumericUpDown Minimum="1" Maximum="64" Value="{Binding WorkerCount}"
+                               AutomationProperties.Name="{loc:Tr settings.general.app.worker_count}" />
+                <TextBlock Classes="note" Text="{Binding WorkerCountNote}" IsVisible="{Binding !IsWorkerCountAboveCpu}" />
+                <TextBlock Classes="warning" VerticalAlignment="Center" Text="{Binding WorkerCountNote}" IsVisible="{Binding IsWorkerCountAboveCpu}" />
+                <Button Classes="link" Content="{loc:Tr ui.settings.worker_use_automatic}" Command="{Binding UseAutomaticWorkerCountCommand}"
+                        IsVisible="{Binding !IsWorkerCountAutomatic}" VerticalAlignment="Center" />
+              </StackPanel>
+            </Grid>
+
+            <CheckBox Classes="row" Content="{loc:Tr settings.general.app.minimize}" IsChecked="{Binding MinimiseToTray}"
+                      ToolTip.Tip="{loc:Tip settings.general.app.minimize_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.general.app.launch_minimized}" IsChecked="{Binding LaunchMinimisedToTray}"
+                      IsEnabled="{Binding MinimiseToTray}" ToolTip.Tip="{loc:Tip settings.general.app.launch_minimized_tooltip}" />
+            <CheckBox Classes="row" Content="{loc:Tr settings.general.app.prerelease}" IsChecked="{Binding UsePreReleaseBuilds}"
+                      ToolTip.Tip="{loc:Tip settings.general.app.prerelease_tooltip}" />
+            <Grid Classes="row" ColumnDefinitions="Auto,*" IsVisible="{Binding HasIntegration}">
+              <CheckBox Content="{loc:Tr settings.general.app.system_start}" IsChecked="{Binding LaunchAtStartup}" Margin="-4,0,0,0"
+                        ToolTip.Tip="{loc:Tip settings.general.app.system_start_tooltip}" AutomationProperties.AutomationId="LaunchAtStartup" />
+              <TextBlock Grid.Column="1" Classes="note" Margin="12,0,0,0" Text="{Binding StartupNote}" IsVisible="{Binding HasStartupNote}" />
+            </Grid>
+            <CheckBox Classes="row" Content="{loc:Tr ui.integration.arp}" IsChecked="{Binding RegisterInAddRemovePrograms}"
+                      IsVisible="{Binding ShowAddRemovePrograms}" ToolTip.Tip="{loc:Tip ui.integration.arp_tooltip}"
+                      AutomationProperties.AutomationId="AddRemovePrograms" />
+            <Grid Classes="row" ColumnDefinitions="Auto,*" IsVisible="{Binding HasIntegration}">
+              <Button Content="{Binding CreateShortcutText}" Command="{Binding CreateLauncherShortcutCommand}"
+                      AutomationProperties.AutomationId="CreateLauncherShortcut" />
+            </Grid>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- File association -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="FileGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.general.file_assoc.label}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #FileGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="Auto,*" IsVisible="{Binding HasIntegration}">
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="{loc:Tr settings.general.file_assoc.register}" Command="{Binding RegisterAssociationCommand}"
+                        IsEnabled="{Binding CanRegisterAssociation}" AutomationProperties.AutomationId="RegisterAssociation"
+                        ToolTip.Tip="{loc:Tip settings.general.file_assoc.register_tooltip}" />
+                <Button Content="{loc:Tr settings.general.file_assoc.unregister}" Command="{Binding UnregisterAssociationCommand}"
+                        IsEnabled="{Binding CanUnregisterAssociation}" AutomationProperties.AutomationId="UnregisterAssociation"
+                        ToolTip.Tip="{loc:Tip settings.general.file_assoc.unregister_tooltip}" />
+              </StackPanel>
+              <TextBlock Grid.Column="1" Classes="note" Margin="12,0,0,0" VerticalAlignment="Center" Text="{Binding AssociationStateText}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.general.file_assoc.launch_timer_duration_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.general.file_assoc.launch_timer_duration}" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                <NumericUpDown Minimum="-1" Maximum="600" Value="{Binding LaunchTimer}"
+                               AutomationProperties.Name="{loc:Tr settings.general.file_assoc.launch_timer_duration}" />
+                <TextBlock Classes="note" Text="{Binding LaunchTimerSuffix}" />
+              </StackPanel>
+            </Grid>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Advanced -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="AdvancedGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.general.advanced.label}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #AdvancedGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.general.advanced.default_delete_action_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.general.advanced.default_delete_action}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding DeleteActionNames}" SelectedIndex="{Binding DeleteActionIndex}"
+                        AutomationProperties.Name="{loc:Tr settings.general.advanced.default_delete_action}" />
+            </Grid>
+            <CheckBox Classes="row" Content="{loc:Tr settings.general.advanced.purge_temp}" IsChecked="{Binding PurgeTempOnStartup}"
+                      ToolTip.Tip="{loc:Tip settings.general.advanced.purge_temp_tooltip}" />
+            <Grid Classes="row" ColumnDefinitions="Auto,*">
+              <Button Content="{loc:Tr settings.general.advanced.purge_temp_now}" Command="{Binding PurgeTempNowCommand}"
+                      ToolTip.Tip="{loc:Tip settings.general.advanced.purge_temp_now_tooltip}" />
+            </Grid>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Logging -->
+      <Border Classes="group">
+        <StackPanel>
+          <ToggleButton Name="LoggingGroup" Theme="{StaticResource BlSectionHeader}" IsChecked="True" Content="{loc:Tr settings.general.logging.label}" />
+          <StackPanel Classes="group-body" IsVisible="{Binding #LoggingGroup.IsChecked}">
+            <Grid Classes="row" ColumnDefinitions="190,*" ToolTip.Tip="{loc:Tip settings.general.logging.log_level_tooltip}">
+              <TextBlock Classes="label" Text="{loc:Tr settings.general.logging.log_level}" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding LogLevelNames}" SelectedIndex="{Binding LogLevelIndex}"
+                        AutomationProperties.Name="{loc:Tr settings.general.logging.log_level}" />
+            </Grid>
+            <Grid Classes="row" ColumnDefinitions="Auto,*">
+              <Button Content="{loc:Tr settings.general.logging.open_log_folder}" Command="{Binding OpenLogFolderCommand}"
+                      IsEnabled="{Binding HasLogFolder}" ToolTip.Tip="{loc:Tip settings.general.logging.open_log_folder_tooltip}" />
+            </Grid>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

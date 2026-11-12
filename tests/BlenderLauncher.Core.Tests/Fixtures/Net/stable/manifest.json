@@ -1,0 +1,48 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://download.blender.org/release/",
+      "status": 200,
+      "file": "index.html",
+      "headers": {
+        "Content-Type": "text/html",
+        "Last-Modified": "Wed, 11 Nov 2026 13:10:49 GMT"
+      },
+      "recorded": "2026-11-11T13:10:48Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://download.blender.org/release/Blender5.3/",
+      "status": 200,
+      "file": "Blender5.3.html",
+      "headers": {
+        "Content-Type": "text/html",
+        "Last-Modified": "Wed, 11 Nov 2026 13:10:49 GMT"
+      },
+      "recorded": "2026-11-11T13:10:48Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://download.blender.org/release/Blender5.2/",
+      "status": 200,
+      "file": "Blender5.2.html",
+      "headers": {
+        "Content-Type": "text/html",
+        "Last-Modified": "Wed, 11 Nov 2026 13:10:49 GMT"
+      },
+      "recorded": "2026-11-11T13:10:48Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://download.blender.org/release/Blender4.5/",
+      "status": 200,
+      "file": "Blender4.5.html",
+      "headers": {
+        "Content-Type": "text/html",
+        "Last-Modified": "Wed, 11 Nov 2026 13:10:49 GMT"
+      },
+      "recorded": "2026-11-11T13:10:48Z"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+# Continuous integration: restore, build, test, Native AOT publish and the self-test of the published exe.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  build:
+    name: Build, test, publish and self-test
+    # The hosted image has Visual Studio with the C++ tools, which the Native AOT link step needs.
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up .NET (version from global.json)
+        uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('global.json', 'Directory.Packages.props', '**/*.csproj', '**/Directory.Build.props') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore BlenderLauncher.slnx
+
+      - name: Build
+        run: dotnet build BlenderLauncher.slnx -c Release --no-restore
+
+      # global.json selects Microsoft.Testing.Platform, so these are MTP options, not VSTest ones.
+      - name: Test
+        run: >-
+          dotnet test --solution BlenderLauncher.slnx -c Release --no-build
+          --report-xunit-trx --results-directory artifacts/test-results
+
+      # The script puts the Visual Studio Installer folder (vswhere.exe) on PATH for the link step
+      # and moves the *.pdb files out to artifacts/symbols.
+      - name: Publish (Native AOT)
+        run: ./scripts/publish.ps1
+
+      # The exe is a GUI-subsystem app; the script waits for it and exits with its exit code,
+      # which fails this step when any check fails.
+      - name: Self-test (offline)
+        timeout-minutes: 5
+        run: ./scripts/self-test.ps1 -Offline -Out artifacts/self-test-results.txt
+
+      # The release packing as a dry run, so a broken script shows up before a tag is pushed.
+      - name: Pack (dry run)
+        run: ./scripts/package-release.ps1 -Tag v0.0.0-ci -SkipVersionCheck -Output artifacts/release-dry-run
+
+      # Network checks depend on outside services, so a failure here is reported but does not fail the job.
+      - name: Self-test (online)
+        continue-on-error: true
+        timeout-minutes: 10
+        run: ./scripts/self-test.ps1 -Out artifacts/self-test-results-online.txt
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results
+          path: artifacts/test-results/
+          if-no-files-found: ignore
+
+      - name: Upload self-test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: self-test-results
+          path: artifacts/self-test-results*
+          if-no-files-found: warn
+
+      - name: Upload publish folder
+        uses: actions/upload-artifact@v7
+        with:
+          name: blender-launcher-win-x64
+          path: |
+            artifacts/publish/
+            !artifacts/publish/**/*.pdb
+          if-no-files-found: error

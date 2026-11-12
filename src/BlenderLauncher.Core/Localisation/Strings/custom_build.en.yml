@@ -1,0 +1,15 @@
+title: Build Entry Creator
+
+text: "Create new build for: %{path}"
+
+exe: "Executable name: "
+
+autodetect: Auto-detect information
+
+svn: "Subversion: "
+hash: "Build hash: "
+ctime: "Commit time: "
+branch: "Branch name: "
+custom: "Custom name: "
+fav: "Favorite: "
+exe_placeholder: blender, bforartists, etc.

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Windows implementations of the platform interfaces defined in Core.
+    The -windows TFM makes the SDK emit [assembly: SupportedOSPlatform("Windows7.0")], so CA1416 is
+    satisfied inside this project and in the App that calls it, and a plain net10.0 project (Core) cannot
+    reference it by accident. TargetPlatformVersion stays at the default 7.0 so no CsWinRT projection
+    assembly is pulled in.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>BlenderLauncher.Platform.Windows</RootNamespace>
+    <!-- [LibraryImport] and [GeneratedComInterface] generate unsafe code. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlenderLauncher.Core\BlenderLauncher.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BlenderLauncher.App" />
+    <InternalsVisibleTo Include="BlenderLauncher" />
+    <InternalsVisibleTo Include="BlenderLauncher.App.Tests" />
+  </ItemGroup>
+</Project>

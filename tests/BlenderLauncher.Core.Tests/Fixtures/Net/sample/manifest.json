@@ -1,0 +1,77 @@
+{
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://builder.blender.org/download/daily/?format=json&v=1",
+      "status": 200,
+      "file": "builds.json",
+      "headers": { "Content-Type": "application/json", "Last-Modified": "Tue, 10 Nov 2026 08:00:00 GMT" }
+    },
+    {
+      "method": "GET",
+      "url": "https://example.org/ignored?anything=1",
+      "ignoreQuery": true,
+      "status": 200,
+      "file": "builds.json",
+      "headers": { "Content-Type": "application/json" }
+    },
+    {
+      "method": "GET",
+      "url": "https://download.blender.org/release/",
+      "status": 200,
+      "file": "challenge.html",
+      "headers": { "Content-Type": "text/html" }
+    },
+    {
+      "method": "GET",
+      "url": "https://download.blender.org/release/",
+      "status": 200,
+      "file": "listing.html",
+      "headers": { "Content-Type": "text/html" }
+    },
+    {
+      "method": "HEAD",
+      "url": "https://www.bforartists.de/data/bfa-1.0.zip",
+      "status": 200,
+      "headers": { "Content-Type": "application/zip", "Content-Length": "123456789", "Last-Modified": "Thu, 01 Oct 2026 12:30:00 GMT" }
+    },
+    {
+      "method": "GET",
+      "url": "https://api.github.com/repos/UPBGE/upbge/releases",
+      "status": 200,
+      "file": "releases.json",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "59",
+        "X-RateLimit-Reset": "1793000000",
+        "X-RateLimit-Resource": "core"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "https://api.github.com/repos/UPBGE/upbge/releases/assets/1",
+      "status": 302,
+      "headers": { "Location": "https://objects.githubusercontent.com/asset/1?sig=abc" }
+    },
+    {
+      "method": "GET",
+      "url": "https://objects.githubusercontent.com/asset/1?sig=abc",
+      "status": 200,
+      "file": "builds.json",
+      "headers": { "Content-Type": "application/octet-stream" }
+    },
+    {
+      "method": "GET",
+      "url": "https://api.github.com/rate-limited",
+      "status": 403,
+      "headers": { "Content-Type": "application/json", "X-RateLimit-Remaining": "0", "X-RateLimit-Reset": "1793000000" }
+    },
+    {
+      "method": "GET",
+      "url": "https://down.example.org/",
+      "status": 200,
+      "fail": "connection"
+    }
+  ]
+}

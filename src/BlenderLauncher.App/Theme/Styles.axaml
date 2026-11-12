@@ -1,0 +1,228 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Typography and small decorations, as style classes. Tokens are referenced with DynamicResource here because
+    this file is loaded into Application.Styles, beside (not inside) the dictionary that holds them.
+
+    TextBlock classes
+      size:    title (20 semibold heading) · display (28 semibold) · version (14 semibold heading) · nav (13)
+               · body (12) · small (11) · tiny (10)
+      weight:  medium · semibold
+      family:  mono (IBM Plex Mono; 400 and 500 are embedded, heavier weights are synthesised from 500)
+      colour:  heading · secondary · secondary-alt · label · muted · subtitle · faint · field-label · value · group
+      other:   ellipsis (single line, trimmed)
+    Decorations
+      Border.pill (+ stable|lts|daily|experimental|bforartists|upbge|custom) > TextBlock : channel pill
+      Border.tag.default > TextBlock : the "Default" tag      Border.tag (Background set) > TextBlock : "New" tag
+      Border.badge > TextBlock : the sidebar's "N new" badge  Ellipse.running : the 7 px running dot
+      Border.card : the disk-usage card                       Border.field : a read-only inset field (path)
+  -->
+
+  <!-- ===== Keyboard focus: the accent ring from Controls.axaml replaces Fluent's adorner everywhere. -->
+  <Style Selector=":is(Control)">
+    <Setter Property="FocusAdorner" Value="{DynamicResource BlFocusRing}" />
+  </Style>
+  <!-- Full-width controls inside scroll viewers: drawn inside, so it is not clipped. -->
+  <Style Selector="ListBoxItem, Button.nav-item, ToggleButton">
+    <Setter Property="FocusAdorner" Value="{DynamicResource BlFocusRingInset}" />
+  </Style>
+  <!-- Text boxes show focus with their own accent border. -->
+  <Style Selector="TextBox">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+  </Style>
+
+  <!-- ===== TextBlock sizes -->
+  <Style Selector="TextBlock.title">
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="LetterSpacing" Value="-0.2" />
+    <Setter Property="Foreground" Value="{DynamicResource BlTextHeadingBrush}" />
+  </Style>
+  <Style Selector="TextBlock.display">
+    <Setter Property="FontSize" Value="28" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="LetterSpacing" Value="-0.56" />
+    <Setter Property="Foreground" Value="#f4f4f4" />
+  </Style>
+  <Style Selector="TextBlock.version">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource BlTextHeadingBrush}" />
+  </Style>
+  <Style Selector="TextBlock.nav">
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+  <Style Selector="TextBlock.body">
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="TextBlock.small">
+    <Setter Property="FontSize" Value="11" />
+  </Style>
+  <Style Selector="TextBlock.tiny">
+    <Setter Property="FontSize" Value="10" />
+  </Style>
+
+  <!-- ===== Weight and family -->
+  <Style Selector="TextBlock.medium">
+    <Setter Property="FontWeight" Value="Medium" />
+  </Style>
+  <Style Selector="TextBlock.semibold">
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="TextBlock.mono">
+    <Setter Property="FontFamily" Value="{DynamicResource BlMonoFont}" />
+  </Style>
+  <Style Selector="TextBlock.ellipsis">
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    <Setter Property="TextWrapping" Value="NoWrap" />
+  </Style>
+
+  <!-- ===== Colours -->
+  <Style Selector="TextBlock.heading">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextHeadingBrush}" />
+  </Style>
+  <Style Selector="TextBlock.value">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextValueBrush}" />
+  </Style>
+  <Style Selector="TextBlock.secondary">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextSecondaryBrush}" />
+  </Style>
+  <Style Selector="TextBlock.secondary-alt">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextSecondaryAltBrush}" />
+  </Style>
+  <Style Selector="TextBlock.label">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextLabelBrush}" />
+  </Style>
+  <Style Selector="TextBlock.muted">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextMutedBrush}" />
+  </Style>
+  <Style Selector="TextBlock.subtitle">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextSubtitleBrush}" />
+  </Style>
+  <Style Selector="TextBlock.faint">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextFaintBrush}" />
+  </Style>
+  <Style Selector="TextBlock.field-label">
+    <Setter Property="Foreground" Value="{DynamicResource BlTextFieldLabelBrush}" />
+    <Setter Property="TextAlignment" Value="Right" />
+  </Style>
+  <Style Selector="TextBlock.group">
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource BlTextGroupBrush}" />
+  </Style>
+
+  <!-- ===== Channel pill: padding 2/8, radius 4, 11 px semibold. Colours from the row VM or a channel class. -->
+  <Style Selector="Border.pill">
+    <Setter Property="Padding" Value="8,2" />
+    <Setter Property="CornerRadius" Value="{DynamicResource BlRadiusPill}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.pill > TextBlock">
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Border.pill.stable">
+    <Setter Property="Background" Value="{DynamicResource BlChannelStableBackgroundBrush}" />
+  </Style>
+  <Style Selector="Border.pill.stable > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlChannelStableBrush}" />
+  </Style>
+  <Style Selector="Border.pill.lts">
+    <Setter Property="Background" Value="{DynamicResource BlChannelLtsBackgroundBrush}" />
+  </Style>
+  <Style Selector="Border.pill.lts > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlChannelLtsBrush}" />
+  </Style>
+  <Style Selector="Border.pill.daily">
+    <Setter Property="Background" Value="{DynamicResource BlChannelDailyBackgroundBrush}" />
+  </Style>
+  <Style Selector="Border.pill.daily > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlChannelDailyBrush}" />
+  </Style>
+  <Style Selector="Border.pill.experimental">
+    <Setter Property="Background" Value="{DynamicResource BlChannelExperimentalBackgroundBrush}" />
+  </Style>
+  <Style Selector="Border.pill.experimental > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlChannelExperimentalBrush}" />
+  </Style>
+  <Style Selector="Border.pill.bforartists">
+    <Setter Property="Background" Value="{DynamicResource BlChannelBforartistsBackgroundBrush}" />
+  </Style>
+  <Style Selector="Border.pill.bforartists > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlChannelBforartistsBrush}" />
+  </Style>
+  <Style Selector="Border.pill.upbge">
+    <Setter Property="Background" Value="{DynamicResource BlChannelUpbgeBackgroundBrush}" />
+  </Style>
+  <Style Selector="Border.pill.upbge > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlChannelUpbgeBrush}" />
+  </Style>
+  <Style Selector="Border.pill.custom">
+    <Setter Property="Background" Value="{DynamicResource BlChannelCustomBackgroundBrush}" />
+  </Style>
+  <Style Selector="Border.pill.custom > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlChannelCustomBrush}" />
+  </Style>
+
+  <!-- ===== Tags: "New" (channel colours, set Background and the TextBlock's Foreground) and "Default" (outlined). -->
+  <Style Selector="Border.tag">
+    <Setter Property="Padding" Value="5,0" />
+    <Setter Property="MinHeight" Value="16" />
+    <Setter Property="CornerRadius" Value="{DynamicResource BlRadiusTag}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.tag > TextBlock">
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.tag.default">
+    <Setter Property="BorderBrush" Value="{DynamicResource BlTagBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="MinHeight" Value="17" />
+  </Style>
+  <Style Selector="Border.tag.default > TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource BlTagTextBrush}" />
+  </Style>
+
+  <!-- ===== Sidebar "N new" badge: mono 10 semibold on #c9c9c9, fully rounded. -->
+  <Style Selector="Border.badge">
+    <Setter Property="Background" Value="{DynamicResource BlBadgeBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource BlRadiusBadge}" />
+    <Setter Property="Padding" Value="6,1" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.badge > TextBlock">
+    <Setter Property="FontFamily" Value="{DynamicResource BlMonoFont}" />
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource BlBadgeTextBrush}" />
+  </Style>
+
+  <!-- ===== Running dot -->
+  <Style Selector="Ellipse.running">
+    <Setter Property="Width" Value="7" />
+    <Setter Property="Height" Value="7" />
+    <Setter Property="Fill" Value="{DynamicResource BlRunningDotBrush}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+
+  <!-- ===== Cards and fields -->
+  <Style Selector="Border.card">
+    <Setter Property="Background" Value="{DynamicResource BlSurfaceInset3Brush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BlLine3Brush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource BlRadiusRow}" />
+    <Setter Property="Padding" Value="{DynamicResource BlDiskCardPadding}" />
+  </Style>
+  <Style Selector="Border.field">
+    <Setter Property="Background" Value="{DynamicResource BlSurfaceInset2Brush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BlLine1Brush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Height" Value="26" />
+    <Setter Property="Padding" Value="8,0" />
+  </Style>
+</Styles>

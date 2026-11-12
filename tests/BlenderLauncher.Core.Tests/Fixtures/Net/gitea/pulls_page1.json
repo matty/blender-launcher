@@ -1,0 +1,352 @@
+[
+  {
+    "number": 166438,
+    "title": "Fix: RNA: wrong handling of shadowed property names",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166438",
+    "updated_at": "2026-11-11T14:05:05+01:00"
+  },
+  {
+    "number": 166442,
+    "title": "WIP: Add support for OSL \"trace\" intrinsic with OptiX",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166442",
+    "updated_at": "2026-11-11T13:58:20+01:00"
+  },
+  {
+    "number": 165083,
+    "title": "WIP: Animation Filtering system replacement",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165083",
+    "updated_at": "2026-11-11T13:57:01+01:00"
+  },
+  {
+    "number": 166437,
+    "title": "Python: document EXPAND_XXX flags of file_path_foreach make paths absolute",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166437",
+    "updated_at": "2026-11-11T13:45:22+01:00"
+  },
+  {
+    "number": 166382,
+    "title": "Cleanup: Revert OptiX + OpenGL Grease Pencil driver workaround",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166382",
+    "updated_at": "2026-11-11T13:32:07+01:00"
+  },
+  {
+    "number": 166368,
+    "title": "Fix #166278: Make Lightmap Pack results reproducible",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166368",
+    "updated_at": "2026-11-11T13:30:13+01:00"
+  },
+  {
+    "number": 166354,
+    "title": "EEVEE: Implement Sheen BSDF",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166354",
+    "updated_at": "2026-11-11T13:19:18+01:00"
+  },
+  {
+    "number": 166243,
+    "title": "Compositor: Optimize responsiveness of gizmos with GPUs",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166243",
+    "updated_at": "2026-11-11T12:46:25+01:00"
+  },
+  {
+    "number": 166430,
+    "title": "Fix: EEVEE: Missing Reverse-Z read in raytracing upsampling",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166430",
+    "updated_at": "2026-11-11T12:36:12+01:00"
+  },
+  {
+    "number": 166434,
+    "title": "Fix: EEVEE: Address race condition in HiZ construction",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166434",
+    "updated_at": "2026-11-11T12:06:05+01:00"
+  },
+  {
+    "number": 166435,
+    "title": "Fix: Nodes: drivers not remapped when sockets are change unless there are keyframes",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166435",
+    "updated_at": "2026-11-11T12:04:37+01:00"
+  },
+  {
+    "number": 166433,
+    "title": "Fix: Nodes: crash in socket type enum without node editor context",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166433",
+    "updated_at": "2026-11-11T11:49:13+01:00"
+  },
+  {
+    "number": 164681,
+    "title": "Geometry Nodes: `Grease Pencil Material Info` node",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164681",
+    "updated_at": "2026-11-11T11:42:10+01:00"
+  },
+  {
+    "number": 166432,
+    "title": "Overlay: Port edit normals to BSL",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166432",
+    "updated_at": "2026-11-11T11:41:02+01:00"
+  },
+  {
+    "number": 162756,
+    "title": "Shader Nodes: support Warning node",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/162756",
+    "updated_at": "2026-11-11T11:40:38+01:00"
+  },
+  {
+    "number": 166429,
+    "title": "Fix #166389: Pose mode \"Select Mirror\" mirrors more than selection flags",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166429",
+    "updated_at": "2026-11-11T11:30:39+01:00"
+  },
+  {
+    "number": 166374,
+    "title": "VSE: Option to only add a single audio stream",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166374",
+    "updated_at": "2026-11-11T11:24:52+01:00"
+  },
+  {
+    "number": 164214,
+    "title": "EEVEE: Add Light Space support for the Vector Tranform node",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164214",
+    "updated_at": "2026-11-11T10:57:53+01:00"
+  },
+  {
+    "number": 165912,
+    "title": "WIP: VSE: decouple scene range",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165912",
+    "updated_at": "2026-11-11T10:53:00+01:00"
+  },
+  {
+    "number": 166381,
+    "title": "EEVEE: Enable LTC LUT test",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166381",
+    "updated_at": "2026-11-11T10:43:57+01:00"
+  },
+  {
+    "number": 165421,
+    "title": "Fix: Bring back motionpath current frame preview",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165421",
+    "updated_at": "2026-11-11T09:50:28+01:00"
+  },
+  {
+    "number": 166423,
+    "title": "Refactor: create struct for unit mapping",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166423",
+    "updated_at": "2026-11-11T09:42:06+01:00"
+  },
+  {
+    "number": 166422,
+    "title": "WIP: Geometry \"Export\" nodes",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166422",
+    "updated_at": "2026-11-11T09:25:48+01:00"
+  },
+  {
+    "number": 163602,
+    "title": "Anim: Support per-bone 'In Front' display",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/163602",
+    "updated_at": "2026-11-11T08:36:55+01:00"
+  },
+  {
+    "number": 151714,
+    "title": "UI: Tree view for custom properties",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/151714",
+    "updated_at": "2026-11-11T07:20:05+01:00"
+  },
+  {
+    "number": 166416,
+    "title": "WIP: Geometry Nodes: Anisotropic mode for Points to SDF Grid",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166416",
+    "updated_at": "2026-11-11T07:13:36+01:00"
+  },
+  {
+    "number": 166394,
+    "title": "ImBuf: Apply trivial parallelization to float texture conversion",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166394",
+    "updated_at": "2026-11-11T06:37:28+01:00"
+  },
+  {
+    "number": 162946,
+    "title": "Grease Pencil: Attribute Shape Keys",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/162946",
+    "updated_at": "2026-11-11T06:23:21+01:00"
+  },
+  {
+    "number": 163856,
+    "title": "Grease Pencil: Draw Mode Deform Gizmo",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/163856",
+    "updated_at": "2026-11-11T06:19:38+01:00"
+  },
+  {
+    "number": 163721,
+    "title": "Add Box and Bspline sampling functions",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/163721",
+    "updated_at": "2026-11-11T05:57:15+01:00"
+  },
+  {
+    "number": 165658,
+    "title": "Tests: Paint: Add UI-simulated regression tests for brush strokes",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165658",
+    "updated_at": "2026-11-11T05:54:23+01:00"
+  },
+  {
+    "number": 166249,
+    "title": "Sculpt: Add pressure curves to remaining pressure-sensitive properties",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166249",
+    "updated_at": "2026-11-11T05:10:41+01:00"
+  },
+  {
+    "number": 166414,
+    "title": "Fix: Sculpt: Hardness pressure curve versioning ignores inverted flag",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166414",
+    "updated_at": "2026-11-11T05:01:16+01:00"
+  },
+  {
+    "number": 166406,
+    "title": "Fix #166344: Error opening Tabs when they were disabled in the properties editor",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166406",
+    "updated_at": "2026-11-11T04:20:03+01:00"
+  },
+  {
+    "number": 166409,
+    "title": "UI: Add `UILayout::context_store_init_new` method",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166409",
+    "updated_at": "2026-11-11T03:58:44+01:00"
+  },
+  {
+    "number": 166408,
+    "title": "Fix: Duplicated keymap items on macOS",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166408",
+    "updated_at": "2026-11-11T03:14:55+01:00"
+  },
+  {
+    "number": 160173,
+    "title": "Modeling: Remappable Gizmo Based Extrude and Duplicate Interaction",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/160173",
+    "updated_at": "2026-11-11T03:14:53+01:00"
+  },
+  {
+    "number": 162785,
+    "title": "Cycles: Fallback value for missing image or attribute in shader",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/162785",
+    "updated_at": "2026-11-11T01:32:23+01:00"
+  },
+  {
+    "number": 166403,
+    "title": "Cleanup: WM: Rename `wmPaintCursor` to `wmCursorOverlay`",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166403",
+    "updated_at": "2026-11-11T01:25:04+01:00"
+  },
+  {
+    "number": 166402,
+    "title": "Cleanup: Remove unused gizmo code",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166402",
+    "updated_at": "2026-11-11T01:11:16+01:00"
+  },
+  {
+    "number": 165024,
+    "title": "Geometry Nodes: Straight Skeleton node",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165024",
+    "updated_at": "2026-11-11T01:10:22+01:00"
+  },
+  {
+    "number": 166240,
+    "title": "EEVEE: optimize VSM fragment invocations on clean pages with shading rate page culling",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166240",
+    "updated_at": "2026-11-11T00:53:29+01:00"
+  },
+  {
+    "number": 164512,
+    "title": "Fix #21822: Material removal in edit mode corrects material index",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/164512",
+    "updated_at": "2026-11-11T00:08:04+01:00"
+  },
+  {
+    "number": 160429,
+    "title": "Fix #146649: Object.to_mesh() ignores object-linked materials",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/160429",
+    "updated_at": "2026-11-10T23:48:38+01:00"
+  },
+  {
+    "number": 166070,
+    "title": "ImBuf: Respect unassociated alpha when loading 16 bit TIFF",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166070",
+    "updated_at": "2026-11-10T22:56:48+01:00"
+  },
+  {
+    "number": 160045,
+    "title": "WIP: MetalFX Viewport Denoising on Apple Silicon",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/160045",
+    "updated_at": "2026-11-10T22:52:24+01:00"
+  },
+  {
+    "number": 166272,
+    "title": "Cycles: Metal: Create texture samplers on the host",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166272",
+    "updated_at": "2026-11-10T22:41:47+01:00"
+  },
+  {
+    "number": 165896,
+    "title": "WIP: VSE: Improve Sound Equalizer UI",
+    "state": "open",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/165896",
+    "updated_at": "2026-11-10T22:31:42+01:00"
+  },
+  {
+    "number": 166383,
+    "title": "Cycles: oneAPI: Use explicit kernel names",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166383",
+    "updated_at": "2026-11-10T22:06:06+01:00"
+  },
+  {
+    "number": 166386,
+    "title": "Cycles: oneAPI: Ask driver to not allocate device memory beyond capacity",
+    "state": "closed",
+    "html_url": "https://projects.blender.org/blender/blender/pulls/166386",
+    "updated_at": "2026-11-10T22:05:14+01:00"
+  }
+]
